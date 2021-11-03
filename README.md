@@ -14,7 +14,7 @@ cd Backend && npm install && MONGODB_CONNECTION=mongodb://localhost/marketplace 
 
 ### Run frontend server
 ```
-cd Frontend npm install && npm start
+cd Frontend && npm install && npm start
 ```
 
 ### Frontend build
