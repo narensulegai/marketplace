@@ -1,3 +1,7 @@
+```
+Install node v16 and MongoDB locally
+```
+
 # Marketplace
 
 Use free hosted mongodb server https://www.mongodb.com/cloud/atlas/register
