@@ -4,6 +4,14 @@ import {
 } from '../../util/fetch/api';
 import { formatDate } from '../../util';
 
+const status = {
+  submitted: 'Order Placed',
+  reviewed: 'Processing',
+  screening: 'Packing',
+  interviewing: 'Out for delivery',
+  hired: 'Delivered',
+  rejected: 'Cancelled',
+};
 const MyJobApplications = () => {
   const [employee, setEmployee] = useState(null);
   const [jobApplications, setJobApplications] = useState([]);
@@ -41,7 +49,7 @@ const MyJobApplications = () => {
                 <div className="card-body">
                   <div><span className="inputLabel">Product name</span>{jobApplication.job.title}</div>
                   <div><span className="inputLabel">Seller name</span>{jobApplication.job.company.name}</div>
-                  <div><span className="inputLabel">Status</span>{jobApplication.status}</div>
+                  <div><span className="inputLabel">Status</span>{status[jobApplication.status]}</div>
                   <div><span className="inputLabel small">Ordered on {formatDate(jobApplication.createdAt)}</span></div>
                   <div className="mt-3">
                     <button className="btn-danger" onClick={() => withdrawJob(jobApplication._id)}>Cancel order</button>

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import _ from 'lodash';
 import {
-  fileUrl,
   getCompanyJobApplications, getJobPosting, setJobApplicationStatus,
 } from '../../util/fetch/api';
 import { formatDate } from '../../util';
