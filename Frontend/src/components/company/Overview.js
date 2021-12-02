@@ -68,14 +68,14 @@ const Overview = () => {
         <div><input type="text" ref={typeRef} defaultValue={company.type} /></div>
         <div className="inputLabel">Revenue</div>
         <div><input type="text" ref={revenueRef} defaultValue={company.revenue} /></div>
-        <div className="inputLabel">Headquarters</div>
+        <div className="inputLabel">Address</div>
         <div><input type="text" ref={headquartersRef} defaultValue={company.headquarters} /></div>
-        <div className="inputLabel">Founded</div>
-        <div><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
+        {/*<div className="inputLabel">Founded</div>*/}
+        <div style={{display:"none"}}><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
         <div className="inputLabel">Website</div>
         <div><input type="text" ref={websiteRef} defaultValue={company.website} /></div>
-        <div className="inputLabel">Brand tagline</div>
-        <div><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
+        {/*<div className="inputLabel">Brand tagline</div>*/}
+        <div  style={{display:"none"}}><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
         <div className="mt-2">
           <button className="btn-primary" onClick={handleOnSave}>Save</button>
         </div>
