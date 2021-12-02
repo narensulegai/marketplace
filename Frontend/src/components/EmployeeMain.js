@@ -11,23 +11,23 @@ class EmployeeMain extends Component {
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
           <a className="navbar-brand text-light" href="#/">Marketplace</a>
-          <a className="nav-link text-light" href="#/employee/jobSearch">Search products</a>
-          <a className="nav-link text-light" href="#/employee/myJobApplications">My orders</a>
-          <a className="nav-link text-light" href="#/employee/profileAndActivity">My profile</a>
-          <a className="nav-link text-light" href="#/employee/demographics">Address</a>
+          <a className="nav-link text-light" href="#/buyer/search">Search products</a>
+          <a className="nav-link text-light" href="#/buyer/orders">My orders</a>
+          <a className="nav-link text-light" href="#/buyer/profileAndActivity">My profile</a>
+          <a className="nav-link text-light" href="#/buyer/address">Address</a>
           <a className="nav-link" href="#/logout">Logout</a>
         </nav>
         <div className="container mt-3">
-          <Route path="/employee/jobSearch" exact>
+          <Route path="/buyer/search" exact>
             <JobSearch />
           </Route>
-          <Route path="/employee/myJobApplications" exact>
+          <Route path="/buyer/orders" exact>
             <MyJobApplications />
           </Route>
-          <Route path="/employee/profileAndActivity" exact>
+          <Route path="/buyer/profileAndActivity" exact>
             <ProfileAndActivity />
           </Route>
-          <Route path="/employee/demographics" exact>
+          <Route path="/buyer/address" exact>
             <Demographics />
           </Route>
         </div>

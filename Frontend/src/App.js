@@ -5,7 +5,6 @@ import Landing from './components/Landing';
 import Signup from './components/Signup';
 import EmployeeMain from './components/EmployeeMain';
 import CompanyMain from './components/CompanyMain';
-import AdminMain from './components/AdminMain';
 import Logout from './components/Logout';
 import JobHomeMain from './components/JobHomeMain';
 import CompanyHomeMain from './components/CompanyHomeMain';
@@ -32,16 +31,13 @@ function App() {
         <Route path="/company">
           <CompanyMain />
         </Route>
-        <Route path="/employee">
+        <Route path="/buyer">
           <EmployeeMain />
-        </Route>
-        <Route path="/admin">
-          <AdminMain />
         </Route>
         <Route path="/companySignup" exact>
           <Signup type="company" />
         </Route>
-        <Route path="/employeeSignup" exact>
+        <Route path="/buyerSignup" exact>
           <Signup type="employee" />
         </Route>
         <Route path="/logout" exact>
