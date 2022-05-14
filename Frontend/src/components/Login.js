@@ -18,11 +18,11 @@ const Login = ({ onLogin, type }) => {
   };
 
   return (
-    <div className="text-center">
+    <div>
       <div className="mt-5">
         <input type="text" placeholder="Email" ref={email} className="form-control" />
       </div>
-      <div className="mt-2">
+      <div className="mt-3">
         <input type="password" placeholder="Password" ref={password} className="form-control" />
       </div>
       <div className="mt-3 mb-3">

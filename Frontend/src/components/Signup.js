@@ -32,10 +32,10 @@ const Signup = ({ type, history }) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-4" />
-        <div className="col-4">
-          <h2 className="text-center mt-5">Insurify</h2>
-          <div className="text-center mt-5">Signup as an insurance {type === 'company' ? 'seller' : 'buyer'}</div>
+        <div className="col-3" />
+        <div className="col-6">
+          <h2 className="mt-5">Insurify</h2>
+          <div className="mt-2">Signup as an insurance {type === 'company' ? 'seller' : 'buyer'}</div>
           <div className="form-group mt-5">
             <input type="text" ref={name} placeholder="Insurance provider name" className="form-control" />
           </div>
@@ -45,11 +45,11 @@ const Signup = ({ type, history }) => {
           <div className="form-group">
             <input type="password" ref={password} placeholder="Password" className="form-control" />
           </div>
-          <div className="form-group text-center">
+          <div className="form-group">
             <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
           </div>
         </div>
-        <div className="col-4" />
+        <div className="col-3" />
       </div>
     </div>
   );

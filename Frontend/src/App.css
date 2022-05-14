@@ -2,23 +2,23 @@
 
 body {
     position: relative;
-    /*background: url("../src/fba7da61.png") repeat;*/
+    background: url("https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png") repeat;
     padding-bottom: 40px;
-    background: #f5f5f5;
 }
 
 #msg, #err {
     color: #bb0000;
     width: 300px;
     position: fixed;
-    top: 42px;
+    top: 100px;
     left: 50%;
     margin-left: -150px;
     z-index: 1;
     background: #d8d8d8;
     text-align: center;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px black;
+    box-shadow: 4px 4px 0px 0px black;
+    font-weight: bold;
+    padding: 10px;
 }
 
 #msg:empty, #err:empty {
@@ -26,7 +26,7 @@ body {
 }
 
 #msg {
-    color: green;
+    color: #008080;
 }
 
 .edit .onView, .onEdit {
@@ -119,15 +119,36 @@ body {
     background: rgba(0, 136, 0, 0.2);
 }
 
+body {
+    font-family: Segoe UI, SegoeUI, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
 h2, h6, h4, .nav-link, .inputLabel, .mono {
-    font-family: "Andale Mono", serif;
+    font-family: "Roboto";
+}
+
+h2 {
+    font-size: 3rem;
+    letter-spacing: 0px;
+}
+
+h4 {
+    font-size: 2rem;
 }
 
 .inputLabel {
     margin: 5px 5px 2px 0;
-    font-size: 12px;
+    font-size: 16px;
     color: #343434;
-    letter-spacing: 0.1px;
+    letter-spacing: 0.4px;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+    padding: 5px 10px;
+    box-shadow: 2px 2px 0 0 black;
 }
 
 .divider {
@@ -147,37 +168,77 @@ h2, h6, h4, .nav-link, .inputLabel, .mono {
     border: 1px solid var(--green);
     text-align: center;
     color: var(--green);
+    box-shadow: 2px 2px 0 0 black;
+    padding-top: 5px;
 }
 
 .pageNum.active {
     font-weight: bolder;
+    background: var(--gold);
 }
 
 :root {
-    --green: #0CAA41;
+    --dblue: #435b9b;
+    --green: #0c68aa;
+    --gold: gold;
 }
 
 .btn-primary:hover, .btn-primary {
-    background-color: var(--green);
-    border-color: var(--green);
+    background-image: linear-gradient(var(--dblue), var(--green));
+    border-color: transparent;
+    padding: 5px 20px;
+    box-shadow: 2px 2px 0 0 black;
+}
+
+.navbar-brand.text-light {
+    font-family: Roboto;
+    text-shadow: 1px 1px 1px black;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+.btn-primary:focus {
+    outline: none;
+}
+
+.nav-link.text-light {
+    font-size: 1rem;
+    font-family: "Roboto";
+    letter-spacing: 1.3px;
+}
+
+.form-control {
+    color: black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid var(--green);
+    border-radius: 0;
+    transition: none;
 }
 
 .bg-dark {
-    background-color: var(--green) !important;
+    background-image: linear-gradient(var(--dblue), var(--green));
 }
 
 select, input[type=text], input[type=password], input[type=number] {
-    border: 2px solid var(--green);
-    border-radius: 10px;
-    padding-left: 5px;
+    box-shadow: 4px 4px 0 0 var(--green);
+    width: 500px;
+    padding-left: 10px;
 }
 
 input[type=password]:focus, input[type=number]:focus, input[type=text]:focus, select:focus {
-    outline: none
+    outline: none;
+    background: var(--gold);
 }
 
 a {
-    color: #0051bb;
+    color: #bb00ab;
+}
+
+a.nav-link {
+    color: white;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px black;
 }
 
 .nav-link {
@@ -193,6 +254,40 @@ a {
     margin-top: 20px;
 }
 
-.table th, .table td{
+.table th, .table td {
     vertical-align: middle;
+}
+
+.table .thead-light th {
+    color: white;
+    background-image: linear-gradient(var(--dblue), var(--green));
+    border: none;
+}
+
+
+.card {
+    background-clip: border-box;
+    border: 1px solid black;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 0 black;
+}
+
+.card-header:first-child {
+    border-radius: 0;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-image: linear-gradient(var(--dblue), var(--green));
+    border-bottom: 1px solid var(--green);
+    color: white;
+}
+
+.textEditable {
+    border-bottom: 1px solid var(--green);
+}
+
+.flex{
+    display: flex;
 }

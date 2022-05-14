@@ -42,18 +42,19 @@ export class Landing extends PureComponent {
         <div className="row">
           <div className="col-3" />
           <div className="col-6">
-            <div className="h3 text-center mt-3">Welcome to Insurify</div>
-            <div className="text-center">{`Sign in as an insurance ${currTab == "company" ? "seller" : "buyer"}`}</div>
+            <h2 className="mt-2">Welcome to <i>Insurify</i></h2>
+            <div>{`Sign in as an insurance ${currTab == "company" ? "seller" : "buyer"}`}</div>
             <Login onLogin={this.handleOnLogin} type={currTab} />
 
-            <div className="d-flex justify-content-center">
               <div>Dont have a account ?&nbsp;&nbsp;</div>
-              <a href="#/companySignup">Sign up as a seller</a>
-              <div>&nbsp;or&nbsp;</div>
-              <a href="#/buyerSignup">Sign up as a buyer</a>
-            </div>
-            <div className="text-center mt-4">
-              <button className="btn-outline-primary" onClick={this.toggleLogin}>
+              <div className="mt-2">
+                  <a href="#/companySignup" className="btn-primary">Sign up as a seller</a>
+              </div>
+              <div className="mt-3">
+                  <a href="#/buyerSignup" className="btn-primary">Sign up as a buyer</a>
+              </div>
+            <div className="mt-4">
+              <button onClick={this.toggleLogin}>
                 {currTab === 'employee'
                   ? 'Login as an insurance seller'
                   : 'Login as a insurance buyer'}

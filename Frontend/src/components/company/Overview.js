@@ -1,7 +1,6 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { currentUser, fileUrl, updateCompany } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
-import Paginate from '../Paginate';
 
 const Overview = () => {
   const [company, setCompany] = useState({});
@@ -50,17 +49,8 @@ const Overview = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
-        <h6><span className="inputLabel">{company.name}&nbsp;({company.email})</span></h6>
-
-        <div className="inputLabel">Add your company logo</div>
-        <div className="imageTile">
-          {company.profilePic
-            ? <img src={fileUrl(company.profilePic)} alt="Logo" />
-            : <div>Upload a logo</div>}
-        </div>
-
-        <FileUpload singleFile onUpload={handleOnFileUpload} />
+      <div className="col-8">
+        <h4>Insurance provider profile</h4>
 
         <div className="inputLabel">Description</div>
         <div><input type="text" ref={descriptionRef} defaultValue={company.description} /></div>
@@ -78,9 +68,18 @@ const Overview = () => {
         <div><input type="text" ref={headquartersRef} defaultValue={company.headquarters} /></div>
         <div className="inputLabel">Founded</div>
         <div><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
-        <div className="mt-2">
+        <div className="mt-4">
           <button className="btn-primary" onClick={handleOnSave}>Save</button>
         </div>
+      </div>
+      <div className="col-4">
+        <div className="inputLabel">Add your company logo</div>
+        <div className="imageTile">
+          {company.profilePic
+            ? <img src={fileUrl(company.profilePic)} alt="Logo" />
+            : <div>Upload a logo</div>}
+        </div>
+        <FileUpload singleFile onUpload={handleOnFileUpload} />
       </div>
     </div>
   );

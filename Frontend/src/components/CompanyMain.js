@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
-import CompanyJobApplications from './company/CompanyJobApplications';
-import Dashboard from "./company/Dashboard";
-import BuildWebsite from "./company/BuildWebsite";
-import AddRules from "./company/AddRules";
+import Dashboard from './company/Dashboard';
+import BuildWebsite from './company/BuildWebsite';
+import AddRules from './company/AddRules';
 
 class CompanyMain extends Component {
   render() {

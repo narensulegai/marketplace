@@ -4,7 +4,7 @@ const AddRules = () => {
   return (
     <div className="row">
       <div className="col-12">
-        AddRules
+        <h4>Add Rules</h4>
       </div>
     </div>
   );

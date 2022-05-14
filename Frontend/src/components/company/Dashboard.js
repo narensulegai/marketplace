@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div className="row">
       <div className="col-12">
-        <h4 className="text-center">Quotes from users</h4>
+        <h4>Quotes from users</h4>
       </div>
       <div className="col-12">
         <table className="table mediumMarginTop">
