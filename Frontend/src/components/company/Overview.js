@@ -1,6 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
 import { currentUser, fileUrl, updateCompany } from '../../util/fetch/api';
 import FileUpload from '../common/FileUpload';
+import Paginate from '../Paginate';
 
 const Overview = () => {
   const [company, setCompany] = useState({});
@@ -52,30 +53,31 @@ const Overview = () => {
       <div className="col-12">
         <h6><span className="inputLabel">{company.name}&nbsp;({company.email})</span></h6>
 
+        <div className="inputLabel">Add your company logo</div>
         <div className="imageTile">
           {company.profilePic
-            ? <img src={fileUrl(company.profilePic)} alt="" />
-            : <div>No pic uploaded</div>}
+            ? <img src={fileUrl(company.profilePic)} alt="Logo" />
+            : <div>Upload a logo</div>}
         </div>
 
         <FileUpload singleFile onUpload={handleOnFileUpload} />
 
         <div className="inputLabel">Description</div>
         <div><input type="text" ref={descriptionRef} defaultValue={company.description} /></div>
+        <div className="inputLabel">Website</div>
+        <div><input type="text" ref={websiteRef} defaultValue={company.website} /></div>
+        <div className="inputLabel">Brand tagline</div>
+        <div><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
         <div className="inputLabel">Number of products</div>
         <div><input type="number" ref={sizeRef} defaultValue={company.size} /></div>
-        <div className="inputLabel">Product category</div>
+        <div className="inputLabel">Insurance category</div>
         <div><input type="text" ref={typeRef} defaultValue={company.type} /></div>
         <div className="inputLabel">Revenue</div>
         <div><input type="text" ref={revenueRef} defaultValue={company.revenue} /></div>
         <div className="inputLabel">Address</div>
         <div><input type="text" ref={headquartersRef} defaultValue={company.headquarters} /></div>
-        {/*<div className="inputLabel">Founded</div>*/}
-        <div style={{display:"none"}}><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
-        <div className="inputLabel">Website</div>
-        <div><input type="text" ref={websiteRef} defaultValue={company.website} /></div>
-        {/*<div className="inputLabel">Brand tagline</div>*/}
-        <div  style={{display:"none"}}><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
+        <div className="inputLabel">Founded</div>
+        <div><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
         <div className="mt-2">
           <button className="btn-primary" onClick={handleOnSave}>Save</button>
         </div>

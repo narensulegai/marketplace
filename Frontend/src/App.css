@@ -56,7 +56,7 @@ body {
 
 .imageTile {
     height: 100px;
-    width: 100px;
+    width: 200px;
 }
 
 .imageTile img {
@@ -119,7 +119,7 @@ body {
     background: rgba(0, 136, 0, 0.2);
 }
 
-.nav-link, .inputLabel, .mono {
+h2, h6, h4, .nav-link, .inputLabel, .mono {
     font-family: "Andale Mono", serif;
 }
 
@@ -187,4 +187,12 @@ a {
 
 .smallMarginTop {
     margin-top: 10px;
+}
+
+.mediumMarginTop {
+    margin-top: 20px;
+}
+
+.table th, .table td{
+    vertical-align: middle;
 }

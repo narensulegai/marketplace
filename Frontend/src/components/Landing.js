@@ -42,8 +42,8 @@ export class Landing extends PureComponent {
         <div className="row">
           <div className="col-3" />
           <div className="col-6">
-            <div className="h3 text-center mt-3">Marketplace</div>
-            <div className="text-center">{`Sign in as a ${currTab == "company" ? "seller" : "buyer"}`}</div>
+            <div className="h3 text-center mt-3">Welcome to Insurify</div>
+            <div className="text-center">{`Sign in as an insurance ${currTab == "company" ? "seller" : "buyer"}`}</div>
             <Login onLogin={this.handleOnLogin} type={currTab} />
 
             <div className="d-flex justify-content-center">
@@ -55,8 +55,8 @@ export class Landing extends PureComponent {
             <div className="text-center mt-4">
               <button className="btn-outline-primary" onClick={this.toggleLogin}>
                 {currTab === 'employee'
-                  ? 'No, login as seller'
-                  : 'No, login as a buyer'}
+                  ? 'Login as an insurance seller'
+                  : 'Login as a insurance buyer'}
               </button>
             </div>
           </div>

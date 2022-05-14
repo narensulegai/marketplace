@@ -34,10 +34,10 @@ const Signup = ({ type, history }) => {
       <div className="row">
         <div className="col-4" />
         <div className="col-4">
-          <h2 className="text-center mt-5">Marketplace signup</h2>
-          <div className="text-center mt-5">Signup as a {type === 'company' ? 'seller' : 'buyer'}</div>
+          <h2 className="text-center mt-5">Insurify</h2>
+          <div className="text-center mt-5">Signup as an insurance {type === 'company' ? 'seller' : 'buyer'}</div>
           <div className="form-group mt-5">
-            <input type="text" ref={name} placeholder="Name" className="form-control" />
+            <input type="text" ref={name} placeholder="Insurance provider name" className="form-control" />
           </div>
           <div className="form-group">
             <input type="text" ref={email} placeholder="Email" className="form-control" />
