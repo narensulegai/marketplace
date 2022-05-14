@@ -11,19 +11,25 @@ const widgetsLib = {
 const BuildWebsite = () => {
   const [widgets, setWidgets] = useState([]);
   const handleOnInputBox = () => {
-    const newWidgets = [...widgets];
-    newWidgets.push('inputBox');
-    setWidgets(newWidgets);
+    if (prompt('Name of the widget')) {
+      const newWidgets = [...widgets];
+      newWidgets.push('inputBox');
+      setWidgets(newWidgets);
+    }
   };
   const handleOnText = () => {
-    const newWidgets = [...widgets];
-    newWidgets.push('text');
-    setWidgets(newWidgets);
+    if (prompt('Name of the widget')) {
+      const newWidgets = [...widgets];
+      newWidgets.push('text');
+      setWidgets(newWidgets);
+    }
   };
   const handleOnCheckbox = () => {
-    const newWidgets = [...widgets];
-    newWidgets.push('checkbox');
-    setWidgets(newWidgets);
+    if (prompt('Name of the widget')) {
+      const newWidgets = [...widgets];
+      newWidgets.push('checkbox');
+      setWidgets(newWidgets);
+    }
   };
   return (
     <div className="row">

@@ -37,7 +37,7 @@ const Signup = ({ type, history }) => {
           <h2 className="mt-5">Insurify</h2>
           <div className="mt-2">Signup as an insurance {type === 'company' ? 'seller' : 'buyer'}</div>
           <div className="form-group mt-5">
-            <input type="text" ref={name} placeholder="Insurance provider name" className="form-control" />
+            <input type="text" ref={name} placeholder={type === 'company' ? 'Insurance provider name' : 'Name'} className="form-control" />
           </div>
           <div className="form-group">
             <input type="text" ref={email} placeholder="Email" className="form-control" />
