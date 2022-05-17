@@ -10,7 +10,7 @@ export class Landing extends PureComponent {
   }
 
   landingPage = (scope) => {
-    let landingPage = '/buyer/search';
+    let landingPage = '/buyer/questioner';
 
     if (scope === 'company') {
       landingPage = '/company/overview';
@@ -45,14 +45,13 @@ export class Landing extends PureComponent {
             <h2 className="mt-2">Welcome to <i>Insurify</i></h2>
             <div>{`Sign in as an insurance ${currTab == "company" ? "seller" : "buyer"}`}</div>
             <Login onLogin={this.handleOnLogin} type={currTab} />
-
-              <div>Dont have a account ?&nbsp;&nbsp;</div>
-              <div className="mt-2">
-                  <a href="#/companySignup" className="btn-primary">Sign up as a seller</a>
-              </div>
-              <div className="mt-3">
-                  <a href="#/buyerSignup" className="btn-primary">Sign up as a buyer</a>
-              </div>
+            <div>Dont have a account ?&nbsp;&nbsp;</div>
+            <div className="mt-2">
+                <a href="#/companySignup" className="btn-primary">Sign up as a seller</a>
+            </div>
+            <div className="mt-3">
+                <a href="#/buyerSignup" className="btn-primary">Sign up as a buyer</a>
+            </div>
             <div className="mt-4">
               <button onClick={this.toggleLogin}>
                 {currTab === 'employee'

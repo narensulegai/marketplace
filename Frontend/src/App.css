@@ -288,6 +288,14 @@ a.nav-link {
     border-bottom: 1px solid var(--green);
 }
 
-.flex{
+.flex {
     display: flex;
+}
+
+.preview .textEditable{
+    border-bottom: none;
+}
+
+.preview .widgetName{
+    display: none;
 }

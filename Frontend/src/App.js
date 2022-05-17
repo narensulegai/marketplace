@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing';
@@ -12,6 +12,13 @@ import AdminCompanyHome from './components/AdminCompanyHome';
 import EmployeeHomeMain from './components/EmployeeHomeMain';
 
 function App() {
+  // useEffect(() => {
+  //   window.addEventListener('hashchange', (event) => {
+  //     console.log(event);
+  //   });
+  //   return () => {
+  //   };
+  // }, []);
   return (
     <HashRouter>
       <Switch>

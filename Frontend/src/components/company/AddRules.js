@@ -8,7 +8,7 @@ const AddRules = () => {
       </div>
       <div className="col-8">
         <div className="inputLabel">Excel formula</div>
-        <div><input type="text" /></div>
+        <div><input type="text" placeholder="IF(age>18, 100*num_of_cars, 1500)" /></div>
         <div className="inputLabel mt-4">Upload CSV to train ML rule engine</div>
         <div><input type="file" /></div>
         <div className="flex mt-4">
