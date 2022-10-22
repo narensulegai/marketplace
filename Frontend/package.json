@@ -30,7 +30,8 @@
     "react-scripts": "3.4.3",
     "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
-    "sinon": "^9.2.0"
+    "sinon": "^9.2.0",
+    "talkjs": "^0.15.5"
   },
   "scripts": {
     "start": "react-scripts start",
