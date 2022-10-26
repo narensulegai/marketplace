@@ -12,6 +12,8 @@ module.exports = (mongoose) => {
     website: { type: String },
     mission: { type: String },
     profilePic: { type: String },
+    formData: { type: String },
+    ruleFormula: { type: String },
     jobPostings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'JobPosting', required: true }],
     favoriteReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
     featuredReview: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },

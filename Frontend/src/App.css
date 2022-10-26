@@ -292,10 +292,42 @@ a.nav-link {
     display: flex;
 }
 
-.preview .textEditable{
+.preview .textEditable {
     border-bottom: none;
 }
 
-.preview .widgetName{
+.preview .widgetName {
     display: none;
+}
+
+
+.react-form-builder .react-form-builder-toolbar.float-right h4 {
+    margin-top: 0.3em;
+    font-family: "Roboto";
+    font-size: 2em;
+}
+
+.react-form-builder .react-form-builder-toolbar.float-right {
+    margin-top: 0;
+    background: transparent;
+}
+
+.react-form-builder .react-form-builder-toolbar.float-right li {
+    background: white;
+}
+
+.react-form-builder .react-form-builder-preview.float-left {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.react-form-builder .react-form-builder-preview .edit-form .dismiss-edit {
+    margin-top: 0 !important;
+}
+
+.form-place-holder {
+    margin: 0 !important;
 }

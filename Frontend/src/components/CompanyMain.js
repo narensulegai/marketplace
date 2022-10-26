@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Overview from './company/Overview';
 import Dashboard from './company/Dashboard';
-import BuildWebsite from './company/BuildWebsite';
+// import BuildWebsite from './company/BuildWebsite';
 import AddRules from './company/AddRules';
+import FormBuilder from "./company/FormBuilder";
 
 class CompanyMain extends Component {
   render() {
@@ -13,7 +14,7 @@ class CompanyMain extends Component {
           <a className="navbar-brand text-light" href="#/">Insurify</a>
           <a className="nav-link text-light" href="#/company/overview">Company Profile</a>
           <a className="nav-link text-light" href="#/company/dashboard">Dashboard</a>
-          <a className="nav-link text-light" href="#/company/buildWebsite">Build website</a>
+          <a className="nav-link text-light" href="#/company/formBuilder">Build website</a>
           <a className="nav-link text-light" href="#/company/addRules">Add Rules</a>
           <a className="nav-link" href="#/logout">Logout</a>
         </nav>
@@ -24,8 +25,8 @@ class CompanyMain extends Component {
           <Route path="/company/dashboard" exact>
             <Dashboard />
           </Route>
-          <Route path="/company/buildWebsite" exact>
-            <BuildWebsite />
+          <Route path="/company/formBuilder" exact>
+            <FormBuilder />
           </Route>
           <Route path="/company/addRules" exact>
             <AddRules />

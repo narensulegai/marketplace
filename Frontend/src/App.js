@@ -6,7 +6,6 @@ import Signup from './components/Signup';
 import EmployeeMain from './components/EmployeeMain';
 import CompanyMain from './components/CompanyMain';
 import Logout from './components/Logout';
-import JobHomeMain from './components/JobHomeMain';
 import CompanyHomeMain from './components/CompanyHomeMain';
 import AdminCompanyHome from './components/AdminCompanyHome';
 import EmployeeHomeMain from './components/EmployeeHomeMain';
@@ -29,9 +28,6 @@ function App() {
           <CompanyHomeMain />
         </Route>
         <Route path="/companyHomePage/:id" component={AdminCompanyHome} />
-        <Route path="/jobHome/:id">
-          <JobHomeMain />
-        </Route>
         <Route path="/employeeHome/:id">
           <EmployeeHomeMain />
         </Route>

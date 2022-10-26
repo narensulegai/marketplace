@@ -30,6 +30,8 @@ const schema = {
   }),
   updateCompany: Joi.object({
     website: Joi.string().domain().label('Website'),
+    formData: Joi.string(),
+    ruleFormula: Joi.string(),
   }),
   addJobPosting: Joi.object({
     title: reqStr('Product name'),
