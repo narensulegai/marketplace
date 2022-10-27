@@ -32,27 +32,12 @@ const schema = {
     website: Joi.string().domain().label('Website'),
     ruleFormula: Joi.string(),
   }),
-  addJobPosting: Joi.object({
-    title: reqStr('Product name'),
-    industry: reqStr('Industry'),
-    country: reqStr('Country'),
-    streetAddress: reqStr('Street address'),
-    city: reqStr('City'),
-    state: reqStr('State'),
-    zip: reqStr('Zip'),
-  }),
-  applyJob: Joi.object({
-  }),
   loginEmployee: Joi.object({
     email: Joi.string().email().required().label('Email'),
     password: Joi.string().required(),
   }),
   loginCompany: Joi.object({
     email: Joi.string().email().required().label('Email'),
-    password: Joi.string().required(),
-  }),
-  loginAdmin: Joi.object({
-    email: Joi.string().email().required(),
     password: Joi.string().required(),
   }),
   update: Joi.object({

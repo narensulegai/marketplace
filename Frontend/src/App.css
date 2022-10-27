@@ -331,3 +331,11 @@ a.nav-link {
 .form-place-holder {
     margin: 0 !important;
 }
+input.form-control::before{
+    content: attr(name);
+}
+/*blockquote::after {*/
+/*    display: block;*/
+/*    content: ' (source: ' attr(cite) ') ';*/
+/*    color: hotpink;*/
+/*}*/

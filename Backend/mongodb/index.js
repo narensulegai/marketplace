@@ -16,20 +16,8 @@ mongoose.connection.once('open', () => {
 
 const Company = require('./schemas/company')(mongoose);
 const Employee = require('./schemas/employee')(mongoose);
-const JobPosting = require('./schemas/jobPosting')(mongoose);
-const JobApplication = require('./schemas/jobApplication')(mongoose);
-const CompanySalary = require('./schemas/companySalary')(mongoose);
-const Review = require('./schemas/review')(mongoose);
-const CompanyPhoto = require('./schemas/companyPhoto')(mongoose);
-const InterviewExperience = require('./schemas/interviewExperience')(mongoose);
 
 module.exports = {
   Company,
   Employee,
-  JobPosting,
-  JobApplication,
-  CompanySalary,
-  Review,
-  CompanyPhoto,
-  InterviewExperience,
 };

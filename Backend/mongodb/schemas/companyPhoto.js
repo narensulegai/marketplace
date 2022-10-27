@@ -8,6 +8,5 @@ module.exports = (mongoose) => {
   {
     timestamps: true,
   });
-
   return mongoose.model('CompanyPhoto', companyPhotoSchema);
 };

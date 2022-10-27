@@ -26,6 +26,7 @@ const CompanyMain = () => {
         </Route>
         <Route path="/company/formBuilder" exact>
           <FormBuilder />
+          {/* <BuildWebsite /> */}
         </Route>
         <Route path="/company/addRules" exact>
           <AddRules />

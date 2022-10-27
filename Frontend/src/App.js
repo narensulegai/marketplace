@@ -22,8 +22,7 @@ function App() {
         <Route path="/" exact>
           <Landing />
         </Route>
-        <Route path="/buyer/:id" exact component={BuyerLanding}>
-        </Route>
+        <Route path="/buyer/:id" exact component={BuyerLanding} />
         <Route path="/company">
           <CompanyMain />
         </Route>

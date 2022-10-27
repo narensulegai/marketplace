@@ -114,23 +114,4 @@ module.exports = {
       });
     }
   },
-  loginAdmin: async (req, res) => {
-    const adminEmail = 'admin@glassdoor.com';
-    const pwdHash = '$2b$10$XBjuYFTtexW8YsvdkKuOpeuXoJ8nxUXQuaUkPwYfQrzOdTmDi1jH2'; // pwd
-    const { email, password } = req.body;
-    if (email !== adminEmail) {
-      res.status(401).json(err(`Email doesn't exist, try ${adminEmail}`));
-    } else {
-      bcrypt.compare(password, pwdHash, (e, doseMatch) => {
-        if (doseMatch) {
-          const user = { email: adminEmail, name: 'Admin' };
-          const payload = { user, scope: 'admin' };
-          const token = signPayload(payload);
-          res.json({ token, user });
-        } else {
-          res.status(401).json(err('Email password doesn\'t match, try pwd'));
-        }
-      });
-    }
-  },
 };

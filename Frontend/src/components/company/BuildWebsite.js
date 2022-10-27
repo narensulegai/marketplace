@@ -8,33 +8,33 @@ const widgetsLib = {
     <div contentEditable className="textEditable flex-grow-1" />
   </div>,
 };
+
 const BuildWebsite = () => {
   const [widgets, setWidgets] = useState([]);
   const [isPreview, setPreview] = useState(false);
-  const handleOnInputBox = () => {
-    const name = prompt('Name of the widget');
-    if (name) {
-      const newWidgets = [...widgets];
-      newWidgets.push({ widget: 'inputBox', name });
-      setWidgets(newWidgets);
-    }
-  };
+
   const handleOnText = () => {
-    const newWidgets = [...widgets];
-    newWidgets.push({ widget: 'text', name: '' });
-    setWidgets(newWidgets);
+    setWidgets([...widgets, { widget: 'text', name: '' }]);
   };
+
   const handleOnCheckbox = () => {
     const name = prompt('Name of the widget');
     if (name) {
-      const newWidgets = [...widgets];
-      newWidgets.push({ widget: 'checkbox', name });
-      setWidgets(newWidgets);
+      setWidgets([...widgets, { widget: 'checkbox', name }]);
     }
   };
+
+  const handleOnInputBox = () => {
+    const name = prompt('Name of the widget');
+    if (name) {
+      setWidgets([...widgets, { widget: 'inputBox', name }]);
+    }
+  };
+
   const handleOnPreview = () => {
     setPreview(!isPreview);
   };
+
   return (
     <div className="row">
       <div className="col-12">

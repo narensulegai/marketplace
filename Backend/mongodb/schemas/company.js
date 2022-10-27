@@ -14,9 +14,6 @@ module.exports = (mongoose) => {
     profilePic: { type: String },
     formData: { type: Array, default: [] },
     ruleFormula: { type: String },
-    jobPostings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'JobPosting', required: true }],
-    favoriteReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
-    featuredReview: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
   },
   {
     timestamps: true,
