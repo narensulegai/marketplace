@@ -1,20 +1,13 @@
-import React, { createRef, useEffect, useState } from 'react';
-import { Parser } from 'expr-eval';
-import * as formulajs from '@formulajs/formulajs';
+import React, { useEffect, useState } from 'react';
 import { currentUser, updateCompany } from '../../util/fetch/api';
 
-const parser = new Parser();
-Object.assign(parser.functions, formulajs);
-
 const AddRules = () => {
-  const expr = parser.parse("DAYS('3/15/11', '2/1/11')");
-  console.log(expr.evaluate({ x: 3 })); // 7
   const [variables, setVariables] = useState([]);
   const [formula, setFormula] = useState(null);
   useEffect(() => {
     (async () => {
       const current = await currentUser();
-      const form = JSON.parse(current.user.formData);
+      const form = current.user.formData;
       setFormula(current.user.ruleFormula);
       setVariables(form.map((f) => f.field_name));
     })();
@@ -54,9 +47,7 @@ const AddRules = () => {
             })}
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };

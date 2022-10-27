@@ -53,7 +53,8 @@ module.exports = {
   },
 
   getCompany: async (req, res) => {
-    res.json({});
+    const { id } = req.params;
+    res.json(await Company.findById(id));
   },
   getJob: async (req, res) => {
     const jobId = req.params.id;

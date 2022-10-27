@@ -3,18 +3,18 @@ import { withRouter } from 'react-router-dom';
 import Login from './Login';
 import { currentUser } from '../util/fetch/api';
 
-export class Landing extends PureComponent {
+export class BuyerLanding extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   async componentDidMount() {
     const { scope } = await currentUser();
     if (scope === null) return;
-    this.props.history.push('/company/overview');
   }
 
   handleOnLogin = () => {
-    this.props.history.push('/company/overview');
+    this.props.history.push(`${window.location.hash.slice(1)}/questioner`);
   }
 
   render() {
@@ -24,10 +24,11 @@ export class Landing extends PureComponent {
           <div className="col-3" />
           <div className="col-6">
             <h2 className="mt-2">Welcome to <i>Insurify</i></h2>
-            <Login onLogin={this.handleOnLogin} type={'company'} />
+            <div>{`Sign in to your account`}</div>
+            <Login onLogin={this.handleOnLogin} type="employee" />
             <div>Dont have a account ?&nbsp;&nbsp;</div>
             <div className="mt-3">
-                <a href="#/buyerSignup" className="btn-primary">Sign up as a buyer</a>
+                <a href="#/buyerSignup" className="btn-primary">Sign up here</a>
             </div>
             <div className="mt-4">
             </div>
@@ -39,4 +40,4 @@ export class Landing extends PureComponent {
   }
 }
 
-export default withRouter(Landing);
+export default withRouter(BuyerLanding);

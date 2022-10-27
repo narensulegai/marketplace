@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing';
@@ -6,9 +6,7 @@ import Signup from './components/Signup';
 import EmployeeMain from './components/EmployeeMain';
 import CompanyMain from './components/CompanyMain';
 import Logout from './components/Logout';
-import CompanyHomeMain from './components/CompanyHomeMain';
-import AdminCompanyHome from './components/AdminCompanyHome';
-import EmployeeHomeMain from './components/EmployeeHomeMain';
+import { BuyerLanding } from './components/BuyerLanding';
 
 function App() {
   // useEffect(() => {
@@ -24,17 +22,12 @@ function App() {
         <Route path="/" exact>
           <Landing />
         </Route>
-        <Route path="/companyHome/:id">
-          <CompanyHomeMain />
-        </Route>
-        <Route path="/companyHomePage/:id" component={AdminCompanyHome} />
-        <Route path="/employeeHome/:id">
-          <EmployeeHomeMain />
+        <Route path="/buyer/:id" exact component={BuyerLanding}>
         </Route>
         <Route path="/company">
           <CompanyMain />
         </Route>
-        <Route path="/buyer">
+        <Route path="/buyer/:id">
           <EmployeeMain />
         </Route>
         <Route path="/companySignup" exact>

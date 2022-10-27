@@ -8,6 +8,7 @@ module.exports = (mongoose) => {
       enum: ['not-looking', 'casually-looking', 'actively-looking'],
       default: 'not-looking',
     },
+    variables: { type: Object, default: {} },
     jobTitleLookingFor: { type: String },
     targetSalary: { type: String },
     openToRelocation: { type: Boolean, default: false },

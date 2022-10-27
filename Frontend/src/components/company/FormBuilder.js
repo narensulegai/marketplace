@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ReactFormBuilder, ReactFormGenerator } from 'react-form-builder2';
 import 'react-form-builder2/dist/app.css';
 import { currentUser, updateCompany } from '../../util/fetch/api';
+import { reNameValues } from '../../util';
 
 const items = [
   { key: 'Header' },
@@ -12,16 +13,20 @@ const items = [
 ];
 
 const FormBuilder = () => {
-  const [form, setForm] = useState(null);
+  const [form, setForm] = useState([]);
   const [variables, setVariables] = useState(null);
   const [previewMode, setPreviewMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [url, setUrl] = useState(null);
+  const formBuilderRef = useRef();
 
   useEffect(() => {
     (async () => {
       const current = await currentUser();
-      setForm(JSON.parse(current.user.formData));
+      setForm(current.user.formData);
       setLoading(false);
+      // http://localhost:3000/#/buyer/6358c9d2dfb3a3e1d4ddceba/questioner
+      setUrl(`${window.location.origin}/#/buyer/${current.user._id}`);
     })();
   }, []);
 
@@ -29,7 +34,8 @@ const FormBuilder = () => {
     setForm(data.task_data);
   };
   const handleOnSave = async () => {
-    await updateCompany({ formData: JSON.stringify(form) });
+    reNameValues(form);
+    await updateCompany({ formData: form });
   };
   const togglePreviewMode = () => {
     setPreviewMode(!previewMode);
@@ -38,10 +44,20 @@ const FormBuilder = () => {
   const handleSubmitAnswers = (data) => {
     setVariables(data);
   };
+
   return (
     <div>
-      <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
-      &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
+      <div>
+        <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
+        &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
+      </div>
+      <div className="mediumMarginTop d-flex">
+        <a href={url}>{url}</a>
+        &nbsp;&nbsp;
+        <div onClick={() => { navigator.clipboard.writeText(url); }} className="pointer" role="button">
+          Copy website URL
+        </div>
+      </div>
       {
         (form !== null && previewMode)
           ? (
@@ -50,27 +66,25 @@ const FormBuilder = () => {
               answer_data={variables}
               onSubmit={handleSubmitAnswers}
               submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
-                />
+            />
           )
           : (
             <>
               {loading ? (<div>Loading</div>)
                 : (
-                  <ReactFormBuilder
-                    data={form}
-                    onPost={handleUpdate}
-                    toolbarItems={items}
+                  <div ref={formBuilderRef}>
+                    <ReactFormBuilder
+                      data={form}
+                      onPost={handleUpdate}
+                      toolbarItems={items}
                   />
+                  </div>
                 )}
             </>
           )
         }
     </div>
   );
-};
-
-FormBuilder.propTypes = {
-
 };
 
 export default FormBuilder;
