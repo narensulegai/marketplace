@@ -27,7 +27,7 @@ export class Landing extends PureComponent {
             <Login onLogin={this.handleOnLogin} type={'company'} />
             <div>Dont have a account ?&nbsp;&nbsp;</div>
             <div className="mt-3">
-                <a href="#/buyerSignup" className="btn-primary">Sign up as a buyer</a>
+                <a href="#/companySignup" className="btn-primary">Sign up as a seller</a>
             </div>
             <div className="mt-4">
             </div>
