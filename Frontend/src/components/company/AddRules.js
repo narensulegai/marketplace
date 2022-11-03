@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { currentUser, updateCompany, uploadTargetColumnFile } from '../../util/fetch/api';
-import FileUpload from '../common/FileUpload';
+import React, { useEffect, useState } from "react";
+import {
+  currentUser,
+  updateCompany,
+  uploadTargetColumnFile,
+} from "../../util/fetch/api";
+import FileUpload from "../common/FileUpload";
 
 const AddRules = () => {
   const [variables, setVariables] = useState([]);
-  const [formula, setFormula] = useState('');
+  const [formula, setFormula] = useState("");
   const [checked, setChecked] = useState(false);
   const [dataFile, setDataFile] = useState(null);
   const [dataFileLocation, setDataFileLocation] = useState(null);
@@ -23,7 +27,7 @@ const AddRules = () => {
     })();
   }, []);
 
-  const acceptType = 'text/csv';
+  const acceptType = "text/csv";
 
   const handleOnSave = async () => {
     await updateCompany({ ruleFormula: formula });
@@ -41,13 +45,19 @@ const AddRules = () => {
   };
 
   const handleOnMLSave = async () => {
-    await updateCompany({ targetColumn });
-    await uploadTargetColumnFile({ targetColumn, dataFileLocation });
+    await updateCompany({ targetColumn: targetColumn });
+    await uploadTargetColumnFile({
+      targetColumn: targetColumn,
+      dataFileLocation: dataFileLocation,
+    });
     setTargetColumn(targetColumn);
   };
 
   const handleOnFileUpload = async ({ fileLocation, fileOrginalName }) => {
-    await updateCompany({ dataFile: fileOrginalName, dataFileLocation: fileLocation });
+    await updateCompany({
+      dataFile: fileOrginalName,
+      dataFileLocation: fileLocation,
+    });
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
   };
@@ -72,15 +82,14 @@ const AddRules = () => {
           <button className="btn-primary" onClick={handleOnSave}>
             Save
           </button>
-        </div>{' '}
+        </div>{" "}
         &nbsp;
         <div className="inputLabel">
           <h4>Machine learning based Rule Engine</h4>
         </div>
         <div>
-          <label htmlFor="enable-rule-engine">
+          <label>
             <input
-              name="enable-rule-engine"
               type="checkbox"
               checked={checked}
               onChange={handleOnChange}

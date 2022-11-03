@@ -14,6 +14,9 @@ export const getCompanyQuotes = () => get("companyQuotes");
 export const getEmployee = (id) => get(`employee/profile/${id}`);
 export const addCompanyPhotos = (id, d) => post(`companyPhoto/${id}`, d);
 export const logout = () => put("logout");
+export const fetchCompanyPhotos = (unApproved) =>
+  get(`admin/companyPhotos/${unApproved}`);
+
 export const fileUrl = (fileId) => {
   return `${apiUrl}/file/${fileId}`;
 };
