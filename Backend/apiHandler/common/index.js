@@ -1,7 +1,9 @@
 const multer = require('multer');
+const multerS3 = require('multer-s3');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const AWS = require('aws-sdk');
 const { Company, Employee } = require('../../mongodb');
 const { err } = require('../util');
 
@@ -12,6 +14,16 @@ const signPayload = (payload) => {
   const jwtSecret = process.env.JWT_SECRET;
   return jwt.sign(payload, jwtSecret, { expiresIn });
 };
+
+AWS.config.update({
+  accessKeyId: `${process.env.S3_ACCESS_KEY_ID}`,
+  secretAccessKey: `${process.env.S3_SECRET_ACCESS_KEY}`,
+});
+
+const S3Bucket = new AWS.S3({
+  params: { Bucket: `${process.env.S3_BUCKET}` },
+  region: `${process.env.S3_REGION}`,
+});
 
 module.exports = {
   currentUser: async (req, resp) => {
@@ -41,6 +53,62 @@ module.exports = {
       }
     });
   },
+  uploadS3File: async (req, res) => {
+    let user = {};
+    if (req.session.scope === 'company') {
+      user = await Company.findById(req.session.user._id);
+      const companyName = user.name;
+      let fileOrginalName;
+      const csvFileUpload = multer({
+        storage: multerS3({
+          s3: S3Bucket,
+          acl: 'public-read',
+          bucket: `${process.env.S3_BUCKET}`,
+          key: (req, file, cb) => {
+            fileOrginalName = file.originalname;
+            const fileName = companyName + fileOrginalName;
+            console.log(fileName, file.originalname);
+            cb(null, `${companyName}/${fileName}`);
+          },
+        }),
+      }).single('files');
+
+      csvFileUpload(req, res, (e) => {
+        if (e) {
+          res.status(400).json(err('Error while uploading file'));
+        } else if (req.file === undefined) {
+          res.status(400).json(err('Error No file selected'));
+        } else {
+          // const file = req.file.key;
+          const fileLocation = req.file.location;
+          res.json({
+            fileOrginalName,
+            fileLocation,
+          });
+        }
+      });
+    }
+  },
+  uploadColumnFile: async (req, res) => {
+    let user = {};
+    if (req.session.scope === 'company') {
+      user = await Company.findById(req.session.user._id);
+      const companyName = user.name;
+      const data = Buffer.from(JSON.stringify(req.body), 'utf-8');
+      const params = {
+        ACL: 'public-read',
+        Body: data,
+        Bucket: `${process.env.S3_BUCKET}`,
+        Key: `${companyName}/${companyName}targetColumn.txt`,
+      };
+
+      S3Bucket.putObject(params, (e) => {
+        if (e) {
+          res.status(400).json(err('Error while updating target column file on s3 bucket'));
+        }
+      });
+    }
+  },
   getFile: async (req, res) => {
     const fileId = req.params.id;
     // TODO: file path injection
@@ -56,9 +124,11 @@ module.exports = {
         resp.json({ token, user });
       } catch (e) {
         if (e.code === 11000) {
-          resp.status(400).json(err('Company name and/or email is already taken'));
+          resp
+            .status(400)
+            .json(err('Company name and/or email is already taken'));
         } else {
-          throw (e);
+          throw e;
         }
       }
     });
@@ -75,7 +145,7 @@ module.exports = {
         if (e.code === 11000) {
           resp.status(400).json(err('Email id is already taken'));
         } else {
-          throw (e);
+          throw e;
         }
       }
     });
@@ -84,7 +154,7 @@ module.exports = {
     const { email, password } = req.body;
     const user = await Company.findOne({ email });
     if (user === null) {
-      res.status(401).json(err('Email id doesn\'t exist'));
+      res.status(401).json(err("Email id doesn't exist"));
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
@@ -92,7 +162,7 @@ module.exports = {
           const token = signPayload(payload);
           res.json({ token, user });
         } else {
-          res.status(401).json(err('Company name password doesn\'t match'));
+          res.status(401).json(err("Company name password doesn't match"));
         }
       });
     }
@@ -101,7 +171,7 @@ module.exports = {
     const { email, password } = req.body;
     const user = await Employee.findOne({ email });
     if (user === null) {
-      res.status(401).json(err('Email doesn\'t exist'));
+      res.status(401).json(err("Email doesn't exist"));
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
@@ -109,7 +179,7 @@ module.exports = {
           const token = signPayload(payload);
           res.json({ token, user });
         } else {
-          res.status(401).json(err('Email password doesn\'t match'));
+          res.status(401).json(err("Email password doesn't match"));
         }
       });
     }

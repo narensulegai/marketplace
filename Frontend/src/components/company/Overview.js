@@ -23,6 +23,7 @@ const Overview = () => {
   const foundedRef = createRef();
   const websiteRef = createRef();
   const missionRef = createRef();
+  const acceptType = 'image/*';
 
   const handleOnSave = async () => {
     const d = {
@@ -48,38 +49,70 @@ const Overview = () => {
   };
 
   return (
-    <div className="row">
-      <div className="col-8">
+    <div className='row'>
+      <div className='col-8'>
         <h4>Insurance provider profile</h4>
 
-        <div className="inputLabel">Description</div>
-        <div><input type="text" ref={descriptionRef} defaultValue={company.description} /></div>
-        <div className="inputLabel">Website</div>
-        <div><input type="text" ref={websiteRef} defaultValue={company.website} /></div>
-        <div className="inputLabel">Brand tagline</div>
-        <div><input type="text" ref={missionRef} defaultValue={company.mission} /></div>
-        <div className="inputLabel">Number of products</div>
-        <div><input type="number" ref={sizeRef} defaultValue={company.size} /></div>
-        <div className="inputLabel">Insurance category</div>
-        <div><input type="text" ref={typeRef} defaultValue={company.type} /></div>
-        <div className="inputLabel">Revenue</div>
-        <div><input type="text" ref={revenueRef} defaultValue={company.revenue} /></div>
-        <div className="inputLabel">Address</div>
-        <div><input type="text" ref={headquartersRef} defaultValue={company.headquarters} /></div>
-        <div className="inputLabel">Founded</div>
-        <div><input type="text" ref={foundedRef} defaultValue={company.founded} /></div>
-        <div className="mt-4">
-          <button className="btn-primary" onClick={handleOnSave}>Save</button>
+        <div className='inputLabel'>Description</div>
+        <div>
+          <input
+            type='text'
+            ref={descriptionRef}
+            defaultValue={company.description}
+          />
+        </div>
+        <div className='inputLabel'>Website</div>
+        <div>
+          <input type='text' ref={websiteRef} defaultValue={company.website} />
+        </div>
+        <div className='inputLabel'>Brand tagline</div>
+        <div>
+          <input type='text' ref={missionRef} defaultValue={company.mission} />
+        </div>
+        <div className='inputLabel'>Number of products</div>
+        <div>
+          <input type='number' ref={sizeRef} defaultValue={company.size} />
+        </div>
+        <div className='inputLabel'>Insurance category</div>
+        <div>
+          <input type='text' ref={typeRef} defaultValue={company.type} />
+        </div>
+        <div className='inputLabel'>Revenue</div>
+        <div>
+          <input type='text' ref={revenueRef} defaultValue={company.revenue} />
+        </div>
+        <div className='inputLabel'>Address</div>
+        <div>
+          <input
+            type='text'
+            ref={headquartersRef}
+            defaultValue={company.headquarters}
+          />
+        </div>
+        <div className='inputLabel'>Founded</div>
+        <div>
+          <input type='text' ref={foundedRef} defaultValue={company.founded} />
+        </div>
+        <div className='mt-4'>
+          <button className='btn-primary' onClick={handleOnSave}>
+            Save
+          </button>
         </div>
       </div>
-      <div className="col-4">
-        <div className="inputLabel">Add your company logo</div>
-        <div className="imageTile">
-          {company.profilePic
-            ? <img src={fileUrl(company.profilePic)} alt="Logo" />
-            : <div>Upload a logo</div>}
+      <div className='col-4'>
+        <div className='inputLabel'>Add your company logo</div>
+        <div className='imageTile'>
+          {company.profilePic ? (
+            <img src={fileUrl(company.profilePic)} alt='Logo' />
+          ) : (
+            <div>Upload a logo</div>
+          )}
         </div>
-        <FileUpload singleFile onUpload={handleOnFileUpload} />
+        <FileUpload
+          singleFile
+          accept={acceptType}
+          onUpload={handleOnFileUpload}
+        />
       </div>
     </div>
   );

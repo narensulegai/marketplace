@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReactFormGenerator } from 'react-form-builder2';
-import { currentUser as getCurrentUser, getCompany, updateEmployee } from '../../util/fetch/api';
+import {
+  currentUser as getCurrentUser,
+  getCompany,
+  updateEmployee,
+} from '../../util/fetch/api';
 import { formulaParser } from '../../util';
 
 const Questioner = () => {
@@ -47,19 +51,25 @@ const Questioner = () => {
   };
 
   return (
-    <div className="row">
-      <div className="col-12">
+    <div className='row'>
+      <div className='col-12'>
         <h2>Questioner</h2>
-        {loading ? <div>Loading...</div> : (
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
           <ReactFormGenerator
             data={form}
             answer_data={variables}
             onSubmit={handleSubmitAnswers}
-            submitButton={<button className="btn-danger">Get Quote</button>}
+            submitButton={<button className='btn-danger'>Get Quote</button>}
           />
         )}
-        <div className="smallMarginTop">
-          {quote && <h5>Your quote is <b>${quote}</b></h5> }
+        <div className='smallMarginTop'>
+          {quote && (
+            <h5>
+              Your quote is <b>${quote}</b>
+            </h5>
+          )}
         </div>
       </div>
     </div>
