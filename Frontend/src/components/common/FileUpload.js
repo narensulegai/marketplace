@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { apiUrl } from '../../util/fetch';
 
-const FileUpload = ({ singleFile, onUpload, accept = 'image/*' }) => {
+const FileUpload = ({ singleFile, accept, onUpload }) => {
   const handleOnChange = (e) => {
     const { files } = e.target;
     const data = new FormData();
@@ -10,21 +10,40 @@ const FileUpload = ({ singleFile, onUpload, accept = 'image/*' }) => {
     for (const file of files) {
       data.append('files', file, file.name);
     }
-
     const token = localStorage.getItem('token');
-
-    fetch(`${apiUrl}/file`, {
-      headers: { authorization: token },
-      method: 'POST',
-      body: data,
-    })
-      .then((response) => response.json())
-      .then(onUpload);
+    if (accept == 'image/*') {
+      fetch(`${apiUrl}/file`, {
+        headers: { authorization: token },
+        method: 'POST',
+        body: data,
+      })
+        .then((response) => response.json())
+        .then(onUpload);
+    } else if (accept == 'text/csv') {
+      fetch(`${apiUrl}/uploadS3File`, {
+        headers: { authorization: token },
+        method: 'POST',
+        body: data,
+      })
+        .then((response) => response.json())
+        .then(onUpload);
+    }
   };
-  return (
-    singleFile
-      ? <input type="file" accept={accept} onChange={handleOnChange} className="uploadButton" />
-      : <input type="file" accept={accept} onChange={handleOnChange} className="uploadButton" multiple />
+  return singleFile ? (
+    <input
+      type='file'
+      accept={accept}
+      onChange={handleOnChange}
+      className='uploadButton'
+    />
+  ) : (
+    <input
+      type='file'
+      accept={accept}
+      onChange={handleOnChange}
+      className='uploadButton'
+      multiple
+    />
   );
 };
 

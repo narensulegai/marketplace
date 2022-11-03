@@ -107,6 +107,7 @@ Frontend/.idea
 Frontend/build
 Backend/.idea
 Backend/uploads
+Backend/targetColumn.txt
 
 # Misc
 .DS_Store

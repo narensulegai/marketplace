@@ -1,8 +1,4 @@
-const {
-  Employee,
-  Company,
-  CompanyPhoto,
-} = require('../../mongodb');
+const { Employee, Company, CompanyPhoto } = require('../../mongodb');
 
 module.exports = {
   update: async (req, resp) => {
@@ -35,7 +31,7 @@ module.exports = {
         ],
       })
         .populate('employee', '-resumes')
-        .sort({ createdAt: -1 }),
+        .sort({ createdAt: -1 })
     );
   },
 };

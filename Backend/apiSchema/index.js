@@ -31,6 +31,9 @@ const schema = {
   updateCompany: Joi.object({
     website: Joi.string().domain().label('Website'),
     ruleFormula: Joi.string(),
+    mlRuleEngine: Joi.boolean(),
+    dataFile: Joi.string(),
+    targetColumn: Joi.string(),
   }),
   loginEmployee: Joi.object({
     email: Joi.string().email().required().label('Email'),
