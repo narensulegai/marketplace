@@ -10,4 +10,11 @@ module.exports = {
     const { id: employeeId } = req.params;
     res.json(await Employee.findById(employeeId));
   },
+  getQuotes: async (req, res) => {
+    const company = await Company.findById(req.session.user._id);
+    const id = company._id;
+    const allEmployees = await Employee.find();
+    const employees = allEmployees.filter((e) => !!e?.variables[id]);
+    res.json(employees);
+  },
 };

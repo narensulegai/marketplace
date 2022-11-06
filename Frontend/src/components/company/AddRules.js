@@ -88,8 +88,9 @@ const AddRules = () => {
           <h4>Machine learning based Rule Engine</h4>
         </div>
         <div>
-          <label>
+          <label htmlFor="enable-rule-engine">
             <input
+              name="enable-rule-engine"
               type="checkbox"
               checked={checked}
               onChange={handleOnChange}
