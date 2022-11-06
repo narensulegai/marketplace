@@ -46,7 +46,7 @@ const Dashboard = () => {
                   </td>
                   <td>
                     {/* You can add any more parameters you want */}
-                    <a href={`#/quotes/${buyer._id}/${current._id}`}>
+                    <a href={`#/chat/${buyer._id}/${current._id}/${current.name}`}>
                       <button className="btn-primary">Chat</button>
                     </a>
                   </td>
