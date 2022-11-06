@@ -4,7 +4,7 @@ import FileUpload from '../common/FileUpload';
 
 const AddRules = () => {
   const [variables, setVariables] = useState([]);
-  const [formula, setFormula] = useState(null);
+  const [formula, setFormula] = useState('');
   const [checked, setChecked] = useState(false);
   const [dataFile, setDataFile] = useState(null);
   const [dataFileLocation, setDataFileLocation] = useState(null);
@@ -41,46 +41,47 @@ const AddRules = () => {
   };
 
   const handleOnMLSave = async () => {
-    await updateCompany({ targetColumn: targetColumn });
-    await uploadTargetColumnFile({ targetColumn: targetColumn, dataFileLocation: dataFileLocation });
+    await updateCompany({ targetColumn });
+    await uploadTargetColumnFile({ targetColumn, dataFileLocation });
     setTargetColumn(targetColumn);
   };
 
   const handleOnFileUpload = async ({ fileLocation, fileOrginalName }) => {
-    await updateCompany({ dataFile: fileOrginalName, dataFileLocation: fileLocation});
+    await updateCompany({ dataFile: fileOrginalName, dataFileLocation: fileLocation });
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
   };
 
   return (
-    <div className='row'>
-      <div className='col-12'>
+    <div className="row">
+      <div className="col-12">
         <h4>Add rules</h4>
       </div>
-      <div className='col-7'>
-        <div className='inputLabel'>Excel formula</div>
+      <div className="col-7">
+        <div className="inputLabel">Excel formula</div>
         <div>
           <textarea
             cols={60}
-            type='text'
+            type="text"
             value={formula}
             onChange={handleOnFormulaChange}
-            placeholder='IF(age>18, 100*num_of_cars, 1500)'
+            placeholder="IF(age>18, 100*num_of_cars, 1500)"
           />
         </div>
-        <div className='mt-4'>
-          <button className='btn-primary' onClick={handleOnSave}>
+        <div className="mt-4">
+          <button className="btn-primary" onClick={handleOnSave}>
             Save
           </button>
         </div>{' '}
         &nbsp;
-        <div className='inputLabel'>
+        <div className="inputLabel">
           <h4>Machine learning based Rule Engine</h4>
         </div>
         <div>
-          <label>
+          <label htmlFor="enable-rule-engine">
             <input
-              type='checkbox'
+              name="enable-rule-engine"
+              type="checkbox"
               checked={checked}
               onChange={handleOnChange}
             />
@@ -88,12 +89,12 @@ const AddRules = () => {
           </label>
           {checked && (
             <div>
-              <div className='inputLabel'>Add historical data</div>
+              <div className="inputLabel">Add historical data</div>
               <div>
                 {dataFile ? (
                   <div> {dataFile} </div>
                 ) : (
-                  <div className='inputLabel'>Upload csv file</div>
+                  <div className="inputLabel">Upload csv file</div>
                 )}
                 &nbsp;
               </div>
@@ -106,17 +107,17 @@ const AddRules = () => {
               </div>
               <div>
                 &nbsp;
-                <div className='inputLabel'>
+                <div className="inputLabel">
                   Enter the column to be predicted:
                 </div>
                 <input
-                  type='text'
+                  type="text"
                   value={targetColumn}
                   onChange={handleOnColumnChange}
                 />
               </div>
-              <div className='mt-4'>
-                <button className='btn-primary' onClick={handleOnMLSave}>
+              <div className="mt-4">
+                <button className="btn-primary" onClick={handleOnMLSave}>
                   Save
                 </button>
               </div>
@@ -124,14 +125,14 @@ const AddRules = () => {
           )}
         </div>
       </div>
-      <div className='col-5'>
-        <div className='card'>
-          <div className='card-header'>Available variables</div>
-          <div className='card-body'>
+      <div className="col-5">
+        <div className="card">
+          <div className="card-header">Available variables</div>
+          <div className="card-body">
             {variables.map((v, i) => {
               return (
                 <div key={i}>
-                  <div className='badge badge-pill badge-secondary'>{v}</div>
+                  <div className="badge badge-pill badge-secondary">{v}</div>
                 </div>
               );
             })}

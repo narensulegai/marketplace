@@ -29,6 +29,7 @@ const apiVersion = '/apiV1';
   ['put', '/login/company', handler.common.loginCompany, null, schema.loginCompany],
   ['put', '/login/employee', handler.common.loginEmployee, null, schema.loginEmployee],
   ['put', '/company', handler.company.update, 'company', schema.updateCompany],
+  ['get', '/companyQuotes', handler.company.getQuotes, 'company'],
   ['post', '/file', handler.common.uploadFile, null],
   ['post', '/uploadS3File', handler.common.uploadS3File, null],
   ['post', '/uploadColumnFile', handler.common.uploadColumnFile, null],
