@@ -1,5 +1,7 @@
-import React from 'react';
-import Paginate from '../Paginate';
+import React, { useState } from "react";
+import Paginate from "../Paginate";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -25,7 +27,9 @@ const Dashboard = () => {
               <th scope="row">1342</th>
               <td>Mark</td>
               <td>Otto</td>
-              <td><a href="mailto:mark@gmail.com">mark@gmail.com</a></td>
+              <td>
+                <a href="mailto:mark@gmail.com">mark@gmail.com</a>
+              </td>
               <td>
                 <div className="badge badge-pill badge-success">Progress</div>
               </td>
@@ -33,16 +37,27 @@ const Dashboard = () => {
                 <div className="small">15th Jan 2022, 5:20PM</div>
               </td>
               <td>
-                <button className="btn-primary">Chat</button>
+                <Link
+                  to={{
+                    pathname: `/company/123/${companyId}/chat`,
+                    companyId: "1342",
+                  }}
+                >
+                  Chat
+                </Link>
               </td>
             </tr>
             <tr>
               <th scope="row">2231</th>
               <td>Jacob</td>
               <td>Thornton</td>
-              <td><a href="mailto:jacob@gmail.com">jacob@gmail.com</a></td>
               <td>
-                <div className="badge badge-pill badge-secondary">Submitted</div>
+                <a href="mailto:jacob@gmail.com">jacob@gmail.com</a>
+              </td>
+              <td>
+                <div className="badge badge-pill badge-secondary">
+                  Submitted
+                </div>
               </td>
               <td>
                 <div className="small">15th Jan 2022, 5:30PM</div>
@@ -55,7 +70,9 @@ const Dashboard = () => {
               <th scope="row">1233</th>
               <td>Larry</td>
               <td>Bird</td>
-              <td><a href="mailto:larry@gmail.com">larry@gmail.com</a></td>
+              <td>
+                <a href="mailto:larry@gmail.com">larry@gmail.com</a>
+              </td>
               <td>
                 <div className="badge badge-pill badge-success">Progress</div>
               </td>
@@ -70,7 +87,9 @@ const Dashboard = () => {
               <th scope="row">1232</th>
               <td>Guy</td>
               <td>Larry</td>
-              <td><a href="mailto:guy@gmail.com">guy@gmail.com</a></td>
+              <td>
+                <a href="mailto:guy@gmail.com">guy@gmail.com</a>
+              </td>
               <td>
                 <div className="badge badge-pill badge-danger">Denied</div>
               </td>
@@ -85,7 +104,9 @@ const Dashboard = () => {
               <th scope="row">1212</th>
               <td>Thrump</td>
               <td>Joe</td>
-              <td><a href="mailto:thrump@gmail.com">thrump@gmail.com</a></td>
+              <td>
+                <a href="mailto:thrump@gmail.com">thrump@gmail.com</a>
+              </td>
               <td>
                 <div className="badge badge-pill badge-danger">Denied</div>
               </td>
@@ -100,12 +121,7 @@ const Dashboard = () => {
         </table>
       </div>
       <div className="col-12">
-        <Paginate
-          numItems={10}
-          onPageChange={() => {
-          }}
-          currentPage={0}
-                />
+        <Paginate numItems={10} onPageChange={() => {}} currentPage={0} />{" "}
       </div>
     </div>
   );

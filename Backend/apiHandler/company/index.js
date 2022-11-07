@@ -1,6 +1,12 @@
-const { Company, JobPosting, JobApplication, Employee, Review } = require('../../mongodb');
-const { err } = require('../util');
-const kModules = require('../../modules');
+const {
+  Company,
+  JobPosting,
+  JobApplication,
+  Employee,
+  Review,
+} = require("../../mongodb");
+const { err } = require("../util");
+const kModules = require("../../modules");
 
 module.exports = {
   update: async (req, resp) => {
@@ -16,21 +22,23 @@ module.exports = {
   },
   getJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
-    res.json(await JobPosting
-      .find({ company: companyId })
-      .sort({ createdAt: -1 }));
+    res.json(
+      await JobPosting.find({ company: companyId }).sort({ createdAt: -1 })
+    );
   },
   getJobPostingByCompanyId: async (req, res) => {
     const companyId = req.params.id;
-    res.json(await JobPosting
-      .find({ company: companyId })
-      .sort({ createdAt: -1 }));
+    res.json(
+      await JobPosting.find({ company: companyId }).sort({ createdAt: -1 })
+    );
   },
   jobApplications: async (req, res) => {
     const companyId = req.session.user._id;
-    res.json(await JobApplication.find({ company: companyId })
-      .populate('job')
-      .populate('employee'));
+    res.json(
+      await JobApplication.find({ company: companyId })
+        .populate("job")
+        .populate("employee")
+    );
   },
   getEmployee: async (req, res) => {
     const { id: employeeId } = req.params;
@@ -43,7 +51,7 @@ module.exports = {
     const { status } = req.body;
     jobApp.status = status;
     if (jobApp.company.toString() !== companyId) {
-      res.status(400).json(err('Job application not found'));
+      res.status(400).json(err("Job application not found"));
     } else {
       res.json(await jobApp.save());
     }
@@ -53,30 +61,40 @@ module.exports = {
     const d = new Date();
     d.setFullYear(d.getFullYear() - 1);
     // Job posting in the last year
-    const jobPosting = await JobPosting.find({ company: companyId, createdAt: { $gt: d } });
+    const jobPosting = await JobPosting.find({
+      company: companyId,
+      createdAt: { $gt: d },
+    });
     const jobIds = jobPosting.map((j) => j._id);
-    res.json(await JobApplication.find({ job: jobIds })
-      .populate('employee')
-      .populate('job'));
+    res.json(
+      await JobApplication.find({ job: jobIds })
+        .populate("employee")
+        .populate("job")
+    );
   },
   getCompanyReportByCompanyId: async (req, res) => {
     const companyId = req.params.id;
     const d = new Date();
     d.setFullYear(d.getFullYear() - 1);
     // Job posting in the last year
-    const jobPosting = await JobPosting.find({ company: companyId, createdAt: { $gt: d } });
+    const jobPosting = await JobPosting.find({
+      company: companyId,
+      createdAt: { $gt: d },
+    });
     const jobIds = jobPosting.map((j) => j._id);
-    res.json(await JobApplication.find({ job: jobIds })
-      .populate('employee')
-      .populate('job'));
+    res.json(
+      await JobApplication.find({ job: jobIds })
+        .populate("employee")
+        .populate("job")
+    );
   },
   getCompanyReviews: async (req, res) => {
     const companyId = req.session.user._id;
     const reviews = await Review.find({
       company: companyId,
     })
-      .populate('company', 'name')
-      .populate('employee', 'email');
+      .populate("company", "name")
+      .populate("employee", "email");
     res.json(reviews);
   },
   markFavorite: async (req, res) => {
@@ -91,7 +109,7 @@ module.exports = {
       review.favorite = true;
       company.favoriteReviews.push(reviewId);
     }
-    res.json(await company.save() && await review.save());
+    res.json((await company.save()) && (await review.save()));
   },
   updateFeaturedReview: async (req, res) => {
     const { reviewId } = req.params;
@@ -104,7 +122,7 @@ module.exports = {
     const review = await Review.findById(reviewId);
     company.featuredReview = reviewId;
     review.featured = true;
-    res.json(await company.save() && await review.save());
+    res.json((await company.save()) && (await review.save()));
   },
   addReply: async (req, res) => {
     const { reviewId } = req.params;
