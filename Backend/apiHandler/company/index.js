@@ -1,12 +1,5 @@
-const {
-  Company,
-  JobPosting,
-  JobApplication,
-  Employee,
-  Review,
-} = require("../../mongodb");
+const { Company, Employee } = require("../../mongodb");
 const { err } = require("../util");
-const kModules = require("../../modules");
 
 module.exports = {
   update: async (req, resp) => {
@@ -16,7 +9,7 @@ module.exports = {
   },
   addJobPosting: async (req, res) => {
     const companyId = req.session.user._id;
-    res.json(await kModules.addJobPosting(companyId, req.body));
+    //res.json(await kModules.addJobPosting(companyId, req.body));
     // Using Kafka
     // res.json(req.requestKafka('addJobPosting', companyId, req.body));
   },

@@ -6,7 +6,6 @@ module.exports = {
     }).populate({
       path: "messages",
       options: {
-        limit: 10,
         sort: { created: -1 },
       },
     });
