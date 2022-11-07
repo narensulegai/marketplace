@@ -3,15 +3,36 @@ import { withRouter } from "react-router-dom";
 import Login from "./Login";
 import { currentUser } from "../util/fetch/api";
 
+import Draggable from "react-draggable";
+import Minimize from "@mui/icons-material/ChatBubble";
+import Maximize from "@mui/icons-material/ChatBubble";
+import { IconButton } from "@mui/material";
+import config from "./chatbot/config.js";
+//import getConfig from ".././chatbot/getConfig.js";
+import Chatbot from "react-chatbot-kit";
+import "react-chatbot-kit/build/main.css";
+import MessageParser from "./chatbot/MessageParser.js";
+import ActionProvider from "./chatbot/ActionProvider.js";
+
 export class Landing extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      minimizeBot: false,
+    };
   }
   async componentDidMount() {
     const { scope } = await currentUser();
     if (scope === null) return;
     this.props.history.push("/company/overview");
   }
+
+  setMinimizeBot = () => {
+    const minimizeBot = this.state.minimizeBot;
+    this.setState({
+      minimizeBot: !minimizeBot,
+    });
+  };
 
   handleOnLogin = () => {
     this.props.history.push("/company/overview");
@@ -36,6 +57,38 @@ export class Landing extends PureComponent {
             <div className="mt-4"></div>
           </div>
           <div className="col-3" />
+        </div>
+        <div>
+          {this.state.minimizeBot ? (
+            <Draggable>
+              <div className="appChatbotContainer_3u5t">
+                <Chatbot
+                  config={config}
+                  messageParser={MessageParser}
+                  actionProvider={ActionProvider}
+                />
+                <IconButton
+                  style={{ height: "50px" }}
+                  onClick={this.setMinimizeBot}
+                  className="btn-overlay"
+                >
+                  <Minimize />
+                </IconButton>
+              </div>
+            </Draggable>
+          ) : (
+            <Draggable>
+              <div className="appChatbotContainer_3u5t">
+                <div className="react-chatbot-kit-chat-container">
+                  <div className="react-chatbot-kit-chat-header">
+                    <IconButton onClick={this.setMinimizeBot}>
+                      <Maximize />
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
+            </Draggable>
+          )}
         </div>
       </div>
     );
