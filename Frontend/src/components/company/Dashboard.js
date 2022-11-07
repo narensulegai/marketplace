@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 // import Paginate from '../Paginate';
-import { currentUser, getCompanyQuotes } from '../../util/fetch/api';
+import { currentUser, getCompanyQuotes } from "../../util/fetch/api";
 
 const Dashboard = () => {
   const [quotes, setQuotes] = useState([]);
@@ -35,9 +35,13 @@ const Dashboard = () => {
               return (
                 <tr key={buyer._id}>
                   <td>{buyer.name}</td>
-                  <td><a href={`mailto:${buyer.email}`}>{buyer.email}</a></td>
                   <td>
-                    <div className="badge badge-pill badge-success">Progress</div>
+                    <a href={`mailto:${buyer.email}`}>{buyer.email}</a>
+                  </td>
+                  <td>
+                    <div className="badge badge-pill badge-success">
+                      Progress
+                    </div>
                   </td>
                   <td>
                     <div className="small">
@@ -46,7 +50,9 @@ const Dashboard = () => {
                   </td>
                   <td>
                     {/* You can add any more parameters you want */}
-                    <a href={`#/chat/${buyer._id}/${current._id}/${current.name}`}>
+                    <a
+                      href={`#/chat/${buyer._id}/${current._id}/${current.name}`}
+                    >
                       <button className="btn-primary">Chat</button>
                     </a>
                   </td>
