@@ -102,6 +102,7 @@ const apiVersion = "/apiV1";
           const messages = error.details.map((d) => d.message);
           resp.status(400).json(err(messages[0]));
         } else {
+          req.requestKafka = callAndWait;
           next();
         }
       } else {

@@ -23,6 +23,7 @@ function App() {
           <Landing />
         </Route>
         <Route path="/buyer/:id" exact component={BuyerLanding} />
+
         <Route path="/company">
           <CompanyMain />
         </Route>
