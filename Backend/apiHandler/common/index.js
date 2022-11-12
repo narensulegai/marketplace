@@ -57,7 +57,7 @@ module.exports = {
     let user = {};
     if (req.session.scope === 'company') {
       user = await Company.findById(req.session.user._id);
-      const companyName = user.name;
+      const companyName = (user.name).split(' ').join('');
       let fileOrginalName;
       const csvFileUpload = multer({
         storage: multerS3({
@@ -67,7 +67,6 @@ module.exports = {
           key: (req, file, cb) => {
             fileOrginalName = file.originalname;
             const fileName = companyName + fileOrginalName;
-            console.log(fileName, file.originalname);
             cb(null, `${companyName}/${fileName}`);
           },
         }),
@@ -93,7 +92,7 @@ module.exports = {
     let user = {};
     if (req.session.scope === 'company') {
       user = await Company.findById(req.session.user._id);
-      const companyName = user.name;
+      const companyName = (user.name).split(' ').join('');
       const data = Buffer.from(JSON.stringify(req.body), 'utf-8');
       const params = {
         ACL: 'public-read',

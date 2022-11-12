@@ -11,7 +11,7 @@ const FileUpload = ({ singleFile, accept, onUpload }) => {
       data.append('files', file, file.name);
     }
     const token = localStorage.getItem('token');
-    if (accept == 'image/*') {
+    if (accept === 'image/*') {
       fetch(`${apiUrl}/file`, {
         headers: { authorization: token },
         method: 'POST',
@@ -19,7 +19,7 @@ const FileUpload = ({ singleFile, accept, onUpload }) => {
       })
         .then((response) => response.json())
         .then(onUpload);
-    } else if (accept == 'text/csv') {
+    } else if (accept === 'text/csv') {
       fetch(`${apiUrl}/uploadS3File`, {
         headers: { authorization: token },
         method: 'POST',
