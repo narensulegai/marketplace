@@ -1,5 +1,4 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -13,9 +12,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+import UserIcon from "@material-ui/icons/SupervisedUserCircle";
+import PolicyIcon from "@material-ui/icons/";
+import { formatTime } from "../../util";
 import {
   currentUser as getCurrentUser,
   getChats,
+  getUser,
   sendMessage,
 } from "../../util/fetch/api";
 
@@ -27,29 +30,53 @@ class ChatPanel extends React.Component {
       user: "",
       currentUser: "",
       selectedChatId: "",
+      channels: [],
       text: "",
       user2: "",
+      messages: [],
+      companyId: "",
+      userId: "",
     };
   }
 
   componentDidMount = () => {
-    this.getUser();
+    const companyId = window.location.href.split("/")[6];
+    const userId = window.location.href.split("/")[5];
+    this.setState({
+      companyId,
+      userId,
+    });
+    this.getLoggedInUser();
     this.subscribe();
-    const policy = window.location.href.split("/")[5];
-    if (policy !== "undefined") {
-      this.selectedChat(policy);
+    if (userId !== "undefined") {
+      this.getUser2(userId);
     }
   };
 
-  getUser = async () => {
-    const { user } = await getCurrentUser();
+  getUser2 = async (id) => {
+    const user = await getUser(id);
+    let chats = this.state.chats;
+    if (chats.filter((c) => c._id === user._id).length === 0) {
+      chats.push({ name: user.name, _id: user._id, channel: user.name });
+      this.setState({
+        chats,
+      });
+    }
+    this.selectedChat(chats.filter((c) => c._id === user._id)[0]);
+  };
+
+  getLoggedInUser = async () => {
+    const user = await getCurrentUser();
     this.setState({
       user,
     });
   };
 
   subscribe = async () => {
-    let response = await getChats("123");
+    let response = [];
+    if (this.state.user.user !== undefined) {
+      response = await getChats(this.state.user.user._id);
+    }
 
     if (response.status == 502) {
       // Status 502 is a connection timeout error,
@@ -60,12 +87,44 @@ class ChatPanel extends React.Component {
     } else if (response.status != 200) {
       // An error - let's show it
       let channels = await response;
+
+      let oldChannels = this.state.channels;
+      for (let i = 0; i < channels.length; i++) {
+        if (
+          this.state.user.user._id !== channels[i].sender._id &&
+          oldChannels.filter(
+            (c) =>
+              channels[i].sender.name === c.name &&
+              channels[i].sender._id === c._id
+          ).length == 0
+        ) {
+          oldChannels.push({
+            name: channels[i].sender.name,
+            _id: channels[i].sender._id,
+            channel: channels[i].channel,
+          });
+        } else if (
+          this.state.user.user._id !== channels[i].receiver._id &&
+          oldChannels.filter(
+            (c) =>
+              channels[i].receiver.name === c.name &&
+              channels[i].receiver._id === c._id
+          ).length == 0
+        ) {
+          oldChannels.push({
+            name: channels[i].receiver.name,
+            _id: channels[i].receiver._id,
+            channel: channels[i].channel,
+          });
+        }
+      }
       this.setState({
-        chats: channels,
+        chats: oldChannels,
+        messages: channels,
       });
 
       // Reconnect in one second
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       await this.subscribe();
     } else {
       // Get and show the message
@@ -80,10 +139,16 @@ class ChatPanel extends React.Component {
 
   handleSendMessage = async () => {
     const message = {
-      user1: this.state.user._id,
-      user2: this.state.selectedChatId.user2,
-      msg: this.state.text,
-      channel: this.state.selectedChatId._id,
+      user1: {
+        user: this.state.user.user._id,
+        type: this.state.user.scope,
+      },
+      user2: {
+        user: this.state.selectedChatId._id,
+        type: this.state.user.scope === "company" ? "employee" : "company",
+      },
+      text: this.state.text,
+      channel: this.state.selectedChatId.channel,
     };
     sendMessage(message).then((response) => {
       console.log(response);
@@ -93,17 +158,15 @@ class ChatPanel extends React.Component {
     });
   };
 
-  selectedChat = async (id) => {
-    const chat = this.state.chats.filter((c) => c._id === id);
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
 
-    if (
-      this.state.selectedChatId._id === undefined ||
-      id._id != this.state.selectedChatId._id
-    ) {
-      this.setState({
-        selectedChatId: id,
-      });
-    }
+  selectedChat = async (id) => {
+    this.setState({
+      selectedChatId: id,
+    });
+    //this.scrollToBottom();
   };
 
   handleText = (e) => {
@@ -158,7 +221,13 @@ class ChatPanel extends React.Component {
                     src="https://material-ui.com/static/images/avatar/1.jpg"
                   />
                 </ListItemIcon>
-                <ListItemText primary={this.state.user.name}></ListItemText>
+                <ListItemText
+                  primary={
+                    this.state.user.user !== undefined
+                      ? this.state.user.user.name
+                      : ""
+                  }
+                ></ListItemText>
               </ListItem>
             </List>
             <Divider />
@@ -172,22 +241,18 @@ class ChatPanel extends React.Component {
             </Grid>
             <Divider />
             <List>
-              {chats.length > 0 &&
-                chats.map((m) => {
+              {this.state.chats.length > 0 &&
+                this.state.chats.map((c) => {
                   return (
                     <>
-                      <ListItem
-                        button
-                        key="RemySharp"
-                        onClick={() => this.selectedChat(m)}
-                      >
+                      <ListItem button key="RemySharp">
                         <ListItemIcon>
-                          <Avatar
-                            alt="Remy Sharp"
-                            src="https://material-ui.com/static/images/avatar/1.jpg"
-                          />
+                          <Avatar alt={c.channel} />
                         </ListItemIcon>
-                        <ListItemText primary={m.channel}></ListItemText>
+                        <ListItemText
+                          primary={c.name}
+                          onClick={() => this.selectedChat(c)}
+                        ></ListItemText>
                       </ListItem>
                       <Divider />
                     </>
@@ -203,59 +268,72 @@ class ChatPanel extends React.Component {
               overflowY: "auto",
             }}
           >
+            <ListItemIcon>
+              <Avatar alt={this.state.selectedChatId.name} />
+              <h3 style={{ position: "sticky" }}>
+                {" "}
+                {this.state.selectedChatId.name}
+              </h3>
+            </ListItemIcon>
+            <Divider />
             <List
               style={{
                 width: "calc( 100% - 20px )",
                 margin: 10,
                 overflowY: "scroll",
-                height: "calc( 100% - 95px )",
+                height: "calc( 100% - 130px )",
               }}
             >
-              {chats.length > 0 &&
-              chats.filter((c) => c._id == this.state.selectedChatId._id)
-                .length > 0 ? (
-                chats
-                  .filter((c) => c._id == this.state.selectedChatId._id)[0]
-                  .messages.map((m) => {
-                    return (
-                      <ListItem key={m._id} border="1px solid">
-                        <Grid container>
-                          {this.state.user._id === m.user1 ? (
-                            <Grid item xs={12}>
-                              <h5 align="right">You</h5>
-
-                              <ListItemText
-                                align="right"
-                                primary={m.msg}
-                                secondary={m.createdAt}
-                              ></ListItemText>
-                            </Grid>
-                          ) : (
-                            <Grid item xs={12}>
-                              {this.state.user.website !== undefined ? (
-                                <h5 align="left">Buyer</h5>
-                              ) : (
-                                <h5 align="left">Seller</h5>
-                              )}
-                              <ListItemText
-                                align="left"
-                                primary={m.msg}
-                                secondary={m.createdAt}
-                              ></ListItemText>
-                            </Grid>
-                          )}
-                        </Grid>
-                      </ListItem>
-                    );
-                  })
-              ) : (
-                <ListItem key="1"></ListItem>
-              )}
+              {this.state.messages
+                .filter(
+                  (c) =>
+                    c.sender.name == this.state.selectedChatId.name ||
+                    c.receiver.name == this.state.selectedChatId.name
+                )
+                .map((m) => {
+                  return (
+                    <ListItem key={m.name} border="1px solid">
+                      <Grid container>
+                        {this.state.user.user.name === m.sender.name ? (
+                          <Grid item xs={12}>
+                            <h5 align="right">{m.sender.name}</h5>
+                            <ListItemText
+                              align="right"
+                              primary={m.text}
+                              secondary={formatTime(m.createdAt)}
+                            ></ListItemText>
+                          </Grid>
+                        ) : (
+                          <Grid item xs={12}>
+                            <h5 align="left"> {m.sender.name}</h5>
+                            <ListItemText
+                              align="left"
+                              primary={m.text}
+                              secondary={formatTime(m.createdAt)}
+                            ></ListItemText>
+                          </Grid>
+                        )}
+                      </Grid>
+                    </ListItem>
+                  );
+                })}
+              <div
+                style={{ float: "left", clear: "both" }}
+                ref={(el) => {
+                  this.messagesEnd = el;
+                }}
+              ></div>
             </List>
-
             <Divider />
-            <Grid container style={{ padding: "20px", "box-shadow": "none" }}>
-              <Grid item xs={11}>
+            <Grid
+              container
+              style={{
+                padding: "10px",
+                "box-shadow": "none",
+                position: "sticky",
+              }}
+            >
+              <Grid item xs={10}>
                 <TextField
                   id="outlined-basic-email"
                   label="Type Something"
@@ -263,6 +341,7 @@ class ChatPanel extends React.Component {
                   size="lg"
                   style={{ "box-shadow": "none", background: "none" }}
                   onChange={this.handleText}
+                  value={this.state.text}
                 />
               </Grid>
               <Grid xs={1} align="right">

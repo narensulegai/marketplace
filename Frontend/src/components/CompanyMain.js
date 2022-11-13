@@ -20,6 +20,7 @@ import ActionProvider from "./chatbot/ActionProvider.js";
 
 const CompanyMain = () => {
   const { id: companyId } = useParams();
+  const { id: userId } = useParams();
   const [minimizeBot, setMinimizeBot] = useState(false);
   return (
     <>
@@ -39,7 +40,10 @@ const CompanyMain = () => {
         <a className="nav-link text-light" href="#/company/addRules">
           Add Rules
         </a>
-        <a className="nav-link text-light" href={`#/company/${companyId}/chat`}>
+        <a
+          className="nav-link text-light"
+          href={`#/company/${userId}/${companyId}/chat`}
+        >
           Chat
         </a>
         <a className="nav-link" href="#/logout">
@@ -47,64 +51,22 @@ const CompanyMain = () => {
         </a>
       </nav>
       <div className="container mt-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-9">
-              <Route path="/company/overview" exact>
-                <Overview />
-              </Route>
-              <Route path="/company/dashboard" exact>
-                <Dashboard />
-              </Route>
-              <Route path="/company/formBuilder" exact>
-                <FormBuilder />
-                {/* <BuildWebsite /> */}
-              </Route>
-              <Route path="/company/addRules" exact>
-                <AddRules />
-              </Route>
-              <Route path={`/company/${companyId}/chat`} exact>
-                <ChatPanel />
-              </Route>
-            </div>
-            <div className="col-3">
-              <div className="mt-3">
-                {minimizeBot ? (
-                  <Draggable>
-                    <div className="appChatbotContainer_3u5t">
-                      <Chatbot
-                        config={config}
-                        messageParser={MessageParser}
-                        actionProvider={ActionProvider}
-                      />
-                      <IconButton
-                        style={{ height: "50px" }}
-                        onClick={() => setMinimizeBot(!minimizeBot)}
-                        className="btn-overlay"
-                      >
-                        <Minimize />
-                      </IconButton>
-                    </div>
-                  </Draggable>
-                ) : (
-                  <Draggable>
-                    <div className="appChatbotContainer_3u5t">
-                      <div className="react-chatbot-kit-chat-container">
-                        <div className="react-chatbot-kit-chat-header">
-                          <IconButton
-                            onClick={() => setMinimizeBot(!minimizeBot)}
-                          >
-                            <Maximize />
-                          </IconButton>
-                        </div>
-                      </div>
-                    </div>
-                  </Draggable>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <Route path="/company/overview" exact>
+          <Overview />
+        </Route>
+        <Route path="/company/dashboard" exact>
+          <Dashboard />
+        </Route>
+        <Route path="/company/formBuilder" exact>
+          <FormBuilder />
+          {/* <BuildWebsite /> */}
+        </Route>
+        <Route path="/company/addRules" exact>
+          <AddRules />
+        </Route>
+        <Route path="/company/:userId/:currentId/chat" exact>
+          <ChatPanel />
+        </Route>
       </div>
     </>
   );

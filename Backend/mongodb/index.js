@@ -22,10 +22,12 @@ const Company = require("./schemas/company")(mongoose);
 const Employee = require("./schemas/employee")(mongoose);
 const Chat = require("./schemas/chat")(mongoose);
 const Messages = require("./schemas/message")(mongoose);
+const ChatUser = require("./schemas/chatUser")(mongoose);
 
 module.exports = {
   Company,
   Employee,
   Chat,
   Messages,
+  ChatUser,
 };

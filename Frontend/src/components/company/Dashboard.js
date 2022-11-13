@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [current, setCurrent] = useState({});
   useEffect(() => {
     (async () => {
-      setQuotes(await getCompanyQuotes());
+      setQuotes([]);
       const { user } = await currentUser();
       setCurrent(user);
     })();
@@ -50,9 +50,7 @@ const Dashboard = () => {
                   </td>
                   <td>
                     {/* You can add any more parameters you want */}
-                    <a
-                      href={`#/chat/${buyer._id}/${current._id}/${current.name}`}
-                    >
+                    <a href={`#/company/${buyer._id}/${current._id}/chat`}>
                       <button className="btn-primary">Chat</button>
                     </a>
                   </td>

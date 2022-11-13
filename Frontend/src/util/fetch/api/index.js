@@ -2,6 +2,7 @@ import { get, post, destroy, put, apiUrl } from "..";
 
 export const currentUser = () => get("currentUser");
 export const getChats = (id) => get(`chats/${id}`);
+export const getUser = (id) => get(`users/getUser/${id}`);
 export const loginUser = (type, d) => put(`login/${type}`, d);
 export const sendMessage = (d) => post("chats/sendMessage", d);
 export const signupCompany = (d) => post("signup/company", d);

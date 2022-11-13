@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { ReactFormGenerator } from 'react-form-builder2';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { ReactFormGenerator } from "react-form-builder2";
 import {
   currentUser as getCurrentUser,
   getCompany,
   updateEmployee,
-} from '../../util/fetch/api';
-import { formulaParser } from '../../util';
+} from "../../util/fetch/api";
+import { formulaParser } from "../../util";
 
 const Questioner = () => {
   const { id: companyId } = useParams();
@@ -24,7 +24,7 @@ const Questioner = () => {
       setCurrentUser(user);
       setForm(company.formData);
       setFormula(company.ruleFormula);
-      if (companyId in user.variables) {
+      if (user.variables !== undefined && companyId in user.variables) {
         setVariables(user.variables[companyId]);
       }
       setLoading(false);
@@ -40,7 +40,7 @@ const Questioner = () => {
   };
 
   const handleSubmitAnswers = async (variables) => {
-    if (!('variables' in currentUser)) {
+    if (!("variables" in currentUser)) {
       currentUser.variables = {};
     }
     currentUser.variables[companyId] = variables;
@@ -51,8 +51,8 @@ const Questioner = () => {
   };
 
   return (
-    <div className='row'>
-      <div className='col-12'>
+    <div className="row">
+      <div className="col-12">
         <h2>Questioner</h2>
         {loading ? (
           <div>Loading...</div>
@@ -61,10 +61,10 @@ const Questioner = () => {
             data={form}
             answer_data={variables}
             onSubmit={handleSubmitAnswers}
-            submitButton={<button className='btn-danger'>Get Quote</button>}
+            submitButton={<button className="btn-danger">Get Quote</button>}
           />
         )}
-        <div className='smallMarginTop'>
+        <div className="smallMarginTop">
           {quote && (
             <h5>
               Your quote is <b>${quote}</b>

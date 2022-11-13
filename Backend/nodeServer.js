@@ -66,6 +66,7 @@ const apiVersion = "/apiV1";
   ["get", "/chats/:id", handler.chat.getChats, "chat"],
   ["post", "/chats/sendMessage/", handler.chat.sendMessage, "chat"],
   ["post", "/chats/createChat/", handler.chat.createChannel, "chat"],
+  ["get", "/users/getUser/:id", handler.chat.getCompanyOrEmployee, "chat"],
 ].forEach((r) => {
   app[r[0]](
     apiVersion + r[1],
@@ -102,7 +103,6 @@ const apiVersion = "/apiV1";
           const messages = error.details.map((d) => d.message);
           resp.status(400).json(err(messages[0]));
         } else {
-          req.requestKafka = callAndWait;
           next();
         }
       } else {

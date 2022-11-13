@@ -14,7 +14,11 @@ const config = {
     },
   ],
   state: {
-    options: ["Find a policy", "Purchase History", "Chat with agent"],
+    options: [
+      "Find a policy",
+      "Find your quotations",
+      "Chat with insurance provider",
+    ],
   },
 };
 
