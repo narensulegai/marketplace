@@ -5,6 +5,7 @@ import Dashboard from './company/Dashboard';
 // import BuildWebsite from './company/BuildWebsite';
 import AddRules from './company/AddRules';
 import FormBuilder from './company/FormBuilder';
+import Analytics from './company/Analytics/Analytics';
 
 const CompanyMain = () => {
   return (
@@ -15,6 +16,7 @@ const CompanyMain = () => {
         <a className="nav-link text-light" href="#/company/dashboard">Dashboard</a>
         <a className="nav-link text-light" href="#/company/formBuilder">Build website</a>
         <a className="nav-link text-light" href="#/company/addRules">Add Rules</a>
+        <a className="nav-link text-light" href="#/company/analytics">Analytics</a>
         <a className="nav-link" href="#/logout">Logout</a>
       </nav>
       <div className="container mt-3">
@@ -30,6 +32,9 @@ const CompanyMain = () => {
         </Route>
         <Route path="/company/addRules" exact>
           <AddRules />
+        </Route>
+        <Route path="/company/analytics" exact>
+          <Analytics />
         </Route>
       </div>
     </>
