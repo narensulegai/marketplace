@@ -58,38 +58,6 @@ export class Landing extends PureComponent {
           </div>
           <div className="col-3" />
         </div>
-        <div>
-          {this.state.minimizeBot ? (
-            <Draggable>
-              <div className="appChatbotContainer_3u5t">
-                <Chatbot
-                  config={config}
-                  messageParser={MessageParser}
-                  actionProvider={ActionProvider}
-                />
-                <IconButton
-                  style={{ height: "50px" }}
-                  onClick={this.setMinimizeBot}
-                  className="btn-overlay"
-                >
-                  <Minimize />
-                </IconButton>
-              </div>
-            </Draggable>
-          ) : (
-            <Draggable>
-              <div className="appChatbotContainer_3u5t">
-                <div className="react-chatbot-kit-chat-container">
-                  <div className="react-chatbot-kit-chat-header">
-                    <IconButton onClick={this.setMinimizeBot}>
-                      <Maximize />
-                    </IconButton>
-                  </div>
-                </div>
-              </div>
-            </Draggable>
-          )}
-        </div>
       </div>
     );
   }

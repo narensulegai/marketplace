@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [current, setCurrent] = useState({});
   useEffect(() => {
     (async () => {
-      setQuotes([]);
+      setQuotes(await getCompanyQuotes());
       const { user } = await currentUser();
       setCurrent(user);
     })();
