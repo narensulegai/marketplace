@@ -25,7 +25,7 @@ const Signup = ({ type, history }) => {
       signupEmployee(d)
         .then(({ token }) => {
           window.localStorage.setItem('token', token);
-          history.push('/buyer/search');
+          history.push(`/buyer/${window.location.hash.split('/').at(-1)}/questioner`);
         });
     }
   };

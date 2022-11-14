@@ -27,10 +27,9 @@ const Questioner = () => {
       setCurrentUser(user);
       setForm(company.formData);
       setFormula(company.ruleFormula);
-      if (companyId in user.variables) {
+      if (user.variables && companyId in user.variables) {
         setVariables(user.variables[companyId]);
       }
-      // setVariables(company.variables);
       setMlRuleEngine(company.mlRuleEngine);
       setMlJobCompletion(company.mlJobCompletion);
       setLoading(false);
@@ -52,25 +51,22 @@ const Questioner = () => {
     currentUser.variables[companyId] = variables;
     await updateEmployee(currentUser);
     setVariables(variables);
-    let data= [];
-    if(mlRuleEngine && mlJobCompletion === 'Completed'){
-      console.log("here")
-      variables.forEach(variable => {
-        data.push(variable['value']);
-      })
-      const mlQuote = await getMlQuote({'id' : companyId, 'data': data});
-      console.log(mlQuote['Quotation']);
-      setQuote(mlQuote['Quotation'].toFixed(2));
-    }else{
+    const data = [];
+    if (mlRuleEngine && mlJobCompletion === 'Completed') {
+      variables.forEach((variable) => {
+        data.push(variable.value);
+      });
+      const mlQuote = await getMlQuote({ id: companyId, data });
+      setQuote(mlQuote.Quotation.toFixed(2));
+    } else {
       const quote = getQuote(formula, variables);
       setQuote(quote);
     }
-    
   };
 
   return (
-    <div className='row'>
-      <div className='col-12'>
+    <div className="row">
+      <div className="col-12">
         <h2>Questioner</h2>
         {loading ? (
           <div>Loading...</div>
@@ -79,10 +75,10 @@ const Questioner = () => {
             data={form}
             answer_data={variables}
             onSubmit={handleSubmitAnswers}
-            submitButton={<button className='btn-danger'>Get Quote</button>}
+            submitButton={<button className="btn-danger">Get Quote</button>}
           />
         )}
-        <div className='smallMarginTop'>
+        <div className="smallMarginTop">
           {quote && (
             <h5>
               Your quote is <b>${quote}</b>
