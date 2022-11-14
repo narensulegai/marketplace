@@ -6,6 +6,7 @@ import {
   getCompany,
   updateEmployee,
 } from "../../util/fetch/api";
+import { getMlQuote } from "../../util/mlFetch/mlApi";
 import { formulaParser } from "../../util";
 
 const Questioner = () => {
@@ -15,6 +16,8 @@ const Questioner = () => {
   const [variables, setVariables] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
+  const [mlRuleEngine, setMlRuleEngine] = useState(false);
+  const [mlJobCompletion, setMlJobCompletion] = useState(null);
   const [quote, setQuote] = useState(null);
 
   useEffect(() => {
@@ -27,6 +30,9 @@ const Questioner = () => {
       if (user.variables !== undefined && companyId in user.variables) {
         setVariables(user.variables[companyId]);
       }
+      // setVariables(company.variables);
+      setMlRuleEngine(company.mlRuleEngine);
+      setMlJobCompletion(company.mlJobCompletion);
       setLoading(false);
     })();
   }, [companyId]);
@@ -46,8 +52,19 @@ const Questioner = () => {
     currentUser.variables[companyId] = variables;
     await updateEmployee(currentUser);
     setVariables(variables);
-    const quote = getQuote(formula, variables);
-    setQuote(quote);
+    let data = [];
+    if (mlRuleEngine && mlJobCompletion === "Completed") {
+      console.log("here");
+      variables.forEach((variable) => {
+        data.push(variable["value"]);
+      });
+      const mlQuote = await getMlQuote({ id: companyId, data: data });
+      console.log(mlQuote["Quotation"]);
+      setQuote(mlQuote["Quotation"].toFixed(2));
+    } else {
+      const quote = getQuote(formula, variables);
+      setQuote(quote);
+    }
   };
 
   return (

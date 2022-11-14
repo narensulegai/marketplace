@@ -72,6 +72,7 @@ typings/
 # dotenv environment variables file
 #.env
 .env.test
+.env.*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -107,7 +108,11 @@ Frontend/.idea
 Frontend/build
 Backend/.idea
 Backend/uploads
-Backend/targetColumn.txt
+ 
+Machine_Learning/__pycache__
+Machine_Learning/apiHandler/__pycache__
+Machine_Learning/models/__pycache__
+Machine_Learning/routes/__pycache__
 
 # Misc
 .DS_Store
