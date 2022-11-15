@@ -35,5 +35,5 @@ module.exports = (mongoose) => {
     }
   );
 
-  return mongoose.model('Company', companySchema);
+  return mongoose.model("Company", companySchema);
 };

@@ -1,4 +1,4 @@
-const { Employee, Company, CompanyPhoto } = require('../../mongodb');
+const { Employee, Company, CompanyPhoto } = require("../../mongodb");
 
 module.exports = {
   update: async (req, resp) => {
@@ -27,10 +27,10 @@ module.exports = {
       await CompanyPhoto.find({
         $and: [
           { company: companyId },
-          { $or: [{ employee: req.session.user._id }, { status: 'approved' }] },
+          { $or: [{ employee: req.session.user._id }, { status: "approved" }] },
         ],
       })
-        .populate('employee', '-resumes')
+        .populate("employee", "-resumes")
         .sort({ createdAt: -1 })
     );
   },
