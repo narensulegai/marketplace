@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { ReactFormGenerator } from 'react-form-builder2';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { ReactFormGenerator } from "react-form-builder2";
 import {
   currentUser as getCurrentUser,
   getCompany,
   updateEmployee,
-} from '../../util/fetch/api';
-import { getMlQuote } from '../../util/mlFetch/mlApi';
-import { formulaParser } from '../../util';
+} from "../../util/fetch/api";
+import { getMlQuote } from "../../util/mlFetch/mlApi";
+import { formulaParser } from "../../util";
 
 const Questioner = () => {
   const { id: companyId } = useParams();
@@ -37,9 +37,9 @@ const Questioner = () => {
   }, [companyId]);
 
   const parseValue = (value) => {
-    if (typeof value === 'string') return value;
-    if (Array.isArray(value)) return value.map(parseValue).join(':');
-    if (typeof value === 'object') return value.key || value.text;
+    if (typeof value === "string") return value;
+    if (Array.isArray(value)) return value.map(parseValue).join(":");
+    if (typeof value === "object") return value.key || value.text;
     return value;
   };
   // use this function
@@ -57,14 +57,14 @@ const Questioner = () => {
   };
 
   const handleSubmitAnswers = async (variables) => {
-    if (!('variables' in currentUser)) {
+    if (!("variables" in currentUser)) {
       currentUser.variables = {};
     }
     currentUser.variables[companyId] = variables;
     await updateEmployee(currentUser);
     setVariables(variables);
     const data = [];
-    if (mlRuleEngine && mlJobCompletion === 'Completed') {
+    if (mlRuleEngine && mlJobCompletion === "Completed") {
       // {input: '100', textarea: '1000', radio: 'radio2:radio2', checkbox: 'checkbox1'}
       // valuesToKeyValues(variable)
       variables.forEach((variable) => {

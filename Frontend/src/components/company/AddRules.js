@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  currentUser, updateCompany, uploadTargetColumnFile, getCompany,
-} from '../../util/fetch/api';
-import { createModel } from '../../util/mlFetch/mlApi';
-import FileUpload from '../common/FileUpload';
-import ProgressBar from '../common/ProgressBar';
+  currentUser,
+  updateCompany,
+  uploadTargetColumnFile,
+  getCompany,
+} from "../../util/fetch/api";
+import { createModel } from "../../util/mlFetch/mlApi";
+import FileUpload from "../common/FileUpload";
+import ProgressBar from "../common/ProgressBar";
 
 const AddRules = () => {
   const [variables, setVariables] = useState([]);
-  const [formula, setFormula] = useState('');
+  const [formula, setFormula] = useState("");
   const [checked, setChecked] = useState(false);
   const [dataFile, setDataFile] = useState(null);
   const [dataFileLocation, setDataFileLocation] = useState(null);
@@ -18,15 +21,17 @@ const AddRules = () => {
   const [mlJobFailureMessage, setMlJobFailureMessage] = useState(null);
   const [completed, setCompleted] = useState(0);
 
-  const completionStatus = new Map([['Not Started', 0],
-    ['Starting ML Job', 2],
-    ['Analyzing Data', 5],
-    ['Feature Engineering', 20],
-    ['Model Tuning', 40],
-    ['ML Job Completed', 50],
-    ['Created and deployed best model', 70],
-    ['Creating Endpoint', 80],
-    ['Completed', 100]]);
+  const completionStatus = new Map([
+    ["Not Started", 0],
+    ["Starting ML Job", 2],
+    ["Analyzing Data", 5],
+    ["Feature Engineering", 20],
+    ["Model Tuning", 40],
+    ["ML Job Completed", 50],
+    ["Created and deployed best model", 70],
+    ["Creating Endpoint", 80],
+    ["Completed", 100],
+  ]);
 
   useEffect(() => {
     (async () => {
@@ -51,7 +56,7 @@ const AddRules = () => {
   }, []);
   // 120000 = 2 min , 60000 = 1 min
 
-  const acceptType = 'text/csv';
+  const acceptType = "text/csv";
 
   const handleOnSave = async () => {
     await updateCompany({ ruleFormula: formula });
@@ -69,8 +74,11 @@ const AddRules = () => {
   };
 
   const handleOnMLSave = async () => {
-    await updateCompany({ targetColumn });
-    await uploadTargetColumnFile({ targetColumn, dataFileLocation });
+    await updateCompany({ targetColumn: targetColumn });
+    await uploadTargetColumnFile({
+      targetColumn: targetColumn,
+      dataFileLocation: dataFileLocation,
+    });
     setTargetColumn(targetColumn);
   };
 
@@ -82,7 +90,10 @@ const AddRules = () => {
   };
 
   const handleOnFileUpload = async ({ fileLocation, fileOrginalName }) => {
-    await updateCompany({ dataFile: fileOrginalName, dataFileLocation: fileLocation });
+    await updateCompany({
+      dataFile: fileOrginalName,
+      dataFileLocation: fileLocation,
+    });
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
   };
@@ -106,7 +117,7 @@ const AddRules = () => {
           <button className="btn-primary" onClick={handleOnSave}>
             Save
           </button>
-        </div>{' '}
+        </div>{" "}
         &nbsp;
         <div className="inputLabel">
           <h4>Machine learning based Rule Engine</h4>
@@ -156,15 +167,23 @@ const AddRules = () => {
                 </button>
               </div>
               <div className="mt-4">
-                <button className="btn-primary"
-                  disabled={(mlJobCompletion !== 'Not Started') && (mlJobCompletion !== 'Failed')}
-                  onClick={handleOnMLStart}>
+                <button
+                  className="btn-primary"
+                  disabled={
+                    mlJobCompletion !== "Not Started" &&
+                    mlJobCompletion !== "Failed"
+                  }
+                  onClick={handleOnMLStart}
+                >
                   Start ML training
                 </button>
                 <div>
                   <ProgressBar completed={completed} />
                 </div>
-                Job Status: {mlJobCompletion === 'Failed' ? `${mlJobCompletion}:  ${mlJobFailureMessage}` : mlJobCompletion }
+                Job Status:{" "}
+                {mlJobCompletion === "Failed"
+                  ? `${mlJobCompletion}:  ${mlJobFailureMessage}`
+                  : mlJobCompletion}
               </div>
             </div>
           )}
@@ -178,18 +197,24 @@ const AddRules = () => {
               return (
                 <div key={i}>
                   <div>
-                    <span className="badge badge-pill badge-secondary">{v.field_name}</span>
-                    <span className="badge badge-pill badge-light ml-2">{v.label} ({v.element})</span>
+                    <span className="badge badge-pill badge-secondary">
+                      {v.field_name}
+                    </span>
+                    <span className="badge badge-pill badge-light ml-2">
+                      {v.label} ({v.element})
+                    </span>
                   </div>
                   <div>
                     {v.options
                       ? v.options.map((o, oi) => {
-                        return (
-                          <div key={oi} className="mt-1">
-                            <div className="badge badge-pill badge-info ml-3">{o.key}</div>
-                          </div>
-                        );
-                      })
+                          return (
+                            <div key={oi} className="mt-1">
+                              <div className="badge badge-pill badge-info ml-3">
+                                {o.key}
+                              </div>
+                            </div>
+                          );
+                        })
                       : null}
                   </div>
                 </div>
