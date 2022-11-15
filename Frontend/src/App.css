@@ -350,8 +350,6 @@ input.form-control::before {
 
 
 .rename-variables {
-    padding-left: 1rem;
-    margin-left: 1rem;
 }
 
 input[type=text].smallInput {

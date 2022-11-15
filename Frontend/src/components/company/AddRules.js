@@ -96,7 +96,7 @@ const AddRules = () => {
         <div className="inputLabel">Excel formula</div>
         <div>
           <textarea
-            cols={60}
+            className="w-100"
             type="text"
             value={formula}
             onChange={handleOnFormulaChange}

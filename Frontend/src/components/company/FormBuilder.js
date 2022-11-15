@@ -56,24 +56,26 @@ const FormBuilder = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="row">
+      <div className="col-12">
         <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
         &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
       </div>
-      <div className="mediumMarginTop d-flex">
+
+      <div className="col-12 d-flex mt-3">
         <a href={url}>{url}</a>
         &nbsp;&nbsp;
         <button onClick={() => { navigator.clipboard.writeText(url); }}>
           Copy website URL
         </button>
       </div>
-      <div className="mediumMarginTop">
+
+      <>
         {
         (form !== null && previewMode)
           ? (
-            <div className="d-flex">
-              <div className="flex-grow-1">
+            <>
+              <div className="col-8">
                 <ReactFormGenerator
                   data={form}
                   answer_data={variables}
@@ -81,24 +83,30 @@ const FormBuilder = () => {
                   submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
                 />
               </div>
-              <div className="rename-variables flex-grow-1">
-                <h5>Rename Variable</h5>
-                {form.map((v) => {
-                  return (
-                    <VariableName
-                      key={v.id}
-                      variable={v}
-                      onChange={handleOnVariableChange} />
-                  );
-                })}
+              <div className="rename-variables col-4">
+                <div className="card">
+                  <div className="card-header">
+                    Rename Variable
+                  </div>
+                  <div className="card-body">
+                    {form.map((v) => {
+                      return (
+                        <VariableName
+                          key={v.id}
+                          variable={v}
+                          onChange={handleOnVariableChange} />
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
+            </>
           )
           : (
             <>
-              {loading ? (<div>Loading</div>)
+              {loading ? (<div className="col-12">Loading</div>)
                 : (
-                  <div ref={formBuilderRef}>
+                  <div ref={formBuilderRef} className="col-12">
                     <ReactFormBuilder
                       data={form}
                       onPost={handleUpdate}
@@ -108,8 +116,8 @@ const FormBuilder = () => {
             </>
           )
         }
-      </div>
-    </>
+      </>
+    </div>
   );
 };
 
