@@ -38,7 +38,6 @@ const AddRules = () => {
       const current = await currentUser();
       const form = current.user.formData;
       setFormula(current.user.ruleFormula);
-      // setVariables(form.map((f) => f.field_name));
       setVariables(form);
       setChecked(current.user.mlRuleEngine);
       setDataFile(current.user.dataFile);
@@ -107,7 +106,7 @@ const AddRules = () => {
         <div className="inputLabel">Excel formula</div>
         <div>
           <textarea
-            cols={60}
+            className="w-100"
             type="text"
             value={formula}
             onChange={handleOnFormulaChange}
@@ -201,7 +200,7 @@ const AddRules = () => {
                     <span className="badge badge-pill badge-secondary">
                       {v.field_name}
                     </span>
-                    <span className="ml-2">
+                    <span className="badge badge-pill badge-light ml-2">
                       {v.label} ({v.element})
                     </span>
                   </div>

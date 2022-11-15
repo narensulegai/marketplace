@@ -317,11 +317,16 @@ a.nav-link {
     margin-top: 0.3em;
     font-family: "Roboto";
     font-size: 2em;
+    position: sticky;
+    top: 0;
+    background: white;
 }
 
 .react-form-builder .react-form-builder-toolbar.float-right {
     margin-top: 0;
     background: transparent;
+    height: 500px;
+    overflow: auto;
 }
 
 .react-form-builder .react-form-builder-toolbar.float-right li {
@@ -350,8 +355,6 @@ input.form-control::before {
 
 
 .rename-variables {
-    padding-left: 1rem;
-    margin-left: 1rem;
 }
 
 input[type=text].smallInput {

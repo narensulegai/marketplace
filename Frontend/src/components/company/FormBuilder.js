@@ -32,6 +32,7 @@ const FormBuilder = () => {
   }, []);
 
   const handleUpdate = (data) => {
+    // console.log(data.task_data)
     setForm(data.task_data);
   };
   const handleOnSave = async () => {
@@ -56,24 +57,23 @@ const FormBuilder = () => {
   };
 
   return (
-    <>
-      <div>
-        <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
-        &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
+    <div className="row">
+      <div className="col-2">
+        <button onClick={handleOnSave}>Save</button>
+        <button onClick={togglePreviewMode} className="ml-2">{previewMode ? 'Edit' : 'Preview'}</button>
       </div>
-      <div className="mediumMarginTop d-flex">
+      <div className="col-10 text-right">
         <a href={url}>{url}</a>
-        &nbsp;&nbsp;
-        <button onClick={() => { navigator.clipboard.writeText(url); }}>
+        <button onClick={() => { navigator.clipboard.writeText(url); }} className="badge badge-pill ml-3">
           Copy website URL
         </button>
       </div>
-      <div className="mediumMarginTop">
+      <>
         {
         (form !== null && previewMode)
           ? (
-            <div className="d-flex">
-              <div className="flex-grow-1">
+            <>
+              <div className="col-7">
                 <ReactFormGenerator
                   data={form}
                   answer_data={variables}
@@ -81,35 +81,38 @@ const FormBuilder = () => {
                   submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
                 />
               </div>
-              <div className="rename-variables flex-grow-1">
-                <h5>Rename Variable</h5>
-                {form.map((v) => {
-                  return (
-                    <VariableName
-                      key={v.id}
-                      variable={v}
-                      onChange={handleOnVariableChange} />
-                  );
-                })}
+              <div className="rename-variables col-5 mt-3">
+                <div className="card">
+                  <div className="card-header">Rename variables</div>
+                  <div className="card-body">
+                    {form.map((v) => {
+                      return (
+                        <VariableName
+                          key={v.id}
+                          variable={v}
+                          onChange={handleOnVariableChange} />
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-            </div>
+            </>
           )
           : (
             <>
-              {loading ? (<div>Loading</div>)
+              {loading ? (<div className="col-12">Loading</div>)
                 : (
-                  <div ref={formBuilderRef}>
+                  <div ref={formBuilderRef} className="col-12 mt-3">
                     <ReactFormBuilder
                       data={form}
-                      onPost={handleUpdate}
-                      toolbarItems={items} />
+                      onPost={handleUpdate} />
                   </div>
                 )}
             </>
           )
         }
-      </div>
-    </>
+      </>
+    </div>
   );
 };
 

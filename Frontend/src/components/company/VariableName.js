@@ -2,26 +2,23 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const VariableName = ({ variable, onChange }) => {
-  let name = null;
+  let name = '';
   const [newValue, setNewValue] = useState('');
-  if (variable.element === 'TextInput' || variable.element === 'TextArea') {
-    name = variable.field_name;
-  }
-
-  if (variable.element === 'Checkboxes' || variable.element === 'RadioButtons') {
-    name = variable.field_name;
-  }
-
+  name = variable.field_name;
   if (variable.element === 'Options') {
     name = variable.key;
   }
 
   const handleOnNameChange = (e) => {
-    setNewValue(e.target.value);
+    setNewValue(e.target.value.replace(/[^0-9a-z_]/gi, ''));
   };
 
   const handleOnRename = () => {
-    onChange(name, newValue);
+    if (!newValue) {
+      alert('Name cant be empty');
+    } else {
+      onChange(name, newValue);
+    }
   };
 
   const handleOnOptionChange = (oldValue, newValue) => {
@@ -29,31 +26,33 @@ const VariableName = ({ variable, onChange }) => {
   };
 
   return (
-    <>
-      <div className="smallMarginTop">
+    <div className="mt-3">
+      <div className="mt-2 badge badge-pill badge-warning">
+        {variable.label || variable.text}
+      </div>
+      <div className="badge badge-pill badge-info ml-2">
         {name}
       </div>
-      <div>
+      <div className="mt-1">
         <input type="text"
           placeholder="Rename to"
           className="smallInput"
           value={newValue}
           onChange={handleOnNameChange} />
-        &nbsp;&nbsp;<button onClick={handleOnRename}>Rename</button>
+        &nbsp;&nbsp;<button onClick={handleOnRename} className="badge badge-pill">Rename</button>
       </div>
-      {['RadioButtons', 'Checkboxes'].includes(variable.element)
+      {variable.options
         ? variable.options.map((option) => {
           return (
-            <div className="mediumMarginLeft">
+            <div className="ml-3" key={option.key}>
               <VariableName
-                key={option.key}
                 variable={{ ...option, element: 'Options' }}
                 onChange={handleOnOptionChange} />
             </div>
           );
         })
         : null}
-    </>
+    </div>
 
   );
 };
