@@ -36,10 +36,16 @@ const Questioner = () => {
     })();
   }, [companyId]);
 
+  const parseValue = (value) => {
+    if (typeof value === 'string') return value;
+    if (Array.isArray(value)) return value.map(parseValue).join(':');
+    if (typeof value === 'object') return value.key || value.text;
+    return value;
+  };
   // use this function
   const valuesToKeyValues = (variables) => {
     return variables.reduce((m, v) => {
-      const val = Array.isArray(v.value) ? v.value.join(':') : v.value;
+      const val = parseValue(v.value);
       return { ...m, ...{ [v.name]: val } };
     }, {});
   };

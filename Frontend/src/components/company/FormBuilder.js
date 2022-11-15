@@ -32,6 +32,7 @@ const FormBuilder = () => {
   }, []);
 
   const handleUpdate = (data) => {
+    // console.log(data.task_data)
     setForm(data.task_data);
   };
   const handleOnSave = async () => {
@@ -72,7 +73,7 @@ const FormBuilder = () => {
         (form !== null && previewMode)
           ? (
             <>
-              <div className="col-8">
+              <div className="col-7">
                 <ReactFormGenerator
                   data={form}
                   answer_data={variables}
@@ -80,7 +81,7 @@ const FormBuilder = () => {
                   submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
                 />
               </div>
-              <div className="rename-variables col-4 mt-3">
+              <div className="rename-variables col-5 mt-3">
                 <div className="card">
                   <div className="card-header">Rename variables</div>
                   <div className="card-body">
@@ -104,8 +105,7 @@ const FormBuilder = () => {
                   <div ref={formBuilderRef} className="col-12 mt-3">
                     <ReactFormBuilder
                       data={form}
-                      onPost={handleUpdate}
-                      toolbarItems={items} />
+                      onPost={handleUpdate} />
                   </div>
                 )}
             </>
