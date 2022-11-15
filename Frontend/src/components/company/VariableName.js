@@ -41,17 +41,17 @@ const VariableName = ({ variable, onChange }) => {
           onChange={handleOnNameChange} />
         &nbsp;&nbsp;<button onClick={handleOnRename} className="badge badge-pill">Rename</button>
       </div>
-      {variable.options
-        ? variable.options.map((option) => {
-          return (
-            <div className="ml-3" key={option.key}>
-              <VariableName
-                variable={{ ...option, element: 'Options' }}
-                onChange={handleOnOptionChange} />
-            </div>
-          );
-        })
-        : null}
+      {/*{variable.options*/}
+      {/*  ? variable.options.map((option) => {*/}
+      {/*    return (*/}
+      {/*      <div className="ml-3" key={option.key}>*/}
+      {/*        <VariableName*/}
+      {/*          variable={{ ...option, element: 'Options' }}*/}
+      {/*          onChange={handleOnOptionChange} />*/}
+      {/*      </div>*/}
+      {/*    );*/}
+      {/*  })*/}
+      {/*  : null}*/}
     </div>
 
   );

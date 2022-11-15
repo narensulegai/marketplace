@@ -38,8 +38,23 @@ const Questioner = () => {
 
   const parseValue = (value) => {
     if (typeof value === 'string') return value;
-    if (Array.isArray(value)) return value.map(parseValue).join(':');
-    if (typeof value === 'object') return value.key || value.text;
+    if (Array.isArray(value)) {
+      const res = [];
+      for (const row of form) {
+        if (row.options) {
+          for (const opt of row.options) {
+            if (value.length > 0
+                && (typeof value[0] === 'string'
+                  ? value.includes(opt.key)
+                  : value.map((v) => v.key).includes(opt.key))) {
+              res.push(opt.value);
+            }
+          }
+        }
+      }
+      return res.join(':');
+    }
+    if (typeof value === 'object' && value !== null) return value.value;
     return value;
   };
   // use this function

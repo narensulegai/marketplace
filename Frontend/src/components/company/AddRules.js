@@ -181,17 +181,17 @@ const AddRules = () => {
                     <span className="badge badge-pill badge-secondary">{v.field_name}</span>
                     <span className="badge badge-pill badge-light ml-2">{v.label} ({v.element})</span>
                   </div>
-                  <div>
-                    {v.options
-                      ? v.options.map((o, oi) => {
-                        return (
-                          <div key={oi} className="mt-1">
-                            <div className="badge badge-pill badge-info ml-3">{o.key}</div>
-                          </div>
-                        );
-                      })
-                      : null}
-                  </div>
+                  {/*<div>*/}
+                  {/*  {v.options*/}
+                  {/*    ? v.options.map((o, oi) => {*/}
+                  {/*      return (*/}
+                  {/*        <div key={oi} className="mt-1">*/}
+                  {/*          <div className="badge badge-pill badge-info ml-3">{o.key}</div>*/}
+                  {/*        </div>*/}
+                  {/*      );*/}
+                  {/*    })*/}
+                  {/*    : null}*/}
+                  {/*</div>*/}
                 </div>
               );
             })}
