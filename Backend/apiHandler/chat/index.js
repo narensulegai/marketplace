@@ -2,7 +2,7 @@ const { Chat, Company, Employee, ChatUser } = require("../../mongodb");
 module.exports = {
   getChats: async (req, resp) => {
     console.log(req.params);
-
+    var id = req.params.id;
     await Chat.find()
       .populate({
         path: "sender",
@@ -24,28 +24,30 @@ module.exports = {
           const c = chat[i];
           let chatSenderUser = {};
           let chatReceiverUser = {};
-          if (c.sender.type === "company") {
-            chatSenderUser = await Company.findOne({
-              _id: c.sender.user,
-            });
-          } else {
-            chatSenderUser = await Employee.findOne({
-              _id: c.sender.user,
-            });
+          if (id === c.sender.user || id === c.receiver.user) {
+            if (c.sender.type === "company") {
+              console.log(c.sender.user);
+              chatSenderUser = await Company.findOne({
+                _id: c.sender.user,
+              });
+            } else {
+              chatSenderUser = await Employee.findOne({
+                _id: c.sender.user,
+              });
+            }
+            if (c.receiver.type === "company") {
+              chatReceiverUser = await Company.findOne({
+                _id: c.receiver.user,
+              });
+            } else {
+              chatReceiverUser = await Employee.findOne({
+                _id: c.receiver.user,
+              });
+            }
+            c.sender = Object.assign(chatSenderUser);
+            c.receiver = Object.assign(chatReceiverUser);
+            chats.push(c);
           }
-          if (c.receiver.type === "company") {
-            chatReceiverUser = await Company.findOne({
-              _id: c.receiver.user,
-            });
-          } else {
-            chatReceiverUser = await Employee.findOne({
-              _id: c.receiver.user,
-            });
-          }
-
-          c.sender = Object.assign(chatSenderUser);
-          c.receiver = Object.assign(chatReceiverUser);
-          chats.push(c);
         }
         console.log(chats);
         resp.json(chats);

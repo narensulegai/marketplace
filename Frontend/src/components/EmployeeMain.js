@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
+import { currentUser, getCompanyQuotes } from "../util/fetch/api";
 import Questioner from "./employee/Questioner";
 import Chat from "./chat/ChatPanel";
 import ChatPanel from "./chat/ChatPanel";
@@ -19,7 +20,14 @@ import ActionProvider from "./chatbot/ActionProvider.js";
 const EmployeeMain = () => {
   const { id: companyId } = useParams();
   const { id: userId } = useParams();
+  const [current, setCurrent] = useState({});
   const [minimizeBot, setMinimizeBot] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const { user } = await currentUser();
+      setCurrent(user);
+    })();
+  }, []);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-dark">
@@ -37,7 +45,7 @@ const EmployeeMain = () => {
         </a>
         <a
           className="nav-link text-light"
-          href={`#/buyer/${userId}/${companyId}/chat`}
+          href={`#/buyer/${companyId}/${current._id}/chat`}
         >
           Chat
         </a>
