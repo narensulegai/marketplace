@@ -180,7 +180,7 @@ const AddRules = () => {
                 <div key={i}>
                   <div>
                     <span className="badge badge-pill badge-secondary">{v.field_name}</span>
-                    <span className="ml-2">{v.label} ({v.element})</span>
+                    <span className="badge badge-pill badge-light ml-2">{v.label} ({v.element})</span>
                   </div>
                   <div>
                     {v.options

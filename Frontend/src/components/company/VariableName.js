@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const VariableName = ({ variable, onChange }) => {
-  let name = null;
+  let name = '';
   const [newValue, setNewValue] = useState('');
   if (variable.element === 'TextInput' || variable.element === 'TextArea') {
     name = variable.field_name;
@@ -17,20 +17,26 @@ const VariableName = ({ variable, onChange }) => {
   }
 
   const handleOnNameChange = (e) => {
-    setNewValue(e.target.value);
+    setNewValue(e.target.value.replace(/[^0-9a-z_]/gi, ''));
   };
 
   const handleOnRename = () => {
-    onChange(name, newValue);
+    if (!newValue) {
+      alert('Name cant be empty');
+    } else {
+      onChange(name, newValue);
+    }
   };
 
   const handleOnOptionChange = (oldValue, newValue) => {
     onChange(oldValue, newValue);
   };
-
   return (
     <>
-      <div className="smallMarginTop">
+      <div className="mt-2 badge badge-pill badge-warning">
+        {variable.label || variable.text}
+      </div>
+      <div className="badge badge-pill badge-info ml-2">
         {name}
       </div>
       <div>

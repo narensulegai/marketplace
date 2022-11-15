@@ -46,6 +46,7 @@ const Questioner = () => {
 
   const getQuote = (formula, variables) => {
     const values = valuesToKeyValues(variables);
+    console.log(values);
     const expr = formulaParser.parse(formula);
     return expr.evaluate(values);
   };

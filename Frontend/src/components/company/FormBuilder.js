@@ -57,19 +57,14 @@ const FormBuilder = () => {
 
   return (
     <div className="row">
-      <div className="col-12">
-        <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
-        &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
+      <div className="col-2">
+        <button onClick={handleOnSave}>Save</button>
+        &nbsp;&nbsp;<button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
       </div>
-
-      <div className="col-12 d-flex mt-3">
+      <div className="col-10 d-flex text-right">
         <a href={url}>{url}</a>
-        &nbsp;&nbsp;
-        <button onClick={() => { navigator.clipboard.writeText(url); }}>
-          Copy website URL
-        </button>
+        <button onClick={() => { navigator.clipboard.writeText(url); }} className="ml-3">Copy website URL</button>
       </div>
-
       <>
         {
         (form !== null && previewMode)
@@ -83,11 +78,9 @@ const FormBuilder = () => {
                   submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
                 />
               </div>
-              <div className="rename-variables col-4">
+              <div className="rename-variables col-4 mt-3">
                 <div className="card">
-                  <div className="card-header">
-                    Rename Variable
-                  </div>
+                  <div className="card-header">Rename variables</div>
                   <div className="card-body">
                     {form.map((v) => {
                       return (
@@ -106,7 +99,7 @@ const FormBuilder = () => {
             <>
               {loading ? (<div className="col-12">Loading</div>)
                 : (
-                  <div ref={formBuilderRef} className="col-12">
+                  <div ref={formBuilderRef} className="col-12 mt-3">
                     <ReactFormBuilder
                       data={form}
                       onPost={handleUpdate}
