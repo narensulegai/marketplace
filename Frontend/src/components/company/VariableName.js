@@ -32,20 +32,20 @@ const VariableName = ({ variable, onChange }) => {
     onChange(oldValue, newValue);
   };
   return (
-    <>
+    <div className="mt-3">
       <div className="mt-2 badge badge-pill badge-warning">
         {variable.label || variable.text}
       </div>
       <div className="badge badge-pill badge-info ml-2">
         {name}
       </div>
-      <div>
+      <div className="mt-1">
         <input type="text"
           placeholder="Rename to"
           className="smallInput"
           value={newValue}
           onChange={handleOnNameChange} />
-        &nbsp;&nbsp;<button onClick={handleOnRename}>Rename</button>
+        &nbsp;&nbsp;<button onClick={handleOnRename} className="badge badge-pill">Rename</button>
       </div>
       {['RadioButtons', 'Checkboxes'].includes(variable.element)
         ? variable.options.map((option) => {
@@ -59,7 +59,7 @@ const VariableName = ({ variable, onChange }) => {
           );
         })
         : null}
-    </>
+    </div>
 
   );
 };

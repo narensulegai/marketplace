@@ -59,11 +59,13 @@ const FormBuilder = () => {
     <div className="row">
       <div className="col-2">
         <button onClick={handleOnSave}>Save</button>
-        &nbsp;&nbsp;<button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
+        <button onClick={togglePreviewMode} className="ml-2">{previewMode ? 'Edit' : 'Preview'}</button>
       </div>
-      <div className="col-10 d-flex text-right">
+      <div className="col-10 text-right">
         <a href={url}>{url}</a>
-        <button onClick={() => { navigator.clipboard.writeText(url); }} className="ml-3">Copy website URL</button>
+        <button onClick={() => { navigator.clipboard.writeText(url); }} className="badge badge-pill ml-3">
+          Copy website URL
+        </button>
       </div>
       <>
         {
