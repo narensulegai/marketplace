@@ -36,10 +36,16 @@ const Questioner = () => {
     })();
   }, [companyId]);
 
-  const getQuote = (formula, variables) => {
-    const values = variables.reduce((m, v) => {
-      return { ...m, ...{ [v.name]: v.value } };
+  // use this function
+  const valuesToKeyValues = (variables) => {
+    return variables.reduce((m, v) => {
+      const val = Array.isArray(v.value) ? v.value.join(':') : v.value;
+      return { ...m, ...{ [v.name]: val } };
     }, {});
+  };
+
+  const getQuote = (formula, variables) => {
+    const values = valuesToKeyValues(variables);
     const expr = formulaParser.parse(formula);
     return expr.evaluate(values);
   };
@@ -53,6 +59,8 @@ const Questioner = () => {
     setVariables(variables);
     const data = [];
     if (mlRuleEngine && mlJobCompletion === 'Completed') {
+      // {input: '100', textarea: '1000', radio: 'radio2:radio2', checkbox: 'checkbox1'}
+      // valuesToKeyValues(variable)
       variables.forEach((variable) => {
         data.push(variable.value);
       });
