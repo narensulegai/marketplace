@@ -1,11 +1,11 @@
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const path = require('path');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const AWS = require('aws-sdk');
-const { Company, Employee } = require('../../mongodb');
-const { err } = require('../util');
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const path = require("path");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const AWS = require("aws-sdk");
+const { Company, Employee } = require("../../mongodb");
+const { err } = require("../util");
 
 const saltRounds = 10;
 const expiresIn = 1008000;
@@ -29,10 +29,10 @@ module.exports = {
   currentUser: async (req, resp) => {
     if (req.session && req.session.scope) {
       let user = {};
-      if (req.session.scope === 'company') {
+      if (req.session.scope === "company") {
         user = await Company.findById(req.session.user._id);
       }
-      if (req.session.scope === 'employee') {
+      if (req.session.scope === "employee") {
         user = await Employee.findById(req.session.user._id);
       }
       resp.json({ user, scope: req.session.scope });
@@ -41,10 +41,10 @@ module.exports = {
     }
   },
   uploadFile: async (req, res) => {
-    const upload = multer({ dest: 'uploads/' }).array('files', 5);
+    const upload = multer({ dest: "uploads/" }).array("files", 5);
     upload(req, res, (e) => {
       if (e) {
-        res.status(400).json(err('Error while uploading file'));
+        res.status(400).json(err("Error while uploading file"));
       } else {
         res.json({
           files: req.files.map((f) => f.filename),
@@ -55,29 +55,28 @@ module.exports = {
   },
   uploadS3File: async (req, res) => {
     let user = {};
-    if (req.session.scope === 'company') {
+    if (req.session.scope === "company") {
       user = await Company.findById(req.session.user._id);
-      const companyName = user.name;
+      const companyName = user.name.split(" ").join("");
       let fileOrginalName;
       const csvFileUpload = multer({
         storage: multerS3({
           s3: S3Bucket,
-          acl: 'public-read',
+          acl: "public-read",
           bucket: `${process.env.S3_BUCKET}`,
           key: (req, file, cb) => {
             fileOrginalName = file.originalname;
             const fileName = companyName + fileOrginalName;
-            console.log(fileName, file.originalname);
             cb(null, `${companyName}/${fileName}`);
           },
         }),
-      }).single('files');
+      }).single("files");
 
       csvFileUpload(req, res, (e) => {
         if (e) {
-          res.status(400).json(err('Error while uploading file'));
+          res.status(400).json(err("Error while uploading file"));
         } else if (req.file === undefined) {
-          res.status(400).json(err('Error No file selected'));
+          res.status(400).json(err("Error No file selected"));
         } else {
           // const file = req.file.key;
           const fileLocation = req.file.location;
@@ -91,12 +90,12 @@ module.exports = {
   },
   uploadColumnFile: async (req, res) => {
     let user = {};
-    if (req.session.scope === 'company') {
+    if (req.session.scope === "company") {
       user = await Company.findById(req.session.user._id);
-      const companyName = user.name;
-      const data = Buffer.from(JSON.stringify(req.body), 'utf-8');
+      const companyName = user.name.split(" ").join("");
+      const data = Buffer.from(JSON.stringify(req.body), "utf-8");
       const params = {
-        ACL: 'public-read',
+        ACL: "public-read",
         Body: data,
         Bucket: `${process.env.S3_BUCKET}`,
         Key: `${companyName}/${companyName}targetColumn.txt`,
@@ -104,7 +103,9 @@ module.exports = {
 
       S3Bucket.putObject(params, (e) => {
         if (e) {
-          res.status(400).json(err('Error while updating target column file on s3 bucket'));
+          res
+            .status(400)
+            .json(err("Error while updating target column file on s3 bucket"));
         }
       });
     }
@@ -112,21 +113,21 @@ module.exports = {
   getFile: async (req, res) => {
     const fileId = req.params.id;
     // TODO: file path injection
-    res.sendFile(path.join(__dirname, '../../uploads', fileId));
+    res.sendFile(path.join(__dirname, "../../uploads", fileId));
   },
   signupCompany: async (req, resp) => {
     bcrypt.hash(req.body.password, saltRounds, async (e, password) => {
       const company = new Company({ ...req.body, password });
       try {
         const user = await company.save();
-        const payload = { user, scope: 'company' };
+        const payload = { user, scope: "company" };
         const token = signPayload(payload);
         resp.json({ token, user });
       } catch (e) {
         if (e.code === 11000) {
           resp
             .status(400)
-            .json(err('Company name and/or email is already taken'));
+            .json(err("Company name and/or email is already taken"));
         } else {
           throw e;
         }
@@ -138,12 +139,12 @@ module.exports = {
       const employee = new Employee({ ...req.body, password });
       try {
         const user = await employee.save();
-        const payload = { user, scope: 'employee' };
+        const payload = { user, scope: "employee" };
         const token = signPayload(payload);
         resp.json({ token, user });
       } catch (e) {
         if (e.code === 11000) {
-          resp.status(400).json(err('Email id is already taken'));
+          resp.status(400).json(err("Email id is already taken"));
         } else {
           throw e;
         }
@@ -158,7 +159,7 @@ module.exports = {
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
-          const payload = { user, scope: 'company' };
+          const payload = { user, scope: "company" };
           const token = signPayload(payload);
           res.json({ token, user });
         } else {
@@ -175,7 +176,7 @@ module.exports = {
     } else {
       bcrypt.compare(password, user.password, (e, doseMatch) => {
         if (doseMatch) {
-          const payload = { user, scope: 'employee' };
+          const payload = { user, scope: "employee" };
           const token = signPayload(payload);
           res.json({ token, user });
         } else {

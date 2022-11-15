@@ -27,14 +27,14 @@ const parser = new Parser();
 Object.assign(parser.functions, formulajs);
 export const formulaParser = parser;
 
-export const reNameValues = (obj) => {
+export const reNameValues = (obj, callback) => {
   if (typeof obj === 'object' && obj !== null) {
     for (const key of Object.keys(obj)) {
       if (typeof obj[key] === 'string') {
         // eslint-disable-next-line no-param-reassign
-        obj[key] = obj[key].replaceAll('-', '_');
+        obj[key] = callback(obj[key], key);
       } else {
-        reNameValues(obj[key]);
+        reNameValues(obj[key], callback);
       }
     }
   }

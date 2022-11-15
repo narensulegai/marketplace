@@ -1,29 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { currentUser, updateCompany, uploadTargetColumnFile } from '../../util/fetch/api';
-import FileUpload from '../common/FileUpload';
+import React, { useEffect, useState } from "react";
+import {
+  currentUser,
+  updateCompany,
+  uploadTargetColumnFile,
+  getCompany,
+} from "../../util/fetch/api";
+import { createModel } from "../../util/mlFetch/mlApi";
+import FileUpload from "../common/FileUpload";
+import ProgressBar from "../common/ProgressBar";
 
 const AddRules = () => {
   const [variables, setVariables] = useState([]);
-  const [formula, setFormula] = useState('');
+  const [formula, setFormula] = useState("");
   const [checked, setChecked] = useState(false);
   const [dataFile, setDataFile] = useState(null);
   const [dataFileLocation, setDataFileLocation] = useState(null);
   const [targetColumn, setTargetColumn] = useState(null);
+  const [companyID, setcompanyID] = useState(null);
+  const [mlJobCompletion, setMlJobCompletion] = useState(null);
+  const [mlJobFailureMessage, setMlJobFailureMessage] = useState(null);
+  const [completed, setCompleted] = useState(0);
+
+  const completionStatus = new Map([
+    ["Not Started", 0],
+    ["Starting ML Job", 2],
+    ["Analyzing Data", 5],
+    ["Feature Engineering", 20],
+    ["Model Tuning", 40],
+    ["ML Job Completed", 50],
+    ["Created and deployed best model", 70],
+    ["Creating Endpoint", 80],
+    ["Completed", 100],
+  ]);
 
   useEffect(() => {
     (async () => {
       const current = await currentUser();
       const form = current.user.formData;
       setFormula(current.user.ruleFormula);
-      setVariables(form.map((f) => f.field_name));
+      setVariables(form);
       setChecked(current.user.mlRuleEngine);
       setDataFile(current.user.dataFile);
       setDataFileLocation(current.user.dataFileLocation);
       setTargetColumn(current.user.targetColumn);
+      setcompanyID(current.user._id);
+      setMlJobCompletion(current.user.mlJobCompletion);
+      setMlJobFailureMessage(current.user.mlJobFailureMessage);
+      setCompleted(completionStatus.get(current.user.mlJobCompletion));
+      setInterval(async () => {
+        const company = await getCompany(current.user._id);
+        setMlJobCompletion(company.mlJobCompletion);
+        setCompleted(completionStatus.get(company.mlJobCompletion));
+      }, 60000);
     })();
   }, []);
+  // 120000 = 2 min , 60000 = 1 min
 
-  const acceptType = 'text/csv';
+  const acceptType = "text/csv";
 
   const handleOnSave = async () => {
     await updateCompany({ ruleFormula: formula });
@@ -41,17 +74,29 @@ const AddRules = () => {
   };
 
   const handleOnMLSave = async () => {
-    await updateCompany({ targetColumn });
-    await uploadTargetColumnFile({ targetColumn, dataFileLocation });
+    await updateCompany({ targetColumn: targetColumn });
+    await uploadTargetColumnFile({
+      targetColumn: targetColumn,
+      dataFileLocation: dataFileLocation,
+    });
     setTargetColumn(targetColumn);
   };
 
+  const handleOnMLStart = async () => {
+    const result = await createModel({ id: companyID });
+    const company = await getCompany(companyID);
+    setMlJobCompletion(company.mlJobCompletion);
+    setCompleted(completionStatus.get(company.mlJobCompletion));
+  };
+
   const handleOnFileUpload = async ({ fileLocation, fileOrginalName }) => {
-    await updateCompany({ dataFile: fileOrginalName, dataFileLocation: fileLocation });
+    await updateCompany({
+      dataFile: fileOrginalName,
+      dataFileLocation: fileLocation,
+    });
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
   };
-
   return (
     <div className="row">
       <div className="col-12">
@@ -61,7 +106,7 @@ const AddRules = () => {
         <div className="inputLabel">Excel formula</div>
         <div>
           <textarea
-            cols={60}
+            className="w-100"
             type="text"
             value={formula}
             onChange={handleOnFormulaChange}
@@ -72,7 +117,7 @@ const AddRules = () => {
           <button className="btn-primary" onClick={handleOnSave}>
             Save
           </button>
-        </div>{' '}
+        </div>{" "}
         &nbsp;
         <div className="inputLabel">
           <h4>Machine learning based Rule Engine</h4>
@@ -121,6 +166,25 @@ const AddRules = () => {
                   Save
                 </button>
               </div>
+              <div className="mt-4">
+                <button
+                  className="btn-primary"
+                  disabled={
+                    mlJobCompletion !== "Not Started" &&
+                    mlJobCompletion !== "Failed"
+                  }
+                  onClick={handleOnMLStart}
+                >
+                  Start ML training
+                </button>
+                <div>
+                  <ProgressBar completed={completed} />
+                </div>
+                Job Status:{" "}
+                {mlJobCompletion === "Failed"
+                  ? `${mlJobCompletion}:  ${mlJobFailureMessage}`
+                  : mlJobCompletion}
+              </div>
             </div>
           )}
         </div>
@@ -132,7 +196,25 @@ const AddRules = () => {
             {variables.map((v, i) => {
               return (
                 <div key={i}>
-                  <div className="badge badge-pill badge-secondary">{v}</div>
+                  <div>
+                    <span className="badge badge-pill badge-secondary">
+                      {v.field_name}
+                    </span>
+                    <span className="badge badge-pill badge-light ml-2">
+                      {v.label} ({v.element})
+                    </span>
+                  </div>
+                  {/*<div>*/}
+                  {/*  {v.options*/}
+                  {/*    ? v.options.map((o, oi) => {*/}
+                  {/*      return (*/}
+                  {/*        <div key={oi} className="mt-1">*/}
+                  {/*          <div className="badge badge-pill badge-info ml-3">{o.key}</div>*/}
+                  {/*        </div>*/}
+                  {/*      );*/}
+                  {/*    })*/}
+                  {/*    : null}*/}
+                  {/*</div>*/}
                 </div>
               );
             })}

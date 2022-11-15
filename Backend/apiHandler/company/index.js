@@ -1,4 +1,4 @@
-const { Company, Employee } = require('../../mongodb');
+const { Company, Employee } = require("../../mongodb");
 
 module.exports = {
   update: async (req, resp) => {

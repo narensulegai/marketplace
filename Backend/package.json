@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "PORT=5001 mocha --exit",
+    "test": "PORT=5000 mocha --exit",
     "start": "nodemon --ignore uploads nodeServer.js -V"
   },
   "author": "",

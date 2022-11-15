@@ -201,6 +201,14 @@ h4 {
     outline: none;
 }
 
+.btn-primary:disabled, .btn-primary[disbaled] {
+    background-image: linear-gradient(rgb(214, 213, 213), grey);
+    color: black;
+    border-color: transparent;
+    padding: 5px 20px;
+    box-shadow: 2px 2px 0 0 black;
+}
+
 .nav-link.text-light {
     font-size: 1rem;
     font-family: "Roboto";
@@ -254,6 +262,10 @@ a.nav-link {
     margin-top: 20px;
 }
 
+.mediumMarginLeft {
+    margin-left: 20px;
+}
+
 .table th, .table td {
     vertical-align: middle;
 }
@@ -305,11 +317,16 @@ a.nav-link {
     margin-top: 0.3em;
     font-family: "Roboto";
     font-size: 2em;
+    position: sticky;
+    top: 0;
+    background: white;
 }
 
 .react-form-builder .react-form-builder-toolbar.float-right {
     margin-top: 0;
     background: transparent;
+    height: 500px;
+    overflow: auto;
 }
 
 .react-form-builder .react-form-builder-toolbar.float-right li {
@@ -331,9 +348,19 @@ a.nav-link {
 .form-place-holder {
     margin: 0 !important;
 }
-input.form-control::before{
+
+input.form-control::before {
     content: attr(name);
 }
+
+
+.rename-variables {
+}
+
+input[type=text].smallInput {
+    width: 200px;
+}
+
 /*blockquote::after {*/
 /*    display: block;*/
 /*    content: ' (source: ' attr(cite) ') ';*/

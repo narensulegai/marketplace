@@ -16,3 +16,8 @@ cd Backend && npm install && MONGODB_CONNECTION=mongodb://localhost/marketplace 
 ```
 cd Frontend && npm install && npm start
 ```
+
+### Run python backend server for ML
+```
+cd Machine_Learning && python main.py
+```

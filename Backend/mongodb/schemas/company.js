@@ -15,10 +15,13 @@ module.exports = (mongoose) => {
       profilePic: { type: String },
       formData: { type: Array, default: [] },
       ruleFormula: { type: String },
-      mlRuleEngine: { type: Boolean },
-      dataFile: { type: String },
-      dataFileLocation: { type: String },
-      targetColumn: { type: String },
+      mlRuleEngine: { type: Boolean, default: false },
+      dataFile: { type: String, default: '' },
+      dataFileLocation: { type: String, default: '' },
+      targetColumn: { type: String, default: '' },
+      mlJobCompletion: { type: String, default: 'Not Started' },
+      mlJobFailureMessage: { type: String, default: '' },
+      endPoint: { type: String, default: '' },
     },
     {
       timestamps: true,
@@ -32,5 +35,5 @@ module.exports = (mongoose) => {
     }
   );
 
-  return mongoose.model('Company', companySchema);
+  return mongoose.model("Company", companySchema);
 };

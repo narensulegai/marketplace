@@ -1,11 +1,11 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
-const handler = require('./apiHandler');
-const { schema, validate } = require('./apiSchema');
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const handler = require("./apiHandler");
+const { schema, validate } = require("./apiSchema");
 
 const err = (msg) => ({ err: msg });
 const app = express();
@@ -20,31 +20,59 @@ app.use(
   })
 );
 
-const apiVersion = '/apiV1';
+const apiVersion = "/apiV1";
 
 [
-  ['get', '/currentUser', handler.common.currentUser, null],
-  ['post', '/signup/company', handler.common.signupCompany, null, schema.signupCompany],
-  ['post', '/signup/employee', handler.common.signupEmployee, null, schema.signupEmployee],
-  ['put', '/login/company', handler.common.loginCompany, null, schema.loginCompany],
-  ['put', '/login/employee', handler.common.loginEmployee, null, schema.loginEmployee],
-  ['put', '/company', handler.company.update, 'company', schema.updateCompany],
-  ['get', '/companyQuotes', handler.company.getQuotes, 'company'],
-  ['post', '/file', handler.common.uploadFile, null],
-  ['post', '/uploadS3File', handler.common.uploadS3File, null],
-  ['post', '/uploadColumnFile', handler.common.uploadColumnFile, null],
-  ['get', '/file/:id', handler.common.getFile, null],
-  ['put', '/employee', handler.employee.update, 'employee', schema.update],
-  ['get', '/company/profile/:id', handler.employee.getCompany, 'any'],
-  ['get', '/employee/profile/:id', handler.company.getEmployee, 'company'],
-  ['post', '/companyPhoto/:id', handler.employee.addCompanyPhoto, 'employee'],
-  ['get', '/companyPhoto/:id', handler.employee.getCompanyPhotos, 'any'],
+  ["get", "/currentUser", handler.common.currentUser, null],
+  [
+    "post",
+    "/signup/company",
+    handler.common.signupCompany,
+    null,
+    schema.signupCompany,
+  ],
+  [
+    "post",
+    "/signup/employee",
+    handler.common.signupEmployee,
+    null,
+    schema.signupEmployee,
+  ],
+  [
+    "put",
+    "/login/company",
+    handler.common.loginCompany,
+    null,
+    schema.loginCompany,
+  ],
+  [
+    "put",
+    "/login/employee",
+    handler.common.loginEmployee,
+    null,
+    schema.loginEmployee,
+  ],
+  ["put", "/company", handler.company.update, "company", schema.updateCompany],
+  ["get", "/companyQuotes", handler.company.getQuotes, "company"],
+  ["post", "/file", handler.common.uploadFile, null],
+  ["post", "/uploadS3File", handler.common.uploadS3File, null],
+  ["post", "/uploadColumnFile", handler.common.uploadColumnFile, null],
+  ["get", "/file/:id", handler.common.getFile, null],
+  ["put", "/employee", handler.employee.update, "employee", schema.update],
+  ["get", "/company/profile/:id", handler.employee.getCompany, "any"],
+  ["get", "/employee/profile/:id", handler.company.getEmployee, "company"],
+  ["post", "/companyPhoto/:id", handler.employee.addCompanyPhoto, "employee"],
+  ["get", "/companyPhoto/:id", handler.employee.getCompanyPhotos, "any"],
+  ["get", "/chats/:id", handler.chat.getChats, "chat"],
+  ["post", "/chats/sendMessage/", handler.chat.sendMessage, "chat"],
+  ["post", "/chats/createChat/", handler.chat.createChannel, "chat"],
+  ["get", "/users/getUser/:id", handler.chat.getCompanyOrEmployee, "chat"],
 ].forEach((r) => {
   app[r[0]](
     apiVersion + r[1],
     (req, resp, next) => {
       console.log(req.url, r[2].name, req.body);
-      const token = req.header('authorization');
+      const token = req.header("authorization");
       req.session = {};
       if (token) {
         try {
@@ -52,21 +80,21 @@ const apiVersion = '/apiV1';
         } catch (e) {
           resp
             .status(401)
-            .json(err('You need to login, your session has expired'));
+            .json(err("You need to login, your session has expired"));
         }
         req.session = jwt.decode(token);
       }
 
-      if (r[3] === 'company' || r[3] === 'employee' || r[3] === 'admin') {
+      if (r[3] === "company" || r[3] === "employee" || r[3] === "admin") {
         const { scope } = req.session;
         if (scope !== r[3]) {
-          resp.status(401).json(err('You are not authorized for this action.'));
+          resp.status(401).json(err("You are not authorized for this action."));
         }
       }
-      if (r[3] === 'any') {
+      if (r[3] === "any") {
         const { scope } = req.session;
         if (!scope) {
-          resp.status(401).json(err('You need to login.'));
+          resp.status(401).json(err("You need to login."));
         }
       }
       if (r[4]) {
@@ -96,7 +124,7 @@ app.use((err, req, res, next) => {
   console.log(err);
   if (err) {
     const { message } = err;
-    res.status(500).json({ err: 'Something went wrong!', message });
+    res.status(500).json({ err: "Something went wrong!", message });
   }
   next();
 });
