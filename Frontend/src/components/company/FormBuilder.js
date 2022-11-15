@@ -3,6 +3,7 @@ import { ReactFormBuilder, ReactFormGenerator } from 'react-form-builder2';
 import 'react-form-builder2/dist/app.css';
 import { currentUser, updateCompany } from '../../util/fetch/api';
 import { reNameValues } from '../../util';
+import VariableName from './VariableName';
 
 const items = [
   { key: 'Header' },
@@ -34,7 +35,7 @@ const FormBuilder = () => {
     setForm(data.task_data);
   };
   const handleOnSave = async () => {
-    reNameValues(form);
+    reNameValues(form, (value) => value.replaceAll('-', '_'));
     await updateCompany({ formData: form });
   };
   const togglePreviewMode = () => {
@@ -44,9 +45,18 @@ const FormBuilder = () => {
   const handleSubmitAnswers = (data) => {
     setVariables(data);
   };
+  const handleOnVariableChange = (oldVariable, newVariable) => {
+    reNameValues([...form], (value) => {
+      if (value === oldVariable) {
+        return newVariable;
+      }
+      return value;
+    });
+    setForm([...form]);
+  };
 
   return (
-    <div>
+    <>
       <div>
         <button onClick={togglePreviewMode}>{previewMode ? 'Edit' : 'Preview'}</button>
         &nbsp;&nbsp;<button onClick={handleOnSave}>Save</button>
@@ -54,19 +64,35 @@ const FormBuilder = () => {
       <div className="mediumMarginTop d-flex">
         <a href={url}>{url}</a>
         &nbsp;&nbsp;
-        <div onClick={() => { navigator.clipboard.writeText(url); }} className="pointer" role="button">
+        <button onClick={() => { navigator.clipboard.writeText(url); }}>
           Copy website URL
-        </div>
+        </button>
       </div>
-      {
+      <div className="mediumMarginTop">
+        {
         (form !== null && previewMode)
           ? (
-            <ReactFormGenerator
-              data={form}
-              answer_data={variables}
-              onSubmit={handleSubmitAnswers}
-              submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
-            />
+            <div className="d-flex">
+              <div className="flex-grow-1">
+                <ReactFormGenerator
+                  data={form}
+                  answer_data={variables}
+                  onSubmit={handleSubmitAnswers}
+                  submitButton={<button type="submit" className="btn btn-primary">Get Quote</button>}
+                />
+              </div>
+              <div className="rename-variables flex-grow-1">
+                <h5>Rename Variable</h5>
+                {form.map((v) => {
+                  return (
+                    <VariableName
+                      key={v.id}
+                      variable={v}
+                      onChange={handleOnVariableChange} />
+                  );
+                })}
+              </div>
+            </div>
           )
           : (
             <>
@@ -76,14 +102,14 @@ const FormBuilder = () => {
                     <ReactFormBuilder
                       data={form}
                       onPost={handleUpdate}
-                      toolbarItems={items}
-                  />
+                      toolbarItems={items} />
                   </div>
                 )}
             </>
           )
         }
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -262,6 +262,10 @@ a.nav-link {
     margin-top: 20px;
 }
 
+.mediumMarginLeft {
+    margin-left: 20px;
+}
+
 .table th, .table td {
     vertical-align: middle;
 }
@@ -339,3 +343,23 @@ a.nav-link {
 .form-place-holder {
     margin: 0 !important;
 }
+
+input.form-control::before {
+    content: attr(name);
+}
+
+
+.rename-variables {
+    padding-left: 1rem;
+    margin-left: 1rem;
+}
+
+input[type=text].smallInput {
+    width: 200px;
+}
+
+/*blockquote::after {*/
+/*    display: block;*/
+/*    content: ' (source: ' attr(cite) ') ';*/
+/*    color: hotpink;*/
+/*}*/

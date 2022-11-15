@@ -27,20 +27,25 @@ const Questioner = () => {
       setCurrentUser(user);
       setForm(company.formData);
       setFormula(company.ruleFormula);
-      if (user.variables !== undefined && companyId in user.variables) {
+      if (user.variables && companyId in user.variables) {
         setVariables(user.variables[companyId]);
       }
-      // setVariables(company.variables);
       setMlRuleEngine(company.mlRuleEngine);
       setMlJobCompletion(company.mlJobCompletion);
       setLoading(false);
     })();
   }, [companyId]);
 
-  const getQuote = (formula, variables) => {
-    const values = variables.reduce((m, v) => {
-      return { ...m, ...{ [v.name]: v.value } };
+  // use this function
+  const valuesToKeyValues = (variables) => {
+    return variables.reduce((m, v) => {
+      const val = Array.isArray(v.value) ? v.value.join(":") : v.value;
+      return { ...m, ...{ [v.name]: val } };
     }, {});
+  };
+
+  const getQuote = (formula, variables) => {
+    const values = valuesToKeyValues(variables);
     const expr = formulaParser.parse(formula);
     return expr.evaluate(values);
   };
@@ -52,15 +57,15 @@ const Questioner = () => {
     currentUser.variables[companyId] = variables;
     await updateEmployee(currentUser);
     setVariables(variables);
-    let data = [];
+    const data = [];
     if (mlRuleEngine && mlJobCompletion === "Completed") {
-      console.log("here");
+      // {input: '100', textarea: '1000', radio: 'radio2:radio2', checkbox: 'checkbox1'}
+      // valuesToKeyValues(variable)
       variables.forEach((variable) => {
-        data.push(variable["value"]);
+        data.push(variable.value);
       });
-      const mlQuote = await getMlQuote({ id: companyId, data: data });
-      console.log(mlQuote["Quotation"]);
-      setQuote(mlQuote["Quotation"].toFixed(2));
+      const mlQuote = await getMlQuote({ id: companyId, data });
+      setQuote(mlQuote.Quotation.toFixed(2));
     } else {
       const quote = getQuote(formula, variables);
       setQuote(quote);

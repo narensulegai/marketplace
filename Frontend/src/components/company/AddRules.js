@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import {
   currentUser,
@@ -8,6 +9,15 @@ import {
 import { createModel } from "../../util/mlFetch/mlApi";
 import FileUpload from "../common/FileUpload";
 import ProgressBar from "../common/ProgressBar";
+=======
+import React, { useEffect, useState } from 'react';
+import {
+  currentUser, updateCompany, uploadTargetColumnFile, getCompany,
+} from '../../util/fetch/api';
+import { createModel } from '../../util/mlFetch/mlApi';
+import FileUpload from '../common/FileUpload';
+import ProgressBar from '../common/ProgressBar';
+>>>>>>> origin
 
 const AddRules = () => {
   const [variables, setVariables] = useState([]);
@@ -21,6 +31,7 @@ const AddRules = () => {
   const [mlJobFailureMessage, setMlJobFailureMessage] = useState(null);
   const [completed, setCompleted] = useState(0);
 
+<<<<<<< HEAD
   const completionStatus = new Map([
     ["Not Started", 0],
     ["Starting ML Job", 2],
@@ -32,13 +43,25 @@ const AddRules = () => {
     ["Creating Endpoint", 80],
     ["Completed", 100],
   ]);
+=======
+  const completionStatus = new Map([['Not Started', 0],
+    ['Starting ML Job', 2],
+    ['Analyzing Data', 5],
+    ['Feature Engineering', 20],
+    ['Model Tuning', 40],
+    ['ML Job Completed', 50],
+    ['Created and deployed best model', 70],
+    ['Creating Endpoint', 80],
+    ['Completed', 100]]);
+>>>>>>> origin
 
   useEffect(() => {
     (async () => {
       const current = await currentUser();
       const form = current.user.formData;
       setFormula(current.user.ruleFormula);
-      setVariables(form.map((f) => f.field_name));
+      // setVariables(form.map((f) => f.field_name));
+      setVariables(form);
       setChecked(current.user.mlRuleEngine);
       setDataFile(current.user.dataFile);
       setDataFileLocation(current.user.dataFileLocation);
@@ -54,7 +77,7 @@ const AddRules = () => {
       }, 60000);
     })();
   }, []);
-  //120000 = 2 min , 60000 = 1 min
+  // 120000 = 2 min , 60000 = 1 min
 
   const acceptType = "text/csv";
 
@@ -87,7 +110,10 @@ const AddRules = () => {
     const company = await getCompany(companyID);
     setMlJobCompletion(company.mlJobCompletion);
     setCompleted(completionStatus.get(company.mlJobCompletion));
+<<<<<<< HEAD
     console.log(result);
+=======
+>>>>>>> origin
   };
 
   const handleOnFileUpload = async ({ fileLocation, fileOrginalName }) => {
@@ -98,7 +124,6 @@ const AddRules = () => {
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
   };
-
   return (
     <div className="row">
       <div className="col-12">
@@ -169,6 +194,7 @@ const AddRules = () => {
                 </button>
               </div>
               <div className="mt-4">
+<<<<<<< HEAD
                 <button
                   className="btn-primary"
                   disabled={
@@ -177,15 +203,24 @@ const AddRules = () => {
                   }
                   onClick={handleOnMLStart}
                 >
+=======
+                <button className="btn-primary"
+                  disabled={(mlJobCompletion !== 'Not Started') && (mlJobCompletion !== 'Failed')}
+                  onClick={handleOnMLStart}>
+>>>>>>> origin
                   Start ML training
                 </button>
                 <div>
                   <ProgressBar completed={completed} />
                 </div>
+<<<<<<< HEAD
                 Job Status:{" "}
                 {mlJobCompletion === "Failed"
                   ? mlJobCompletion + ":  " + mlJobFailureMessage
                   : mlJobCompletion}
+=======
+                Job Status: {mlJobCompletion === 'Failed' ? `${mlJobCompletion}:  ${mlJobFailureMessage}` : mlJobCompletion }
+>>>>>>> origin
               </div>
             </div>
           )}
@@ -198,7 +233,21 @@ const AddRules = () => {
             {variables.map((v, i) => {
               return (
                 <div key={i}>
-                  <div className="badge badge-pill badge-secondary">{v}</div>
+                  <div>
+                    <span className="badge badge-pill badge-secondary">{v.field_name}</span>
+                    <span className="ml-2">{v.label} ({v.element})</span>
+                  </div>
+                  <div>
+                    {v.options
+                      ? v.options.map((o, oi) => {
+                        return (
+                          <div key={oi} className="mt-1">
+                            <div className="badge badge-pill badge-info ml-3">{o.key}</div>
+                          </div>
+                        );
+                      })
+                      : null}
+                  </div>
                 </div>
               );
             })}

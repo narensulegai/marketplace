@@ -33,7 +33,7 @@ function App() {
         <Route path="/companySignup" exact>
           <Signup type="company" />
         </Route>
-        <Route path="/buyerSignup" exact>
+        <Route path="/buyerSignup/:id" exact>
           <Signup type="employee" />
         </Route>
         <Route path="/logout" exact>

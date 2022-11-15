@@ -38,10 +38,14 @@ export class BuyerLanding extends PureComponent {
             <Login onLogin={this.handleOnLogin} type="employee" />
             <div>Dont have a account ?&nbsp;&nbsp;</div>
             <div className="mt-3">
-              <a href="#/buyerSignup" className="btn-primary">
+              <a
+                href={`#/buyerSignup/${window.location.hash.split("/").at(-1)}`}
+                className="btn-primary"
+              >
                 Sign up here
               </a>
             </div>
+            <div className="mt-4"></div>
             <div className="mt-4"></div>
           </div>
           <div className="col-3" />
