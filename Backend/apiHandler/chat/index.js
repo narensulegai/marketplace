@@ -44,8 +44,10 @@ module.exports = {
                 _id: c.receiver.user,
               });
             }
-            c.sender = Object.assign(chatSenderUser);
-            c.receiver = Object.assign(chatReceiverUser);
+            c.sender =
+              chatSenderUser !== null ? Object.assign(chatSenderUser) : "";
+            c.receiver =
+              chatReceiverUser !== null ? Object.assign(chatReceiverUser) : "";
             chats.push(c);
           }
         }
@@ -60,7 +62,7 @@ module.exports = {
       user: req.body.user1.user,
     });
     if (sender === null) {
-      userSeller = await new ChatUser({
+      sender = await new ChatUser({
         user: req.body.user1.user,
         type: "company",
       }).save();

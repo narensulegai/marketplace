@@ -22,6 +22,7 @@ import {
   sendMessage,
 } from "../../util/fetch/api";
 
+let timeoutId = "";
 class ChatPanel extends React.Component {
   constructor(props) {
     super();
@@ -51,6 +52,10 @@ class ChatPanel extends React.Component {
     if (userId !== "undefined") {
       this.getUser2(userId);
     }
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(timeoutId);
   };
 
   getUser2 = async (id) => {
@@ -124,7 +129,7 @@ class ChatPanel extends React.Component {
       });
 
       // Reconnect in one second
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => (timeoutId = setTimeout(resolve, 500)));
       await this.subscribe();
     } else {
       // Get and show the message
