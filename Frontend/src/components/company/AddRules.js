@@ -51,10 +51,10 @@ const AddRules = () => {
         const company = await getCompany(current.user._id);
         setMlJobCompletion(company.mlJobCompletion);
         setCompleted(completionStatus.get(company.mlJobCompletion));
-      }, 60000);
+      }, 30000);
     })();
   }, []);
-  // 120000 = 2 min , 60000 = 1 min
+  // 120000 = 2 min , 60000 = 1 min, 30000 = 30 sec
 
   const acceptType = "text/csv";
 
