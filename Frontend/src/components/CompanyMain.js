@@ -17,6 +17,20 @@ import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
 import MessageParser from "./chatbot/MessageParser.js";
 import ActionProvider from "./chatbot/ActionProvider.js";
+import Analytics from './company/Analytics/Analytics';
+import Reports  from './company/Reports/Reports';
+import SalesOverTime from './company/Reports/SalesOverTime';
+import SalesByPolicy from './company/Reports/SalesByPolicy';
+import SalesByML from './company/Reports/SalesByML';
+import SalesByFormula from './company/Reports/SalesByFormula';
+import CustomersOverTime from './company/Reports/CustomersOverTime';
+import OneTimeCustomers from './company/Reports/OneTimeCustomers';
+import LoyalCustomers from './company/Reports/LoyalCustomers';
+import ReturningCustomers from './company/Reports/ReturningCustomers';
+import InsurancePolicyOverTime from './company/Reports/InsurancePolicyOverTime';
+import PolicyMetrics from './company/Reports/PolicyMetrics';
+import StoreAnalysis from './company/Reports/StoreAnalysis';
+import TopStoreSearches from './company/Reports/TopStoreSearches';
 
 const CompanyMain = () => {
   const { id: companyId } = useParams();
@@ -46,6 +60,12 @@ const CompanyMain = () => {
         >
           Chat
         </a>
+        <a className="nav-link text-light" href="#/company/analytics">
+          Analytics
+        </a>
+        <a className="nav-link text-light" href="#/company/reports">
+          Reports
+        </a>
         <a className="nav-link" href="#/logout">
           Logout
         </a>
@@ -66,6 +86,48 @@ const CompanyMain = () => {
         </Route>
         <Route path="/company/:userId/:currentId/chat" exact>
           <ChatPanel />
+        </Route>
+        <Route path="/company/analytics" exact>
+          <Analytics />
+        </Route>
+        <Route path="/company/reports" exact>
+          <Reports />
+        </Route>
+        <Route path="/company/salesovertime" exact>
+          <SalesOverTime />
+        </Route>
+        <Route path="/company/salesbypolicy" exact>
+          <SalesByPolicy />
+        </Route>
+        <Route path="/company/salesbyML" exact>
+          <SalesByML />
+        </Route>
+        <Route path="/company/salesbyformula" exact>
+          <SalesByFormula />
+        </Route>
+        <Route path="/company/customersovertime" exact>
+          <CustomersOverTime />
+        </Route>
+        <Route path="/company/onetimecustomers" exact>
+          <OneTimeCustomers />
+        </Route>
+        <Route path="/company/loyalcustomers" exact>
+          <LoyalCustomers />
+        </Route>
+        <Route path="/company/returningcustomers" exact>
+          <ReturningCustomers />
+        </Route>
+        <Route path="/company/ordersovertime" exact>
+          <InsurancePolicyOverTime />
+        </Route>
+        <Route path="/company/policymetrics" exact>
+          <PolicyMetrics />
+        </Route>
+        <Route path="/company/topstoresearches" exact>
+          <TopStoreSearches />
+        </Route>
+        <Route path="/company/storeanalysis" exact>
+          <StoreAnalysis />
         </Route>
       </div>
     </>
