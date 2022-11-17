@@ -57,7 +57,7 @@ const Questioner = () => {
     if (typeof value === 'object' && value !== null) return value.value;
     return value;
   };
-  // use this function
+  
   const valuesToKeyValues = (variables) => {
     return variables.reduce((m, v) => {
       const val = parseValue(v.value);
@@ -78,13 +78,12 @@ const Questioner = () => {
     currentUser.variables[companyId] = variables;
     await updateEmployee(currentUser);
     setVariables(variables);
-    const data = [];
+
     if (mlRuleEngine && mlJobCompletion === "Completed") {
-      // {input: '100', textarea: '1000', radio: 'radio2:radio2', checkbox: 'checkbox1'}
-      // valuesToKeyValues(variable)
-      variables.forEach((variable) => {
-        data.push(variable.value);
-      });
+      const userInput = valuesToKeyValues(variables);
+      console.log(userInput)
+      const data = Object.values(userInput)
+      console.log(data)
       const mlQuote = await getMlQuote({ id: companyId, data });
       setQuote(mlQuote.Quotation.toFixed(2));
     } else {
