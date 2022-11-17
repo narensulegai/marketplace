@@ -3,8 +3,7 @@ import { Route } from "react-router-dom";
 import Overview from "./company/Overview";
 import Dashboard from "./company/Dashboard";
 // import BuildWebsite from './company/BuildWebsite';
-import AddRules from './company/AddRules';
-import FormBuilder from './company/FormBuilder';
+
 import Analytics from './company/Analytics/Analytics';
 import Reports  from './company/Reports/Reports';
 import SalesOverTime from './company/Reports/SalesOverTime';
@@ -41,16 +40,7 @@ const CompanyMain = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark">
-
-        <a className="navbar-brand text-light" href="#/">Insurify</a>
-        <a className="nav-link text-light" href="#/company/overview">Company Profile</a>
-        <a className="nav-link text-light" href="#/company/dashboard">Dashboard</a>
-        <a className="nav-link text-light" href="#/company/formBuilder">Build website</a>
-        <a className="nav-link text-light" href="#/company/addRules">Add Rules</a>
-        <a className="nav-link text-light" href="#/company/analytics">Analytics</a>
-        <a className="nav-link text-light" href="#/company/reports">Reports</a>
-        <a className="nav-link" href="#/logout">Logout</a>
-        
+      
         <a className="navbar-brand text-light" href="#/">
           Insurify
         </a>
@@ -71,6 +61,12 @@ const CompanyMain = () => {
           href={`#/company/${userId}/${companyId}/chat`}
         >
           Chat
+        </a>
+        <a className="nav-link text-light" href="#/company/analytics">
+          Analytics
+        </a>
+        <a className="nav-link text-light" href="#/company/reports">
+          Reports
         </a>
         <a className="nav-link" href="#/logout">
           Logout
@@ -131,6 +127,7 @@ const CompanyMain = () => {
         </Route>
         <Route path="/company/storeanalysis" exact>
           <StoreAnalysis />
+        </Route>
         <Route path="/company/:userId/:currentId/chat" exact>
           <ChatPanel />
         </Route>
