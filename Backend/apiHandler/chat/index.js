@@ -1,7 +1,7 @@
 const { Chat, Company, Employee, ChatUser } = require("../../mongodb");
 module.exports = {
   getChats: async (req, resp) => {
-    console.log(req.params);
+    // console.log(req.params);
     var id = req.params.id;
     await Chat.find()
       .populate({
@@ -26,7 +26,7 @@ module.exports = {
           let chatReceiverUser = {};
           if (id === c.sender.user || id === c.receiver.user) {
             if (c.sender.type === "company") {
-              console.log(c.sender.user);
+              // console.log(c.sender.user);
               chatSenderUser = await Company.findOne({
                 _id: c.sender.user,
               });
@@ -44,12 +44,14 @@ module.exports = {
                 _id: c.receiver.user,
               });
             }
-            c.sender = Object.assign(chatSenderUser);
-            c.receiver = Object.assign(chatReceiverUser);
+            c.sender =
+              chatSenderUser !== null ? Object.assign(chatSenderUser) : "";
+            c.receiver =
+              chatReceiverUser !== null ? Object.assign(chatReceiverUser) : "";
             chats.push(c);
           }
         }
-        console.log(chats);
+        // console.log(chats);
         resp.json(chats);
       });
   },
@@ -60,7 +62,7 @@ module.exports = {
       user: req.body.user1.user,
     });
     if (sender === null) {
-      userSeller = await new ChatUser({
+      sender = await new ChatUser({
         user: req.body.user1.user,
         type: "company",
       }).save();
@@ -84,7 +86,7 @@ module.exports = {
   },
 
   createChannel: async (req, resp) => {
-    console.log({ ...req.body });
+    // console.log({ ...req.body });
     const channel = await new Chat({ ...req.body }).save();
     resp.json(channel);
   },
