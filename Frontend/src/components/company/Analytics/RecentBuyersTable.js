@@ -33,26 +33,23 @@ const DeliveryOrdersTable = ({ history, match }) => {
 
   return (
     <>
-      <ChartTitle>Recent buyers</ChartTitle>
+      <ChartTitle>Recent website visitors</ChartTitle>
       <Table className={classes.root} size="small">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.head}>ID</TableCell>
-            <TableCell className={classes.head}>Customer</TableCell>
+            <TableCell className={classes.head}>Visitor</TableCell>
             <Hidden xsDown>
               <TableCell className={classes.head}>Date</TableCell>
-              <TableCell className={classes.head}>Address</TableCell>
             </Hidden>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id} className={classes.row}>
-              <TableCell>{row.id}</TableCell>
+            <TableRow key={row.customer} className={classes.row}>
+              {/* <TableCell>{row.id}</TableCell> */}
               <TableCell>{row.customer}</TableCell>
               <Hidden xsDown>
                 <TableCell>{row.date}</TableCell>
-                <TableCell>{row.address}</TableCell>
               </Hidden>
             </TableRow>
           ))}

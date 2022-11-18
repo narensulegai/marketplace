@@ -31,6 +31,8 @@ import InsurancePolicyOverTime from './company/Reports/InsurancePolicyOverTime';
 import PolicyMetrics from './company/Reports/PolicyMetrics';
 import StoreAnalysis from './company/Reports/StoreAnalysis';
 import TopStoreSearches from './company/Reports/TopStoreSearches';
+import PredictionsML from "./company/Reports/PredictionsML";
+import PredictionsFormula from "./company/Reports/PredictionsFormula";
 
 const CompanyMain = () => {
   const { id: companyId } = useParams();
@@ -128,6 +130,12 @@ const CompanyMain = () => {
         </Route>
         <Route path="/company/storeanalysis" exact>
           <StoreAnalysis />
+        </Route>
+        <Route path="/company/predictionsml" exact>
+          <PredictionsML />
+        </Route>
+        <Route path="/company/predictionsformula" exact>
+          <PredictionsFormula />
         </Route>
       </div>
     </>

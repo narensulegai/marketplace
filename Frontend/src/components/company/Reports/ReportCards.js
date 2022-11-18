@@ -18,7 +18,7 @@ const ReportCards = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-            <SalesCard/>
+            {/* <SalesCard/> */}
             <InsurancePoliciesCard />
             <CustomersCard/>
             <StoreCard />

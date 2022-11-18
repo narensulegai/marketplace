@@ -7,6 +7,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from "react-router-dom";
+import StorefrontRoundedIcon from '@material-ui/icons/StorefrontRounded';
 
 const useStyles = makeStyles(reportStatCardStyles);
 
@@ -14,15 +15,18 @@ const StoreCard = () => {
     const classes = useStyles();
     return(
         <>
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={15} sm={8} md={8}>
                 <Paper className={classes.paper}>
                     <div className={classes.topRow}>
                     <div>
-                        <Typography className={classes.green} variant="button">Store</Typography> <br/>
-                        <Typography>Gain insights into your store, what factors are influencing your store's functionality and how to improve your store's outreach to the customers.</Typography>
+                        <Typography className={classes.green} variant="button">Website analysis</Typography> <br/>
+                        <Typography>Gain insights into your website, what factors are influencing your website's functionality and how to improve your website's outreach.</Typography>
                         {/* <Typography variant="h4" 
                         onload={(e) => {
                         }}>{totalVisitors}</Typography> */}
+                    </div>
+                    <div className={classes.icon}>
+                        <StorefrontRoundedIcon fontSize="large" />
                     </div>
                     </div><br/>
                     <Divider />
@@ -38,7 +42,7 @@ const StoreCard = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                             <Typography>
-                                <Link to="storeanalysis">Online store analysis</Link><br/>
+                                <Link to="storeanalysis">Online website analysis</Link><br/>
                                 <Link to="topstoresearches">Top online store searches</Link><br/>
                             </Typography>
                             </AccordionDetails>
