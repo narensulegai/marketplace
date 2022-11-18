@@ -20,17 +20,17 @@ const useStyles = makeStyles(statCardsStyles);
 
 const StatCards = () => {
   const classes = useStyles();
-  const [totalVisitors, setTotalVisitors] = useState(Math.floor(Math.random() * (2000 - 50) + 50));
-  const [policiesSold, setPoliciesSold] = useState(Math.floor(Math.random() * (100 - 5) + 5));
-  const [netProfit, setNetProfit] = useState(Math.floor(Math.random() * (5000 - 100) + 100));
+  const [totalVisitors, setTotalVisitors] = useState(Math.floor(Math.random() * (10 - 1) + 1));
+  // const [policiesSold, setPoliciesSold] = useState(Math.floor(Math.random() * (10 - 1) + 1));
+  // const [netProfit, setNetProfit] = useState(Math.floor(Math.random() * (5000 - 100) + 100));
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={15} sm={8} md={4}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
-                <Typography variant="button">Total Shop Visitors</Typography>
+                <Typography variant="button">Total website Visitors</Typography>
                 <Typography variant="h4" 
                 onload={(e) => {
                 }}>{totalVisitors}</Typography>
@@ -43,12 +43,12 @@ const StatCards = () => {
             <div className={classes.bottomRow}>
               <ArrowUpwardIcon className={classes.green} />
               <Typography variant="body2">
-                &nbsp;<span className={classes.green}>{Math.floor(Math.random() * (100 - 1) + 1)}%</span> to last month
+                &nbsp;<span className={classes.green}>{Math.floor(Math.random() * (10 - 1) + 1)}%</span> to last week
               </Typography>
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        {/* <Grid item xs={12} sm={6} md={3}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
@@ -65,12 +65,12 @@ const StatCards = () => {
             <div className={classes.bottomRow}>
               <ArrowDownwardIcon fontSize="small" className={classes.red} />
               <Typography variant="body2">
-                &nbsp;<span className={classes.red}>{Math.floor(Math.random() * (100 - 1) + 1)}%</span> to last month
+                &nbsp;<span className={classes.red}>{Math.floor(Math.random() * (100 - 1) + 1)}%</span> to last week
               </Typography>
             </div>
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        </Grid> */}
+        {/* <Grid item xs={12} sm={6} md={3}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
@@ -87,17 +87,17 @@ const StatCards = () => {
             <div className={classes.bottomRow}>
               <ArrowUpwardIcon fontSize="small" className={classes.green} />
               <Typography variant="body2">
-                &nbsp;<span className={classes.green}>{(Math.random() * (100 - 1) + 1).toFixed(2)}%</span> to last month
+                &nbsp;<span className={classes.green}>{(Math.random() * (100 - 1) + 1).toFixed(2)}%</span> to last week
               </Typography>
             </div>
           </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        </Grid> */}
+        <Grid item xs={15} sm={8} md={4}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
-                <Typography variant="button">ML based Premium Calculations</Typography>
-                <Typography variant="h4">{Math.floor(Math.random() * (100 - 1) + 1)}</Typography>
+                <Typography variant="button">ML based Premium Predictions</Typography>
+                <Typography variant="h4">{Math.floor(Math.random() * (10 - 1) + 1)}</Typography>
               </div>
               <div className={classes.icon}>
                 <TimelineRoundedIcon fontSize="large" />
@@ -107,18 +107,18 @@ const StatCards = () => {
             <div className={classes.bottomRow}>
               <ArrowUpwardIcon fontSize="small" className={classes.green} />
               <Typography variant="body2">
-                &nbsp;<span className={classes.green}>{(Math.random() * (100 - 1) + 1).toFixed(2)}</span> to last month
+                &nbsp;<span className={classes.green}>{(Math.random() * (10 - 1) + 1).toFixed(2)}%</span> to last week
               </Typography>
             </div>
           </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={15} sm={8} md={4}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
-                <Typography variant="button">Formula based Premium Calculations</Typography>
-                <Typography variant="h4">{Math.floor(Math.random() * (100 - 1) + 1)}</Typography>
+                <Typography variant="button">Formula based Premium Predictions</Typography>
+                <Typography variant="h4">{Math.floor(Math.random() * (10 - 1) + 1)}</Typography>
               </div>
               <div className={classes.icon}>
                 <FunctionsRoundedIcon fontSize="large" />
@@ -128,13 +128,13 @@ const StatCards = () => {
             <div className={classes.bottomRow}>
               <ArrowDownwardIcon fontSize="small" className={classes.green} />
               <Typography variant="body2">
-                &nbsp;<span className={classes.green}>{Math.floor(Math.random() * (100 - 1) + 1)}</span> to last month
+                &nbsp;<span className={classes.green}>{Math.floor(Math.random() * (10 - 1) + 1)}%</span> to last week
               </Typography>
             </div>
           </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        {/* <Grid item xs={12} sm={6} md={3}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
@@ -153,14 +153,14 @@ const StatCards = () => {
               </Typography>
             </div>
           </Paper>
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={15} sm={8} md={4}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
                 <Typography variant="button">Top selling policy</Typography>
-                <Typography variant="h4">Car Insurance</Typography>
+                <Typography variant="h4">Medical Insurance</Typography>
               </div>
               <div className={classes.icon}>
                 <StarsRoundedIcon fontSize="large" />
@@ -176,12 +176,12 @@ const StatCards = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={15} sm={8} md={4}>
           <Paper className={classes.paper}>
             <div className={classes.topRow}>
               <div>
                 <Typography variant="button">Number of active chat sessions</Typography>
-                <Typography variant="h4">{Math.floor(Math.random() * (100 - 1) + 1)}</Typography>
+                <Typography variant="h4">{Math.floor(Math.random() * (10 - 1) + 1)}</Typography>
               </div>
               <div className={classes.icon}>
                 <ForumRoundedIcon fontSize="large" />

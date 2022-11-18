@@ -28,33 +28,16 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(month, customerType, customers) {
-  return { month, customerType, customers };
+function createData(date, count) {
+  return { date, count };
 }
 
 const rows = [
-  createData('Jan 2022','returning customer','22'),
-  createData('Jan 2022','first-time customer','4'),
-  createData('Feb 2022','returning customer','15'),
-  createData('Feb 2022','first-time customer','5'),
-  createData('Mar 2022','returning customer','8'),
-  createData('Mar 2022','first-time customer','8'),
-  createData('Apr 2022','returning customer','12'),
-  createData('Apr 2022','first-time customer','10'),
-  createData('May 2022','returning customer','34'),
-  createData('May 2022','first-time customer','25'),
-  createData('Jun 2022','returning customer','35'),
-  createData('Jun 2022','first-time customer','18'),
-  createData('Jul 2022','returning customer','16'),
-  createData('Jul 2022','first-time customer','11'),
-  createData('Aug 2022','returning customer','26'),
-  createData('Aug 2022','first-time customer','16'),
-  createData('Sept 2022','returning customer','20'),
-  createData('Sept 2022','first-time customer','20'),
-  createData('Oct 2022','returning customer','27'),
-  createData('Oct 2022','first-time customer','9'),
-  createData('Nov 2022','returning customer','11'),
-  createData('Nov 2022','first-time customer','9'),
+  createData('Nov 13','4'),
+  createData('Nov 14','1'),
+  createData('Nov 15','3'),
+  createData('Nov 16','6'),
+  createData('Nov 17','2'),
  ];
 
 const CustomersOverTime = () => {
@@ -67,17 +50,11 @@ const CustomersOverTime = () => {
 
         <Bar
                   data={{
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Nov', 'Dec'],
+                        labels: ['Nov 1-7' , 'Nov 8-14'],
                         datasets:[
                               {
-                                  label:  'first-time customers',
+                                  label:  'visitors',
                                   data: [4, 5, 8, 10, 25, 18, 11, 16, 20, 9, 9],
-                                  backgroundColor: '#0C68AA',
-                                  borderWidth: 1
-                              },
-                              {
-                                  label:  'returning customers',
-                                  data: [22, 15, 8, 12, 34, 35, 16, 26, 20, 27, 11],
                                   backgroundColor: '#0C68AA',
                                   borderWidth: 1
                               },
@@ -90,7 +67,7 @@ const CustomersOverTime = () => {
                               yAxes:[{
                                 scaleLabel: {
                                         display: true,
-                                        labelString: "Customers count",
+                                        labelString: "Visitor count",
                                         fontSize: 18,
                                     },
                                     ticks:{
@@ -115,17 +92,15 @@ const CustomersOverTime = () => {
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align="right">Month</StyledTableCell>
-                  <StyledTableCell align="right">Customer type</StyledTableCell>
-                  <StyledTableCell align="right">Customers</StyledTableCell>
+                  <StyledTableCell align="right">Date</StyledTableCell>
+                  <StyledTableCell align="right">No. of visitors</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <StyledTableRow key={row.month}>
-                    <StyledTableCell align="right">{row.month}</StyledTableCell>
-                    <StyledTableCell align="right">{row.customerType}</StyledTableCell>
-                    <StyledTableCell align="right">{row.customers}</StyledTableCell>
+                  <StyledTableRow key={row.date}>
+                    <StyledTableCell align="right">{row.date}</StyledTableCell>
+                    <StyledTableCell align="right">{row.count}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

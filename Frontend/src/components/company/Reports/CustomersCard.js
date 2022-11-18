@@ -7,6 +7,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from "react-router-dom";
+import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
 
 const useStyles = makeStyles(reportStatCardStyles);
 
@@ -14,15 +15,18 @@ const CustomersCard = () => {
     const classes = useStyles();
     return(
         <>
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={15} sm={8} md={8}>
                 <Paper className={classes.paper}>
                     <div className={classes.topRow}>
                     <div>
-                        <Typography className={classes.green} variant="button">Customers</Typography> <br/>
-                        <Typography>Gain insights into who your customers are and how they interact with your business.</Typography>
+                        <Typography className={classes.green} variant="button">Website Visitors</Typography> <br/>
+                        <Typography>Gain insights into who your website visitors are and how they interact with your business.</Typography>
                         {/* <Typography variant="h4" 
                         onload={(e) => {
                         }}>{totalVisitors}</Typography> */}
+                    </div>
+                    <div className={classes.icon}>
+                        <VisibilityRoundedIcon fontSize="large" />
                     </div>
                     </div><br/>
                     <Divider />
@@ -38,10 +42,10 @@ const CustomersCard = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                             <Typography>
-                                <Link to="customersovertime">Customers over time</Link><br/>
-                                <Link to="onetimecustomers">One time customers</Link><br/>
-                                <Link to="returningcustomers">Returning customers</Link><br/>
-                                <Link to="loyalcustomers">Loyal customers</Link><br/>
+                                <Link to="customersovertime">Website visitors over time</Link><br/>
+                                {/* <Link to="onetimecustomers">One time customers</Link><br/> */}
+                                {/* <Link to="returningcustomers">Returning customers</Link><br/> */}
+                                {/* <Link to="loyalcustomers">Loyal customers</Link><br/> */}
                             </Typography>
                             </AccordionDetails>
                         </Accordion>

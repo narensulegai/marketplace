@@ -18,9 +18,9 @@ const Analytics = () => {
       <Paper className={classes.root} elevation={5}>
         <LineChart />
       </Paper>
-      <Paper className={classes.root} elevation={5}>
+      {/* <Paper className={classes.root} elevation={5}>
         <BarChart />
-      </Paper>
+      </Paper> */}
       <Grid
         container
         direction="row"
@@ -32,11 +32,11 @@ const Analytics = () => {
             <RecentBuyersTable />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        {/* <Grid item xs={12} md={3}>
           <Paper elevation={5}>
             <DoughnutChart />
           </Paper>
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

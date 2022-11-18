@@ -7,6 +7,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from "react-router-dom";
+import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
 
 const useStyles = makeStyles(reportStatCardStyles);
 
@@ -14,15 +15,18 @@ const InsurancePoliciesCard = () => {
     const classes = useStyles();
     return(
         <>
-        <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={15} sm={8} md={8}>
                 <Paper className={classes.paper}>
                     <div className={classes.topRow}>
                     <div>
-                        <Typography className={classes.green} variant="button">Insurance Polices</Typography> <br/>
-                        <Typography>Get a sense of your store's policy order volume and flow, as well as overall fulfillment performance, with orders reports.</Typography>
+                        <Typography className={classes.green} variant="button">Premium Predictions</Typography> <br/>
+                        <Typography>Get insights into premium predictions.</Typography>
                         {/* <Typography variant="h4" 
                         onload={(e) => {
                         }}>{totalVisitors}</Typography> */}
+                    </div>
+                    <div className={classes.icon}>
+                        <AttachMoneyRoundedIcon fontSize="large" />
                     </div>
                     </div><br/>
                     <Divider />
@@ -38,8 +42,8 @@ const InsurancePoliciesCard = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                             <Typography>
-                                <Link to="ordersovertime">Policy orders over time</Link><br/>
-                                <Link to="policymetrics">Policy metrics</Link><br/>
+                                <Link to="predictionsml">Premium predictions by ML</Link><br/>
+                                <Link to="predictionsformula">Premium predictions by Formula-based</Link><br/>
                             </Typography>
                             </AccordionDetails>
                         </Accordion>

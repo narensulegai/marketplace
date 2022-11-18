@@ -13,7 +13,7 @@ const LineChart = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [type, setType] = useState("Visitors");
-  const [date, setDate] = useState("2022-04-20");
+  const [date, setDate] = useState("2022-11-17");
 
   const data = {
     labels: labels,
@@ -98,9 +98,9 @@ const LineChart = () => {
           <MenuItem key={"Visitors"} value={"Visitors"}>
             {"Visitors"}
           </MenuItem>
-          <MenuItem key={"Revenue"} value={"Revenue"}>
+          {/* <MenuItem key={"Revenue"} value={"Revenue"}>
             {"Revenue"}
-          </MenuItem>
+          </MenuItem> */}
         </TextField>
         <TextField
           label="Date"
@@ -125,8 +125,8 @@ const LineChart = () => {
         <ChartTitle>{`Hourly ${type}`}</ChartTitle>
       </Box>
 
-      <Box className={classes.container}>
-        <Line data={data} width={100} height={250} options={options} />
+      <Box style={{maxWidth: '100%', maxHeight: '200%'}} className={classes.container}>
+        <Line width={'100%'} height={'250%'} data={data} options={options} />
       </Box>
     </>
   );

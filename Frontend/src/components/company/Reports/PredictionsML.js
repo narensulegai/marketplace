@@ -1,5 +1,5 @@
 import React from 'react';
-import {Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 import {CSVLink} from 'react-csv';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -28,19 +28,19 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
 
-  function createData(date, storeVisits, filledForm) {
-    return { date, storeVisits, filledForm };
+  function createData(date, count) {
+    return {date, count };
   }
 
 const csvData =[
-    createData('Nov 13','1','5'),
-    createData('Nov 14','5','3'),
-    createData('Nov 15','10','4'),
-    createData('Nov 16','2','2'),
-    createData('Nov 17','6','6'),
+    createData('13 Nov','5'),
+    createData('14 Nov','8'),
+    createData('15 Nov','2'),
+    createData('16 Nov','4'),
+    createData('17 Nov','7'),
   ];
 
-const StoreAnalysis = () => {
+const PredictionsML = () => {
     return(
         <>
         {/* <Grid xs={10} md={5}> */}
@@ -50,27 +50,15 @@ const StoreAnalysis = () => {
         </div>
         <br/>
             <div>
-            <Bar
+            <Line
                   data={{
                         labels: ['Nov 1-7', 'Nov 8-14'],
                         datasets:[
                               {
-                                  label:  'Website visits',
-                                  data: [5,2,9,5,6,4,1,6,3,9,4],
+                                  label:  'Premium predictions by ML engine',
+                                  data: [5,8,2,4,7,8,10],
                                   backgroundColor: '#0C68AA',
-                                  borderWidth: 1
-                              },
-                              // {
-                              //     label:  'Sessions',
-                              //     data: [1,5,1,2,6,3,8,6,9,7,3],
-                              //     backgroundColor: '#0C68AA',
-                              //     borderWidth: 1
-                              // },
-                              {
-                                  label:  'Form submissions',
-                                  data: [5,2,4,2,7,4,10,6,3,9,7],
-                                  backgroundColor: '#0C68AA',
-                                  borderWidth: 1
+                                  borderWidth: 1,
                               },
                         ],
                   }}
@@ -81,7 +69,7 @@ const StoreAnalysis = () => {
                               yAxes:[{
                                 scaleLabel: {
                                         display: true,
-                                        labelString: "Count",
+                                        labelString: "Premium predictions",
                                         fontSize: 18,
                                     },
                                     ticks:{
@@ -106,16 +94,14 @@ const StoreAnalysis = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="right">Date</StyledTableCell>
-                  <StyledTableCell align="right">Website visitor count</StyledTableCell>
-                  <StyledTableCell align="right">Form submits</StyledTableCell>
+                  <StyledTableCell align="right">No. of predictions</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {csvData.map((csvData) => (
                   <StyledTableRow key={csvData.date}>
                     <StyledTableCell align="right">{csvData.date}</StyledTableCell>
-                    <StyledTableCell align="right">{csvData.storeVisits}</StyledTableCell>
-                    <StyledTableCell align="right">{csvData.filledForm}</StyledTableCell>
+                    <StyledTableCell align="right">{csvData.count}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -125,4 +111,4 @@ const StoreAnalysis = () => {
     );
 };
 
-export default StoreAnalysis;
+export default PredictionsML;
