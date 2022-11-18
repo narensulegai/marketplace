@@ -2,7 +2,8 @@
 
 body {
     position: relative;
-    background: url("https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png") repeat;
+    background: url("https://www.toptal.com/designers/subtlepatterns/uploads/white_wall_hash.png") repeat;
+    /*background: url("https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png") repeat;*/
     padding-bottom: 40px;
 }
 
@@ -178,9 +179,9 @@ h4 {
 }
 
 :root {
-    --dblue: #435b9b;
-    --green: #0c68aa;
-    --gold: gold;
+    --dblue: #0c68aa;
+    --green: #2f4171;
+    --gold: rgba(255, 215, 0, 0.45);
 }
 
 .btn-primary:hover, .btn-primary {
@@ -228,13 +229,24 @@ h4 {
     background-image: linear-gradient(var(--dblue), var(--green));
 }
 
-select, input[type=text], input[type=password], input[type=number] {
-    box-shadow: 4px 4px 0 0 var(--green);
-    width: 500px;
-    padding-left: 10px;
+textarea:active, select.form-control:active, input[type=text]:active, input[type=password]:active, input[type=number]:active {
+    outline: none !important;
 }
 
-input[type=password]:focus, input[type=number]:focus, input[type=text]:focus, select:focus {
+textarea, select.form-control, input[type=text], input[type=password], input[type=number] {
+    /*box-shadow: 4px 4px 0 0 var(--green);*/
+    width: 500px;
+    padding-left: 0;
+    border: none;
+    border-bottom: 1px solid var(--green);
+    background: transparent;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+textarea:focus, select.form-control:focus, input[type=password]:focus, input[type=number]:focus, input[type=text]:focus {
     outline: none;
     background: var(--gold);
 }
@@ -279,9 +291,8 @@ a.nav-link {
 
 .card {
     background-clip: border-box;
-    border: 1px solid black;
     border-radius: 0;
-    box-shadow: 4px 4px 0 0 black;
+    box-shadow: 0 0 4px -2px black;
 }
 
 .card-header:first-child {
@@ -361,8 +372,23 @@ input[type=text].smallInput {
     width: 200px;
 }
 
+.react-form-builder-preview .SortableItem {
+    background: transparent !important;
+    box-shadow: 0 0 3px -1px black inset;
+    border: none !important;
+    border-radius: 5px;
+}
+
 /*blockquote::after {*/
 /*    display: block;*/
 /*    content: ' (source: ' attr(cite) ') ';*/
 /*    color: hotpink;*/
 /*}*/
+button {
+    height: 30px;
+    border-radius: 5px;
+    padding: 0px 10px !important;
+    line-height: 20px !important;
+    box-shadow: 0 0 8px -5px black inset !important;
+    border: none !important;
+}
