@@ -38,6 +38,8 @@ const rows = [
   createData('Nov 15','3'),
   createData('Nov 16','6'),
   createData('Nov 17','2'),
+  createData('Nov 18','6'),
+  createData('Nov 19','4'),
  ];
 
 const CustomersOverTime = () => {
