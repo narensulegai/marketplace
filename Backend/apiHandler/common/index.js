@@ -110,6 +110,57 @@ module.exports = {
       });
     }
   },
+  getColumns: async (req, res) => {
+    let user = {};
+    if (req.session.scope === "company") {
+      user = await Company.findById(req.session.user._id);
+      const companyName = user.name.split(" ").join("");
+      const fileOrginalName = user.dataFile;
+      const fileName = companyName + fileOrginalName;
+      const getParams = {
+        Bucket: `${process.env.S3_BUCKET}`,
+        Key: `${companyName}/${fileName}`,
+        ExpressionType: 'SQL',
+        Expression: 'SELECT * FROM S3Object s limit 1',
+        InputSerialization: {
+          CSV: {
+            FileHeaderInfo: 'None',
+            RecordDelimiter: '\r',
+			      FieldDelimiter: ',',
+          },
+        },
+        OutputSerialization: {
+          CSV: {},
+        },
+      };
+      const columns = [];
+      S3Bucket.selectObjectContent(getParams, (e, data) => {
+        if (e) {
+          res
+            .status(400)
+            .json(err("Error while  getting column names from data file"));
+        }
+        const events = data.Payload;
+        events.on('data', (event) => {
+          if (event.Records) {
+            // event.Records.Payload is a buffer containing
+            // a single record, partial records, or multiple records
+            columns.push(event.Records.Payload.toString());
+          } else if (event.Stats) {
+            console.log(`Processed ${event.Stats.Details.BytesProcessed} bytes`);
+          } else if (event.End) {
+            console.log('SelectObjectContent completed');
+          }
+        });
+        events.on('end', () => {
+          // Finished receiving events from S3
+          let columnNames = columns[0].replace(/[\r\n]/gm, '');
+          columnNames = columnNames.split(",");
+          res.json({ columnNames });
+        });
+      });
+    }
+  },
   getFile: async (req, res) => {
     const fileId = req.params.id;
     // TODO: file path injection

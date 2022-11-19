@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import Select from 'react-select';
 import {
   currentUser,
   updateCompany,
   uploadTargetColumnFile,
   getCompany,
+  getColumns,
 } from "../../util/fetch/api";
 import { createModel } from "../../util/mlFetch/mlApi";
 import FileUpload from "../common/FileUpload";
@@ -20,6 +22,7 @@ const AddRules = () => {
   const [mlJobCompletion, setMlJobCompletion] = useState(null);
   const [mlJobFailureMessage, setMlJobFailureMessage] = useState(null);
   const [completed, setCompleted] = useState(0);
+  const [columnNames, setColumnNames] = useState(null);
 
   const completionStatus = new Map([
     ["Not Started", 0],
@@ -32,6 +35,8 @@ const AddRules = () => {
     ["Creating Endpoint", 80],
     ["Completed", 100],
   ]);
+
+
 
   useEffect(() => {
     (async () => {
@@ -47,6 +52,9 @@ const AddRules = () => {
       setMlJobCompletion(current.user.mlJobCompletion);
       setMlJobFailureMessage(current.user.mlJobFailureMessage);
       setCompleted(completionStatus.get(current.user.mlJobCompletion));
+      if (current.user.dataFileLocation != '' && current.user.dataFileLocation != undefined ){
+        await getColumnNames(); 
+      }
       setInterval(async () => {
         const company = await getCompany(current.user._id);
         setMlJobCompletion(company.mlJobCompletion);
@@ -57,7 +65,7 @@ const AddRules = () => {
   // 120000 = 2 min , 60000 = 1 min, 30000 = 30 sec
 
   const acceptType = "text/csv";
-
+  
   const handleOnSave = async () => {
     await updateCompany({ ruleFormula: formula });
   };
@@ -70,8 +78,14 @@ const AddRules = () => {
   };
 
   const handleOnColumnChange = (e) => {
-    setTargetColumn(e.target.value);
+    setTargetColumn(e.value);
   };
+
+  const getColumnNames = async () => {
+    const columns = await getColumns();
+    const options  = columns.columnNames.map(columnName => ({ value : columnName, label : columnName}))
+    setColumnNames(options);
+  }
 
   const handleOnMLSave = async () => {
     await updateCompany({ targetColumn: targetColumn });
@@ -96,6 +110,7 @@ const AddRules = () => {
     });
     setDataFileLocation(fileLocation);
     setDataFile(fileOrginalName);
+    getColumnNames();
   };
   return (
     <div className="row">
@@ -153,12 +168,17 @@ const AddRules = () => {
               <div>
                 &nbsp;
                 <div className="inputLabel">
-                  Enter the column to be predicted:
+                  Select the target column to be predicted:
                 </div>
-                <input
+                {/* <input
                   type="text"
                   value={targetColumn}
                   onChange={handleOnColumnChange}
+                /> */}
+                <Select
+                options={columnNames}
+                value={{value: targetColumn, label: targetColumn}}
+                onChange={handleOnColumnChange}
                 />
               </div>
               <div className="mt-4">

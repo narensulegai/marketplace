@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: "#0C68AA",
+      backgroundColor: "#0c68aa",
       color: theme.palette.common.white,
     },
     body: {
@@ -46,7 +46,7 @@ const StoreAnalysis = () => {
         {/* <Grid xs={10} md={5}> */}
         <br/>
         <div style={{textAlign: "right"}}>
-            <CSVLink style={{color:"#0C68AA",textTransform:"uppercase"}} data={csvData.toString()}>Export</CSVLink>
+            <CSVLink style={{color:"#0c68aa",textTransform:"uppercase"}} data={csvData.toString()}>Export</CSVLink>
         </div>
         <br/>
             <div>
@@ -57,7 +57,7 @@ const StoreAnalysis = () => {
                               {
                                   label:  'Website visits',
                                   data: [5,2,9,5,6,4,1,6,3,9,4],
-                                  backgroundColor: '#0C68AA',
+                                  backgroundColor: '#0c68aa',
                                   borderWidth: 1
                               },
                               // {
@@ -69,7 +69,7 @@ const StoreAnalysis = () => {
                               {
                                   label:  'Form submissions',
                                   data: [5,2,4,2,7,4,10,6,3,9,7],
-                                  backgroundColor: '#0C68AA',
+                                  backgroundColor: '#0c68aa',
                                   borderWidth: 1
                               },
                         ],

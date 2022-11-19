@@ -10,6 +10,7 @@ export const signupEmployee = (d) => post("signup/employee", d);
 export const updateCompany = (d) => put("company", d);
 export const updateEmployee = (d) => put("employee", d);
 export const uploadTargetColumnFile = (d) => post("uploadColumnFile", d);
+export const getColumns = () => get("getColumns");
 export const getCompany = (id) => get(`company/profile/${id}`);
 export const getCompanyQuotes = () => get("companyQuotes");
 export const getEmployee = (id) => get(`employee/profile/${id}`);

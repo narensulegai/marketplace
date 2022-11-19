@@ -18,7 +18,7 @@ const BarChart = () => {
     datasets: [
       {
         backgroundColor: theme.palette.background.default,
-        borderColor: theme.palette.primary.main,
+        borderColor: "#0c68aa",
         borderWidth: 1,
         hoverBackgroundColor: theme.palette.primary.main,
         hoverBorderColor: theme.palette.background.default,
@@ -35,7 +35,7 @@ const BarChart = () => {
             display: true,
             labelString: "Revenue",
             fontSize: 18,
-            fontColor: theme.palette.primary.main,
+            fontColor: "#0c68aa",
           },
           ticks: {
             suggestedMin: 0,

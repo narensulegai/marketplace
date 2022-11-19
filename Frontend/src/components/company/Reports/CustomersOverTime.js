@@ -45,7 +45,7 @@ const CustomersOverTime = () => {
         <>
         <br/>
         <div style={{textAlign: "right"}}>
-            <CSVLink style={{color:"#0C68AA",textTransform:"uppercase"}} data={rows.toString()}>Export</CSVLink>
+            <CSVLink style={{color:"#0c68aa",textTransform:"uppercase"}} data={rows.toString()}>Export</CSVLink>
         </div><br/>
 
         <Bar
@@ -55,7 +55,7 @@ const CustomersOverTime = () => {
                               {
                                   label:  'visitors',
                                   data: [4, 5, 8, 10, 25, 18, 11, 16, 20, 9, 9],
-                                  backgroundColor: '#0C68AA',
+                                  backgroundColor: '#0c68aa',
                                   borderWidth: 1
                               },
                         ],

@@ -3,7 +3,7 @@ export const recentBuyersTableStyles = theme => ({
     width: "100%"
   },
   head: {
-    background: theme.palette.primary.main,
+    background: "#0c68aa",
     color: theme.palette.text.white,
     fontWeight: "bold"
   },

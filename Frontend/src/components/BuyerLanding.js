@@ -42,7 +42,7 @@ export class BuyerLanding extends PureComponent {
                 href={`#/buyerSignup/${window.location.hash.split("/").at(-1)}`}
                 className="btn-primary"
               >
-                Sign up here
+                Sign up as a buyer
               </a>
             </div>
             <div className="mt-4"></div>

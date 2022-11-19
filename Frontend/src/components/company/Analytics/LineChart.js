@@ -9,11 +9,21 @@ import { chartStyles } from "./styles/charts.styles";
 
 const useStyles = makeStyles(chartStyles);
 
+const getCurrentDate = (separator='') => {
+
+  let newDate = new Date()
+  let date = newDate.getDate();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+  
+  return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
+  }
+
 const LineChart = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [type, setType] = useState("Visitors");
-  const [date, setDate] = useState("2022-11-17");
+  const [date, setDate] = useState(getCurrentDate("-"));
 
   const data = {
     labels: labels,
@@ -22,12 +32,12 @@ const LineChart = () => {
         fill: true,
         lineTension: 0.5,
         backgroundColor: theme.palette.background.default,
-        borderColor: theme.palette.primary.main,
+        borderColor: "#0c68aa",
         borderCapStyle: "butt",
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: "miter",
-        pointBorderColor: "rgba(75,192,192,1)",
+        pointBorderColor: "#0c82aa",
         pointBackgroundColor: "#fff",
         pointBorderWidth: 1,
         pointHoverRadius: 5,
@@ -53,7 +63,7 @@ const LineChart = () => {
             display: true,
             labelString: type,
             fontSize: 18,
-            fontColor: theme.palette.primary.main,
+            fontColor: "#0c68aa",
           },
         },
       ],
@@ -63,7 +73,7 @@ const LineChart = () => {
             display: true,
             labelString: "Working Hours",
             fontSize: 18,
-            fontColor: theme.palette.primary.main,
+            fontColor: "#0c68aa",
           },
         },
       ],

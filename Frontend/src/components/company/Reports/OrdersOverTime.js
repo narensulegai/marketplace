@@ -12,7 +12,7 @@ import {Bar, Line} from 'react-chartjs-2';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#0C68AA",
+    backgroundColor: "#0c68aa",
     color: theme.palette.common.white,
   },
   body: {

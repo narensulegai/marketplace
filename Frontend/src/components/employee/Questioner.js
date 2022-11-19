@@ -67,7 +67,9 @@ const Questioner = () => {
 
   const getQuote = (formula, variables) => {
     const values = valuesToKeyValues(variables);
+    console.log(values);
     const expr = formulaParser.parse(formula);
+    console.log(expr);
     return expr.evaluate(values);
   };
 
@@ -88,7 +90,7 @@ const Questioner = () => {
       setQuote(mlQuote.Quotation.toFixed(2));
     } else {
       const quote = getQuote(formula, variables);
-      setQuote(quote);
+      setQuote(quote.toFixed(2));
     }
   };
 

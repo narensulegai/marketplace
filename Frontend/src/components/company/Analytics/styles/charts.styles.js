@@ -17,10 +17,10 @@ export const chartStyles = (theme) => ({
     },
     fieldFontSize: {
       fontSize: 20,
-      color: theme.palette.primary.main,
+      color: "#0c68aa",
     },
     dateField: {
-      color: theme.palette.primary.main,
+      color: "#0c68aa",
     },
     legend: {
       display: "flex",

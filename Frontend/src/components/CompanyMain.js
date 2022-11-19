@@ -68,7 +68,7 @@ const CompanyMain = () => {
         <a className="nav-link text-light" href="#/company/reports">
           Reports
         </a>
-        <a className="nav-link" href="#/logout">
+        <a className="nav-link ml-auto" href="#/logout">
           Logout
         </a>
       </nav>
