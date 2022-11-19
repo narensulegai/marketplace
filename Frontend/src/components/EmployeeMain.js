@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
-import { currentUser, getCompanyQuotes } from "../util/fetch/api";
+import { currentUser, getCompanyQuotes, getCompany } from "../util/fetch/api";
 import Questioner from "./employee/Questioner";
 import Chat from "./chat/ChatPanel";
 import ChatPanel from "./chat/ChatPanel";
@@ -22,10 +22,13 @@ const EmployeeMain = () => {
   const { id: userId } = useParams();
   const [current, setCurrent] = useState({});
   const [minimizeBot, setMinimizeBot] = useState(false);
+  const [companyName, setCompanyName] = useState("Insurify");
   useEffect(() => {
     (async () => {
       const { user } = await currentUser();
       setCurrent(user);
+      const company  = await getCompany(companyId);
+      setCompanyName(company.name)
     })();
   }, []);
   return (
@@ -35,7 +38,7 @@ const EmployeeMain = () => {
           className="navbar-brand text-light"
           href={`#/buyer/${companyId}/questioner`}
         >
-          Insurify
+          {companyName}
         </a>
         <a
           className="nav-link text-light"

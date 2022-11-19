@@ -67,9 +67,7 @@ const Questioner = () => {
 
   const getQuote = (formula, variables) => {
     const values = valuesToKeyValues(variables);
-    console.log(values);
     const expr = formulaParser.parse(formula);
-    console.log(expr);
     return expr.evaluate(values);
   };
 
@@ -83,9 +81,7 @@ const Questioner = () => {
 
     if (mlRuleEngine && mlJobCompletion === "Completed") {
       const userInput = valuesToKeyValues(variables);
-      console.log(userInput)
       const data = Object.values(userInput)
-      console.log(data)
       const mlQuote = await getMlQuote({ id: companyId, data });
       setQuote(mlQuote.Quotation.toFixed(2));
     } else {

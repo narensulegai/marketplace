@@ -8,6 +8,7 @@ export class BuyerLanding extends PureComponent {
     super(props);
     this.state = {
       minimizeBot: false,
+      companyName: (window.location.search.slice(1).replace("%20", " ")),
     };
   }
 
@@ -15,12 +16,14 @@ export class BuyerLanding extends PureComponent {
     const { scope } = await currentUser();
     if (scope === null) return;
   }
+  
   setMinimizeBot = () => {
     const minimizeBot = this.state.minimizeBot;
     this.setState({
       minimizeBot: !minimizeBot,
     });
   };
+
   handleOnLogin = () => {
     this.props.history.push(`${window.location.hash.slice(1)}/questioner`);
   };
@@ -32,7 +35,7 @@ export class BuyerLanding extends PureComponent {
           <div className="col-3" />
           <div className="col-6">
             <h2 className="mt-2">
-              Welcome to <i>Insurify</i>
+              Welcome to <i>{this.state.companyName}</i>
             </h2>
             <div>{`Sign in to your account`}</div>
             <Login onLogin={this.handleOnLogin} type="employee" />

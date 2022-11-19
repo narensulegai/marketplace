@@ -27,7 +27,7 @@ const FormBuilder = () => {
       setForm(current.user.formData);
       setLoading(false);
       // http://localhost:3000/#/buyer/6358c9d2dfb3a3e1d4ddceba/questioner
-      setUrl(`${window.location.origin}/#/buyer/${current.user._id}`);
+      setUrl(`${window.location.origin}/?${current.user.name}#/buyer/${current.user._id}`);
     })();
   }, []);
 
