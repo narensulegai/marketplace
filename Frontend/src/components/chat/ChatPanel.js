@@ -156,7 +156,7 @@ class ChatPanel extends React.Component {
       channel: this.state.selectedChatId.channel,
     };
     sendMessage(message).then((response) => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         text: "",
       });
