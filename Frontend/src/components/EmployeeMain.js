@@ -49,7 +49,7 @@ const EmployeeMain = () => {
         >
           Chat
         </a>
-        <a className="nav-link" href="#/logout">
+        <a className="nav-link ml-auto" href="#/logout">
           Logout
         </a>
       </nav>

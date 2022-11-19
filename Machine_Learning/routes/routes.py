@@ -1,4 +1,3 @@
-import pickle
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from fastapi import BackgroundTasks, FastAPI
@@ -8,9 +7,6 @@ from apiHandler.mlHandler import createBestModelAndEndpoint, callEndpoint
 from models.models import Candidate, CompanyID
 
 router = APIRouter()
-
-# Loading up the trained model
-model = pickle.load(open('/Users/swethareddy/MS/295B-Master Project II/Test/machine-learning/predictive/model/hireable.pkl', 'rb'))
 
 @router.get("/")
 def read_root():

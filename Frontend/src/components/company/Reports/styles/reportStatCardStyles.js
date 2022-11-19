@@ -6,7 +6,7 @@ export const reportStatCardStyles = (theme) => ({
     paper: {
       padding: theme.spacing(1),
       textAlign: "center",
-      color: theme.palette.primary.main,
+      color: "#0c68aa",
     },
     topRow: {
       height: "15vh",

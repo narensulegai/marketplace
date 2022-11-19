@@ -57,6 +57,7 @@ const apiVersion = "/apiV1";
   ["post", "/file", handler.common.uploadFile, null],
   ["post", "/uploadS3File", handler.common.uploadS3File, null],
   ["post", "/uploadColumnFile", handler.common.uploadColumnFile, null],
+  ["get", "/getColumns", handler.common.getColumns, null],
   ["get", "/file/:id", handler.common.getFile, null],
   ["put", "/employee", handler.employee.update, "employee", schema.update],
   ["get", "/company/profile/:id", handler.employee.getCompany, "any"],

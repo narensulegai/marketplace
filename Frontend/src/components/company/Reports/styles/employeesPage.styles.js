@@ -4,7 +4,7 @@ export const employeesTableStyles = theme => ({
   },
   head: {
     background: theme.palette.primary.main,
-    color: theme.palette.text.white,
+    color: "#0c68aa",
     fontWeight: "bold"
   },
   row: {

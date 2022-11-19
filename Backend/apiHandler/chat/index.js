@@ -92,9 +92,9 @@ module.exports = {
   },
   getCompanyOrEmployee: async (req, res) => {
     const { id } = req.params;
-    console.log("Employeee>>>" + id);
+    // console.log("Employeee>>>" + id);
     const company = await Company.findById(id);
-    console.log("company>>>" + company);
+    // console.log("company>>>" + company);
     if (company === null) {
       res.json(await Employee.findById(id));
     } else {

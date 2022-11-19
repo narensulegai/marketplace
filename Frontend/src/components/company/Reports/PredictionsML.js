@@ -46,7 +46,7 @@ const PredictionsML = () => {
         {/* <Grid xs={10} md={5}> */}
         <br/>
         <div style={{textAlign: "right"}}>
-            <CSVLink style={{color:"#0C68AA",textTransform:"uppercase"}} data={csvData.toString()}>Export</CSVLink>
+            <CSVLink style={{color:"#0c68aa",textTransform:"uppercase"}} data={csvData.toString()}>Export</CSVLink>
         </div>
         <br/>
             <div>
@@ -57,7 +57,7 @@ const PredictionsML = () => {
                               {
                                   label:  'Premium predictions by ML engine',
                                   data: [5,8,2,4,7,8,10],
-                                  backgroundColor: '#0C68AA',
+                                  backgroundColor: '#0c68aa',
                                   borderWidth: 1,
                               },
                         ],

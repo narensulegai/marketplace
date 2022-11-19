@@ -38,7 +38,7 @@ const CustomersCard = () => {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                             >
-                            <Typography style={{color:'#3F51B5'}}>Show All</Typography>
+                            <Typography style={{color:'#0c68aa'}}>Show All</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                             <Typography>

@@ -33,13 +33,13 @@ const DeliveryOrdersTable = ({ history, match }) => {
 
   return (
     <>
-      <ChartTitle>Recent website visitors</ChartTitle>
+      <ChartTitle style={{color:"#0c68aa"}}>Recent website visitors</ChartTitle>
       <Table className={classes.root} size="small">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.head}>Visitor</TableCell>
+            <TableCell className={classes.head} style={{color: "white"}}>Visitor</TableCell>
             <Hidden xsDown>
-              <TableCell className={classes.head}>Date</TableCell>
+              <TableCell className={classes.head} style={{color: "white"}}>Date</TableCell>
             </Hidden>
           </TableRow>
         </TableHead>

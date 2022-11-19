@@ -33,6 +33,7 @@ const schema = {
     ruleFormula: Joi.string(),
     mlRuleEngine: Joi.boolean(),
     dataFile: Joi.string(),
+    dataFileLocation: Joi.string(),
     targetColumn: Joi.string(),
   }),
   loginEmployee: Joi.object({
