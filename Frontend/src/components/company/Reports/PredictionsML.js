@@ -34,10 +34,12 @@ const StyledTableCell = withStyles((theme) => ({
 
 const csvData =[
     createData('13 Nov','5'),
-    createData('14 Nov','8'),
+    createData('14 Nov','2'),
     createData('15 Nov','2'),
     createData('16 Nov','4'),
-    createData('17 Nov','7'),
+    createData('17 Nov','5'),
+    createData('18 Nov','2'),
+    createData('19 Nov','2'),
   ];
 
 const PredictionsML = () => {
@@ -52,11 +54,11 @@ const PredictionsML = () => {
             <div>
             <Line
                   data={{
-                        labels: ['Nov 1-7', 'Nov 8-14'],
+                        labels: ['Nov 1-7', 'Nov 8-14','Nov 15-19'],
                         datasets:[
                               {
                                   label:  'Premium predictions by ML engine',
-                                  data: [5,8,2,4,7,8,10],
+                                  data: [5,2,2,4,5,2,2],
                                   backgroundColor: '#0c68aa',
                                   borderWidth: 1,
                               },

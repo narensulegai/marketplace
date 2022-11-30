@@ -55,9 +55,9 @@ const apiVersion = "/apiV1";
   ["put", "/company", handler.company.update, "company", schema.updateCompany],
   ["get", "/companyQuotes", handler.company.getQuotes, "company"],
   ["post", "/file", handler.common.uploadFile, null],
-  ["post", "/uploadS3File", handler.common.uploadS3File, null],
-  ["post", "/uploadColumnFile", handler.common.uploadColumnFile, null],
-  ["get", "/getColumns", handler.common.getColumns, null],
+  ["post", "/uploadS3File", handler.common.uploadS3File, "company"],
+  ["post", "/uploadColumnFile", handler.common.uploadColumnFile, "company"],
+  ["get", "/getColumns", handler.common.getColumns, "company"],
   ["get", "/file/:id", handler.common.getFile, null],
   ["put", "/employee", handler.employee.update, "employee", schema.update],
   ["get", "/company/profile/:id", handler.employee.getCompany, "any"],
@@ -92,12 +92,12 @@ const apiVersion = "/apiV1";
           resp.status(401).json(err("You are not authorized for this action."));
         }
       }
-      if (r[3] === "any") {
-        const { scope } = req.session;
-        if (!scope) {
-          resp.status(401).json(err("You need to login."));
-        }
-      }
+      // if (r[3] === "any") {
+      //   const { scope } = req.session;
+      //   if (!scope) {
+      //     resp.status(401).json(err("You need to login."));
+      //   }
+      // }
       if (r[4]) {
         const { error } = validate(req.body, r[4]);
         if (error) {

@@ -36,8 +36,10 @@ const csvData =[
     createData('13 Nov','7'),
     createData('14 Nov','2'),
     createData('15 Nov','4'),
-    createData('16 Nov','10'),
+    createData('16 Nov','2'),
     createData('17 Nov','3'),
+    createData('18 Nov','3'),
+    createData('19 Nov','1'),
   ];
 
 const PredictionsFormula = () => {

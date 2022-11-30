@@ -46,7 +46,7 @@ def createModel(companyID: str, request: Request):
                 {'mlJobCompletion': 'Failed', 'mlJobFailureMessage': "data filelocation is empty, please upload csv file"}})
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"data filelocation is empty")
         data = pd.read_csv(dataFileLocation)
-        print(data.head())
+        # print(data.head())
 
         request.app.database['companies'].update_one({'_id': ObjectId(companyID)}, { '$set':{'mlJobCompletion': 'Starting ML Job', 'mlJobFailureMessage': ''}})
         

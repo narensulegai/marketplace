@@ -51,7 +51,7 @@ const CompanyMain = () => {
           Dashboard
         </a>
         <a className="nav-link text-light" href="#/company/formBuilder">
-          Build website
+          Build Website
         </a>
         <a className="nav-link text-light" href="#/company/addRules">
           Add Rules

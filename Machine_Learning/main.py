@@ -12,13 +12,13 @@ config = dotenv_values(".env")
 app = FastAPI()
 
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "http://localhost:5000",
-    "http://localhost:5001",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com.tiangolo.com",
+    "https://ec2-3-83-221-30.compute-1.amazonaws.com.tiangolo.com",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com:8080",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com:3000",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com:5000",
+    "http://ec2-3-83-221-30.compute-1.amazonaws.com:5001",
 ]
 
 app.add_middleware(
