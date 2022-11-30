@@ -14,7 +14,7 @@ const Signup = ({ type, history }) => {
       email: email.current.value,
       password: password.current.value,
     };
-    if (type === 'company') {
+    if (type === "company") {
       signupCompany(d)
         .then(({ token }) => {
           window.localStorage.setItem('token', token);
@@ -34,7 +34,7 @@ const Signup = ({ type, history }) => {
       <div className="row">
         <div className="col-3" />
         <div className="col-6">
-          <h2 className="mt-5">Insurify</h2>
+          <h2 className="mt-5">{type === 'company' ? 'Insurify' : window.location.search.slice(1).replace("%20", " ")}</h2>
           <div className="mt-2">Signup as an insurance {type === 'company' ? 'seller' : 'buyer'}</div>
           <div className="form-group mt-5">
             <input type="text" ref={name} placeholder={type === 'company' ? 'Insurance provider name' : 'Name'} className="form-control" />

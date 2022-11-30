@@ -1,11 +1,23 @@
 export const orders = [
     {
-      customer: "HNBuyer",
-      date: "11-19-2022",
+      customer: "swetha",
+      date: "11-28-2022",
     },
     {
-      customer: "testSwetha",
-      date: "11-19-2022",
+      customer: "HNBuyer",
+      date: "11-27-2022",
+    },
+    {
+      customer: "testBuyer",
+      date: "11-26-2022",
+    },
+    {
+      customer: "swetha",
+      date: "11-24-2022",
+    },
+    {
+      customer: "swetha",
+      date: "11-22-2022",
     },
     {
       customer: "testBuyer",

@@ -59,7 +59,7 @@ const AddRules = () => {
         const company = await getCompany(current.user._id);
         setMlJobCompletion(company.mlJobCompletion);
         setCompleted(completionStatus.get(company.mlJobCompletion));
-      }, 30000);
+      }, 2000);
     })();
   }, []);
   // 120000 = 2 min , 60000 = 1 min, 30000 = 30 sec

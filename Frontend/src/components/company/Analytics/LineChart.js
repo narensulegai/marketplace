@@ -23,7 +23,8 @@ const LineChart = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [type, setType] = useState("Visitors");
-  const [date, setDate] = useState(getCurrentDate("-"));
+  // const [date, setDate] = useState(getCurrentDate("-"));
+  const [date, setDate] = useState("2022-11-28");
 
   const data = {
     labels: labels,

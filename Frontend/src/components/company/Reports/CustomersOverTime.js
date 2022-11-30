@@ -52,7 +52,7 @@ const CustomersOverTime = () => {
 
         <Bar
                   data={{
-                        labels: ['Nov 1-7' , 'Nov 8-14'],
+                        labels: ['Nov 1-7' , 'Nov 8-14', 'Nov 15-19'],
                         datasets:[
                               {
                                   label:  'visitors',

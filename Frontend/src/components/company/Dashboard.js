@@ -22,11 +22,11 @@ const Dashboard = () => {
         <table className="table mediumMarginTop">
           <thead className="thead-light">
             <tr>
-              <th scope="col">First name</th>
-              <th scope="col">Last name</th>
+              <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Quote status</th>
               <th scope="col">Last updated</th>
+              <th scope="col"></th>
               <th>&nbsp;</th>
             </tr>
           </thead>

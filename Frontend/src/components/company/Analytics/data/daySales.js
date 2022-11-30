@@ -1,7 +1,7 @@
 const startHour = 7;
 const endHour = 22;
-const minVisitors = 20;
-const maxVisitors = 100;
+const minVisitors = 2;
+const maxVisitors = 10;
 
 const createLabels = (start, end) => {
   let result = [];

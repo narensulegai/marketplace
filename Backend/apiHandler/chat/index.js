@@ -1,19 +1,20 @@
-const { Chat, Company, Employee, ChatUser } = require("../../mongodb");
+const { Chat, Company, Employee, ChatUser } = require('../../mongodb');
+
 module.exports = {
   getChats: async (req, resp) => {
     // console.log(req.params);
-    var id = req.params.id;
+    const { id } = req.params;
     await Chat.find()
       .populate({
-        path: "sender",
-        model: "ChatUser",
+        path: 'sender',
+        model: 'ChatUser',
         options: {
           sort: { createdAt: -1 },
         },
       })
       .populate({
-        path: "receiver",
-        model: "ChatUser",
+        path: 'receiver',
+        model: 'ChatUser',
         options: {
           sort: { createdAt: -1 },
         },
@@ -25,7 +26,7 @@ module.exports = {
           let chatSenderUser = {};
           let chatReceiverUser = {};
           if (id === c.sender.user || id === c.receiver.user) {
-            if (c.sender.type === "company") {
+            if (c.sender.type === 'company') {
               // console.log(c.sender.user);
               chatSenderUser = await Company.findOne({
                 _id: c.sender.user,
@@ -35,7 +36,7 @@ module.exports = {
                 _id: c.sender.user,
               });
             }
-            if (c.receiver.type === "company") {
+            if (c.receiver.type === 'company') {
               chatReceiverUser = await Company.findOne({
                 _id: c.receiver.user,
               });
@@ -44,10 +45,8 @@ module.exports = {
                 _id: c.receiver.user,
               });
             }
-            c.sender =
-              chatSenderUser !== null ? Object.assign(chatSenderUser) : "";
-            c.receiver =
-              chatReceiverUser !== null ? Object.assign(chatReceiverUser) : "";
+            c.sender = chatSenderUser !== null ? Object.assign(chatSenderUser) : '';
+            c.receiver = chatReceiverUser !== null ? Object.assign(chatReceiverUser) : '';
             chats.push(c);
           }
         }
@@ -64,7 +63,7 @@ module.exports = {
     if (sender === null) {
       sender = await new ChatUser({
         user: req.body.user1.user,
-        type: "company",
+        type: 'company',
       }).save();
     }
 
@@ -72,13 +71,13 @@ module.exports = {
     if (receiver === null) {
       receiver = await new ChatUser({
         user: req.body.user2.user,
-        type: "employee",
+        type: 'employee',
       }).save();
     }
 
     const chat = await new Chat({
-      sender: sender,
-      receiver: receiver,
+      sender,
+      receiver,
       text: req.body.text,
       channel: req.body.channel,
     }).save();
